@@ -1,12 +1,12 @@
-all: test test.stat test.asm test.prec
+all: xmod xmod.stat xmod.asm xmod.prec
 
-test: test.c
-	cc -Wall -o test test.c
-test.stat: test.c
-	cc -Wall -static -o test.stat test.c
-test.asm: test.c
-	cc -Wall -S -o test.asm test.c
-test.prec: test.c
-	cc -Wall -E -o test.prec test.c
+xmod: xmod.c
+	cc -o xmod xmod.c
+xmod.stat: xmod.c
+	cc -static -o xmod.stat xmod.c
+xmod.asm: xmod.c
+	cc -S -o xmod.asm xmod.c
+xmod.prec: xmod.c
+	cc -E -o xmod.prec xmod.c
 clean:
-	rm -f test test.stat test.asm test.prec
+	rm -f xmod xmod.stat xmod.asm xmod.prec

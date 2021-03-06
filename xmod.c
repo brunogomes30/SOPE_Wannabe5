@@ -7,7 +7,12 @@
 #include<string.h>
 #include<unistd.h>
 #include<dirent.h>
+#include<sys/mman.h>
+#include<signal.h>
 
+
+static int *nModif, *nTotal;
+int *stop;
 void getSymbolic(mode_t mode, char *output){
 	char *symbols = "rwx";
 
@@ -26,6 +31,10 @@ void getSymbolic(mode_t mode, char *output){
 	output[9] = 0;
 }
 
+void sigintHandler(int signal){
+	printf("%d ; ; %d ; %d\n", getpid(), *nTotal, *nModif);
+	*stop = 1;
+}
 
 /**
  * @brief 
@@ -36,14 +45,27 @@ void getSymbolic(mode_t mode, char *output){
  * @return int 
  */
 int xmod(char *path, char *modeStr, short flags){
+	if(*stop){
+		printf("Queres continuar? (y or n)\n");
+		char input;
+		scanf("%c", &input);
+		*stop = input != 'y';
+		if(input == 'n'){
+			kill(0, SIGKILL);
+		}
+	}
 	printf("Path = %s\n", path);
+	*nTotal = *nTotal + 1;
 	char first = modeStr[0];
 	mode_t mode;
 	mode_t previousMode;
-	
+	signal(SIGINT, sigintHandler);
+
+
+	sleep(1);
 	struct stat *fileInfo = (struct stat *) malloc(sizeof(struct stat));
 	if(stat(path, fileInfo) != 0){
-		printf("Error stat() \n");
+		printf("Error stat() %s\n", path);
 		return -1;
 	}
 	previousMode = fileInfo->st_mode;
@@ -65,6 +87,7 @@ int xmod(char *path, char *modeStr, short flags){
 	}
 
 
+	if(previousMode != mode) *nModif = *nModif + 1;
 	if(flags & 0x110){
 		
 		char previousModeS[10], modeS[10];
@@ -84,24 +107,32 @@ int xmod(char *path, char *modeStr, short flags){
 		DIR *dir;
 		struct dirent *dent;
 		dir = opendir(path);   //this part
+		int *status;
 		if(dir!=NULL) {
 			while((dent=readdir(dir))!=NULL){
 				
 				if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
+				char nextPath[250];
 				int id = fork();
 				switch(id){
 					case 0:
 						// Child
-						xmod(dent->d_name, modeStr, flags);
-						break;
+						strcpy(nextPath, path);
+						strcat(nextPath, "/");
+						strcat(nextPath, dent->d_name);
+						xmod(nextPath, modeStr, flags);
+						exit(0);
+						
 					case -1:
 					 	//ERRO
 						return -1;
 					default:
-						kill(id);
+						wait(status);
+						//kill(id);
 						break;
 						//PAI/Mãe/Parente
 				}
+				
 			}
 			closedir(dir);
 		}
@@ -177,7 +208,14 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 
 
 int main(int nargs, char *args[]) {
-
+	
+	nTotal =  mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
+                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	nModif = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
+                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	stop = mmap(NULL, sizeof(*stop), PROT_READ | PROT_WRITE, 
+                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	
 	short flags = 0;
 	if(nargs > 2){
 		for(int i = 1; i < nargs - 2; i++){
@@ -208,5 +246,7 @@ int main(int nargs, char *args[]) {
 
 		
 	}
+	printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", *nModif, *nTotal);
+	
 	return 0;
 }

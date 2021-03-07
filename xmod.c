@@ -13,6 +13,7 @@
 
 static int *nModif, *nTotal;
 int *stop;
+
 void getSymbolic(mode_t mode, char *output){
 	char *symbols = "rwx";
 
@@ -45,6 +46,7 @@ void sigintHandler(int signal){
  * @return int 
  */
 int xmod(char *path, char *modeStr, short flags){
+
 	if(*stop){
 		printf("Queres continuar? (y or n)\n");
 		char input;
@@ -54,6 +56,7 @@ int xmod(char *path, char *modeStr, short flags){
 			kill(0, SIGKILL);
 		}
 	}
+
 	printf("Path = %s\n", path);
 	*nTotal = *nTotal + 1;
 	char first = modeStr[0];
@@ -65,7 +68,7 @@ int xmod(char *path, char *modeStr, short flags){
 	sleep(1);
 	struct stat *fileInfo = (struct stat *) malloc(sizeof(struct stat));
 	if(stat(path, fileInfo) != 0){
-		printf("Error stat() %s\n", path);
+		fprintf(stderr,"Error stat() %s\n", path);
 		return -1;
 	}
 	previousMode = fileInfo->st_mode;
@@ -77,12 +80,12 @@ int xmod(char *path, char *modeStr, short flags){
 		symbolicChmod(modeStr, &mode);
 
 	} else {
-		printf("Invalid type of user - %c\n", first);
+		fprintf(stderr,"Invalid type of user - %c\n", first);
 		return -1;
 	}
 	
 	if(chmod(path, mode) != 0){
-		printf("Error\n");
+		fprintf(stderr,"Error\n");
 		return  -1;
 	}
 
@@ -183,7 +186,7 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 			mode = mode + mode*8 + mode*64;
 			break;
 		default:
-			printf("Invalid type of user - %c\n", modeStr[0]);
+			fprintf(stderr,"Invalid type of user - %c\n", modeStr[0]);
 			return -1;
 	}
 	mask += 0100000;
@@ -193,13 +196,13 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 			*newMode = previousMode - (previousMode & mode);
 			break;
 		case '+':
-			*newMode |= previousMode;
+			*newMode |= mode;
 			break;
 		case '=':
 			*newMode = (previousMode & mask) | mode; 
 			break;
 		default:
-			printf("Invalid operator - %c\n", operator);
+			fprintf(stderr,"Invalid operator - %c\n", operator);
 			return -1;
 	}
 }
@@ -207,7 +210,7 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 
 
 
-int main(int nargs, char *args[]) {
+int main(int nargs, char *args[], char* envp[]) {
 	
 	nTotal =  mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
@@ -221,7 +224,7 @@ int main(int nargs, char *args[]) {
 		for(int i = 1; i < nargs - 2; i++){
 			char * flag = args[i];
 			if(flag[0] != '-' || flag[2] != 0){
-				printf("Invalid flag %s", flag);
+				fprintf(stderr,"Invalid flag %s", flag);
 				return -1;
 			}
 			switch(flag[1]){

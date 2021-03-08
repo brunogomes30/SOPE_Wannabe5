@@ -19,5 +19,5 @@ xmod.asm: $(SRC)/xmod.c $(INCLUDE)/xmod.h
 xmod.prec: $(SRC)/xmod.c $(INCLUDE)/xmod.h
 	$(CC) -E -o $(BIN)/xmod.prec $(SRC)/xmod.c
 clean:
-	rm -f $(BIN)/xmod $(BIN)/xmod.stat $(BIN)/xmod.asm $(BIN)/xmod.prec
+	rm -f $(SRC)/xmod $(BIN)/xmod.stat $(BIN)/xmod.asm $(BIN)/xmod.prec
 	

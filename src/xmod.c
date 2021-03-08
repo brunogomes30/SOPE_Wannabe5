@@ -210,7 +210,7 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 
 
 
-int main(int nargs, char *args[], char* envp[]) {
+int main(int nargs, char *args[]) {
 	
 	nTotal =  mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);

@@ -7,7 +7,7 @@ SRC := ./src
 INCLUDE := ./include
 
 
-all: xmod xmod.stat xmod.asm xmod.prec
+all: xmod xmod.stat xmod.asm xmod.prec 
 
 
 xmod: $(SRC)/xmod.c $(INCLUDE)/xmod.h

@@ -9,6 +9,7 @@
 #include<dirent.h>
 #include<sys/mman.h>
 #include<signal.h>
+#include "../include/xmod.h"
 
 
 static int *nModif, *nTotal;

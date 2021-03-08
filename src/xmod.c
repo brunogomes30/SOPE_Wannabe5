@@ -48,7 +48,7 @@ void sigintHandler(int signal){
  * @param flags 100 - v ; 010 - c ; 001 - R
  * @return int 
  */
-int xmod(char *path, char *modeStr, short flags){
+int xmod(char *path, char *modeStr, short flags, mode_t previousMode){
 
 	if(*stop){
 		printf("Queres continuar? (y or n)\n");
@@ -64,17 +64,10 @@ int xmod(char *path, char *modeStr, short flags){
 	*nTotal = *nTotal + 1;
 	char first = modeStr[0];
 	mode_t mode;
-	mode_t previousMode;
 	signal(SIGINT, sigintHandler);
 
 
 	sleep(1);
-	struct stat *fileInfo = (struct stat *) malloc(sizeof(struct stat));
-	if(stat(path, fileInfo) != 0){
-		fprintf(stderr,"Error stat() %s\n", path);
-		return -1;
-	}
-	previousMode = fileInfo->st_mode;
 	previousMode &= 0777;
 	if(first == '0'){
 		mode = strtol(modeStr, 0, 8);
@@ -105,44 +98,6 @@ int xmod(char *path, char *modeStr, short flags){
 		} else if(flags & 0x100){
 			printf("modo de '%s' mantido como %04o (%s)\n", path, mode, modeS);
 		}
-	}
-
-	if(flags & 0x001 && S_ISDIR(fileInfo->st_mode)){
-		//Recursive
-		
-		DIR *dir;
-		struct dirent *dent;
-		dir = opendir(path);   //this part
-		int *status = 0;
-		if(dir!=NULL) {
-			while((dent=readdir(dir))!=NULL){
-				
-				if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
-				char nextPath[250];
-				int id = fork();
-				switch(id){
-					case 0:
-						// Child
-						strcpy(nextPath, path);
-						strcat(nextPath, "/");
-						strcat(nextPath, dent->d_name);
-						xmod(nextPath, modeStr, flags);
-						exit(0);
-						
-					case -1:
-					 	//ERRO
-						return -1;
-					default:
-						wait(status);
-						//kill(id);
-						break;
-						//PAI/Mãe/Parente
-				}
-				
-			}
-			closedir(dir);
-		}
-		
 	}
 
 	return 0;
@@ -246,10 +201,54 @@ int main(int nargs, char *args[]) {
 		}
 		// -ux
 		char *modeStr = args[nargs - 2];
-		char *path = args[nargs - 1];
-		xmod(path, modeStr, flags);
+		char path[250];
+		strcpy(path,args[nargs-1]);
 
+		struct stat *fileInfo = (struct stat *) malloc(sizeof(struct stat));
+		if(stat(path, fileInfo) != 0){
+			fprintf(stderr,"Error stat() %s\n", path);
+		return -1;
+		}
+		xmod(path, modeStr, flags, fileInfo->st_mode);
+
+		if(flags & 0x001 && S_ISDIR(fileInfo->st_mode)){
+		//Recursive
+		DIR *dir;
+		struct dirent *dent;
+		dir = opendir(path);   //this part
+		int *status = 0;
+		if(dir!=NULL) {
+			while((dent=readdir(dir))!=NULL){
+				
+				if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
+				char nextPath[250];
+				int id = fork();
+				switch(id){
+					case 0:
+						// Child
+						strcpy(nextPath, path);
+						strcat(nextPath, "/");
+						strcat(nextPath, dent->d_name);
+						strcpy(args[nargs - 1], nextPath);
+						printf("%s\n", args[nargs-1]);
+						execvp("./xmod", args);
+						exit(0);
+						
+					case -1:
+					 	//ERRO
+						return -1;
+					default:
+						wait(status);
+						//kill(id);
+						break;
+						//PAI/Mãe/Parente
+				}
+				
+			}
+			closedir(dir);
+		}
 		
+	}
 	}
 	printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", *nModif, *nTotal);
 	

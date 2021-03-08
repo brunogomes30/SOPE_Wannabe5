@@ -4,7 +4,7 @@
 #include<unistd.h>
 
 
-int xmod(char *path, char *modeStr, short flags);
+int xmod(char *path, char *modeStr, short flags, mode_t previousMode);
 void getSymbolic(mode_t mode, char *output);
 void sigintHandler(int signal);
 int symbolicChmod(char *modeStr, mode_t *newMode);

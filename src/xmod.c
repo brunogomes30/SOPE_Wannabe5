@@ -9,6 +9,8 @@
 #include<dirent.h>
 #include<sys/mman.h>
 #include<signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "../include/xmod.h"
 
 
@@ -111,7 +113,7 @@ int xmod(char *path, char *modeStr, short flags){
 		DIR *dir;
 		struct dirent *dent;
 		dir = opendir(path);   //this part
-		int *status;
+		int *status = 0;
 		if(dir!=NULL) {
 			while((dent=readdir(dir))!=NULL){
 				
@@ -206,9 +208,8 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 			fprintf(stderr,"Invalid operator - %c\n", operator);
 			return -1;
 	}
+	return 0;
 }
-
-
 
 
 int main(int nargs, char *args[]) {

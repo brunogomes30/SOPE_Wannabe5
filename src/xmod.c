@@ -11,11 +11,48 @@
 #include<signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include<time.h>
+#include<fcntl.h>
 #include "../include/xmod.h"
+
 
 
 static int *nModif, *nTotal;
 int *stop;
+struct timeval startTime;
+
+
+
+void namedPipeReader(char *str){
+    //READER:
+	printf("NAMEPIPEREADER:;:;:\n");
+    int np;
+    char msg[1024];
+    if (mkfifo("/tmp/npXMOD",0666) < 0) 
+        perror ("mkfifo");
+    while ((np = open ("/tmp/npXMOD", O_RDONLY)) < 0){
+		printf(".");
+	}
+        // synchronization...
+    read(np, msg, 1024);
+        // waits...
+    strcat(str, msg);
+    printf("Pipe read = %s\n", msg);
+    close(np);
+}
+
+void namedPipeWriter(char *str){
+    //WRITER:
+    int np;
+    if (mkfifo("/tmp/npXMOD",0666) < 0) 
+        perror ("mkfifo");
+    while ((np = open ("/tmp/npXMOD", O_WRONLY)) < 0);
+        // synchronization..
+    write (np, str, 1+strlen(str));
+    close(np);
+}
+
+
 
 void getSymbolic(mode_t mode, char *output){
 	char *symbols = "rwx";
@@ -60,14 +97,14 @@ int xmod(char *path, char *modeStr, short flags, mode_t previousMode){
 		}
 	}
 
-	printf("Path = %s\n", path);
+	//printf("Path = %s\n", path);
 	*nTotal = *nTotal + 1;
 	char first = modeStr[0];
 	mode_t mode;
 	signal(SIGINT, sigintHandler);
 
 
-	sleep(1);
+	//sleep(1);
 	previousMode &= 0777;
 	if(first == '0'){
 		mode = strtol(modeStr, 0, 8);
@@ -166,8 +203,69 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 	return 0;
 }
 
+void removeNamedPipe(){
+	remove("/tmp/npXMOD");
+}
+
+long timedifference_msec() {
+	struct timeval t1;
+	gettimeofday(&t1, NULL);
+	return (t1.tv_sec - startTime.tv_sec) * 1000000 + (t1.tv_usec - startTime.tv_usec);
+}
+	
+
+void writeLog(enum logEvent event, char * msg){
+	printf("write\n");
+	//char *logFilename = (char * ) malloc(sizeof(char) * 255);
+	//logFilename  = getenv("LOG_FILENAME");
+	
+	if(fopen(getenv("LOG_FILENAME"), "a") == -1){
+		fprintf(stderr, "Fopen error\n");
+	}	
+	fprintf("%lu; %d; %s; %s\n", timedifference_msec(),getpid(), "eventsStr[event]", msg);
+	fclose(getenv("LOG_FILENAME"));
+}
+
+void initLog(){
+	printf("init log \n");
+	//char *logFilename = (char * ) malloc(sizeof(char) * 255);
+	//logFilename  = getenv("LOG_FILENAME");
+	if(fopen(getenv("LOG_FILENAME"), "w") == -1){
+		fprintf(stderr, "Fopen error\n");
+	}	
+	fclose(getenv("LOG_FILENAME"));
+}
+
+
+
 
 int main(int nargs, char *args[]) {
+	char *msg[1024];
+	
+	
+  	if(getpgrp() == getpid()){
+		removeNamedPipe();
+		gettimeofday(&startTime, NULL);
+		initLog();
+	}
+	
+	writeLog(0, "Teste");
+	atexit(removeNamedPipe);
+	
+	sleep(1);
+	if( access( "/tmp/npXMOD", F_OK ) == 0 ) {
+		//File exists
+		namedPipeReader(msg);
+		
+		//printf("Message = %s\n", msg);
+		
+		sscanf(msg, "%lu %lu",&startTime.tv_sec, &startTime.tv_usec);
+		//startTime = strtol(msg, 0, 10);
+		printf("s = %lu \t ms = %lu\n", startTime.tv_sec, startTime.tv_usec);
+		
+	}
+	
+	
 	
 	nTotal =  mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
@@ -209,46 +307,61 @@ int main(int nargs, char *args[]) {
 			fprintf(stderr,"Error stat() %s\n", path);
 		return -1;
 		}
+
 		xmod(path, modeStr, flags, fileInfo->st_mode);
 
 		if(flags & 0x001 && S_ISDIR(fileInfo->st_mode)){
-		//Recursive
-		DIR *dir;
-		struct dirent *dent;
-		dir = opendir(path);   //this part
-		int *status = 0;
-		if(dir!=NULL) {
-			while((dent=readdir(dir))!=NULL){
-				
-				if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
-				char nextPath[250];
-				int id = fork();
-				switch(id){
-					case 0:
-						// Child
-						strcpy(nextPath, path);
-						strcat(nextPath, "/");
-						strcat(nextPath, dent->d_name);
-						strcpy(args[nargs - 1], nextPath);
-						printf("%s\n", args[nargs-1]);
-						execvp("./xmod", args);
-						exit(0);
+			//Recursive
+			DIR *dir;
+			struct dirent *dent;
+			dir = opendir(path);   //this part
+			int *status = 0;
+			if(dir!=NULL) {
+
+				while((dent=readdir(dir))!=NULL){
+					if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
+					char nextPath[250];
+					strcpy(nextPath, path);
+					strcat(nextPath, "/");
+					strcat(nextPath, dent->d_name);
+					struct stat *nextFileInfo = (struct stat *) malloc(sizeof(struct stat));
+					if(stat(nextPath, nextFileInfo) != 0)
+						fprintf(stderr,"Error stat() %s\n", path);
+
+					xmod(nextPath, modeStr, flags, fileInfo->st_mode);
+					if(S_ISDIR(nextFileInfo->st_mode)){
 						
-					case -1:
-					 	//ERRO
-						return -1;
-					default:
-						wait(status);
-						//kill(id);
-						break;
-						//PAI/Mãe/Parente
+						
+						char msg[1024];
+						
+						int id = fork();
+						switch(id){
+							case 0:
+								// Child
+								
+								strcpy(args[nargs - 1], nextPath);
+								//printf("%s\n", args[nargs-1]);
+								execvp("./xmod", args);
+								exit(0);
+								
+							case -1:
+								//ERRO
+								return -1;
+							default:
+								// file doesn't exist
+								sprintf(msg, "%ld %ld", startTime.tv_sec, startTime.tv_usec);
+								namedPipeWriter(msg);
+								wait(status);
+								//kill(id);
+								break;
+						}
+					}
 				}
+				closedir(dir);
+				
 				
 			}
-			closedir(dir);
 		}
-		
-	}
 	}
 	printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", *nModif, *nTotal);
 	

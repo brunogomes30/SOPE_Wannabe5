@@ -13,46 +13,25 @@
 #include <sys/wait.h>
 #include<time.h>
 #include<fcntl.h>
+#include <stdbool.h>
 #include "../include/xmod.h"
 
+XmodData processData;
 
 
-static int *nModif, *nTotal;
-int *stop;
-struct timeval startTime;
-
-
-
-void namedPipeReader(char *str){
-    //READER:
-	printf("NAMEPIPEREADER:;:;:\n");
-    int np;
-    char msg[1024];
-    if (mkfifo("/tmp/npXMOD",0666) < 0) 
-        perror ("mkfifo");
-    while ((np = open ("/tmp/npXMOD", O_RDONLY)) < 0){
-		printf(".");
-	}
-        // synchronization...
-    read(np, msg, 1024);
-        // waits...
-    strcat(str, msg);
-    printf("Pipe read = %s\n", msg);
-    close(np);
+void stopProcesses() {
+	printf("Do you want to continue? (y or n)\n");
+	char input;
+	do{
+		scanf("%c", &input);
+		if (input == 'n') {
+			writeLog(getpid(), SIGNAL_SENT, "SIGKILL : 0");
+			kill(0, SIGKILL);
+		}
+	} while(input != 'y' && input != 'n');
+	writeLog(getpid(), SIGNAL_SENT, "SIGCONT");
+	kill(0, SIGCONT);
 }
-
-void namedPipeWriter(char *str){
-    //WRITER:
-    int np;
-    if (mkfifo("/tmp/npXMOD",0666) < 0) 
-        perror ("mkfifo");
-    while ((np = open ("/tmp/npXMOD", O_WRONLY)) < 0);
-        // synchronization..
-    write (np, str, 1+strlen(str));
-    close(np);
-}
-
-
 
 void getSymbolic(mode_t mode, char *output){
 	char *symbols = "rwx";
@@ -72,9 +51,27 @@ void getSymbolic(mode_t mode, char *output){
 	output[9] = 0;
 }
 
-void sigintHandler(int signal){
-	printf("%d ; ; %d ; %d\n", getpid(), *nTotal, *nModif);
-	*stop = 1;
+void contHandler(int sig){
+	//writeLog(getpid(), SIGNAL_RECV, "SIGCONT");
+}
+
+void sigintHandler(int sig){
+	printf("%d ; %s ; %d ; %d\n", getpid(), processData.currentDirectory, processData.nTotal, processData.nModif);
+	writeLog(getpid(), SIGNAL_RECV, "SIGINT");
+	if(getpid() == getpgrp()) {
+		stopProcesses();
+	} else {
+		//Wait for signal from first process
+
+		signal(SIGCONT, contHandler);
+		sigset_t wset;
+		sigemptyset(&wset);
+		sigaddset(&wset, SIGCONT);
+		int sig;
+		sigwait(&wset, &sig);
+		writeLog(getpid(), SIGNAL_RECV, "SIGCONT");
+	
+	}
 }
 
 /**
@@ -85,20 +82,10 @@ void sigintHandler(int signal){
  * @param flags 100 - v ; 010 - c ; 001 - R
  * @return int 
  */
-int xmod(char *path, char *modeStr, short flags, mode_t previousMode){
-
-	if(*stop){
-		printf("Queres continuar? (y or n)\n");
-		char input;
-		scanf("%c", &input);
-		*stop = input != 'y';
-		if(input == 'n'){
-			kill(0, SIGKILL);
-		}
-	}
-
+int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode)
+{
 	//printf("Path = %s\n", path);
-	*nTotal = *nTotal + 1;
+	processData.nTotal++;
 	char first = modeStr[0];
 	mode_t mode;
 	signal(SIGINT, sigintHandler);
@@ -110,7 +97,7 @@ int xmod(char *path, char *modeStr, short flags, mode_t previousMode){
 		mode = strtol(modeStr, 0, 8);
 	} else if(first == 'u' || first == 'g' || first == 'o' || first == 'a'){
 		mode = previousMode;
-		symbolicChmod(modeStr, &mode);
+		symbolicXmod(modeStr, &mode);
 
 	} else {
 		fprintf(stderr,"Invalid type of user - %c\n", first);
@@ -123,24 +110,29 @@ int xmod(char *path, char *modeStr, short flags, mode_t previousMode){
 	}
 
 
-	if(previousMode != mode) *nModif = *nModif + 1;
-	if(flags & 0x110){
-		
-		char previousModeS[10], modeS[10];
+	if(previousMode != mode) processData.nModif = processData.nModif + 1;
+	char previousModeS[10], modeS[10];
+	previousMode &= 0777;
+	if(flags & 0b110){
 		getSymbolic(previousMode, previousModeS);
 		getSymbolic(mode, modeS);
-		previousMode &= 0777;
+
 		if(previousMode != mode){
 			printf("modo de '%s' alterado de %04o (%s) para %04o (%s)\n", path, previousMode, previousModeS, mode, modeS);
-		} else if(flags & 0x100){
+		} else if(flags & 0b100){
 			printf("modo de '%s' mantido como %04o (%s)\n", path, mode, modeS);
 		}
+	}
+	if(previousMode != mode){
+		char msg[500];
+		sprintf(msg, "%s : %04o : %04o", path, previousMode, mode);
+		writeLog(getpid(), FILE_MODF, msg);
 	}
 
 	return 0;
 }
 
-int symbolicChmod(char *modeStr, mode_t *newMode){
+int symbolicXmod(char *modeStr, mode_t *newMode){
 	char operator = modeStr[1];
 	mode_t mode = 0, previousMode = *newMode; 
 	int i = 2;
@@ -203,167 +195,167 @@ int symbolicChmod(char *modeStr, mode_t *newMode){
 	return 0;
 }
 
-void removeNamedPipe(){
-	remove("/tmp/npXMOD");
-}
+
 
 long timedifference_msec() {
 	struct timeval t1;
 	gettimeofday(&t1, NULL);
-	return (t1.tv_sec - startTime.tv_sec) * 1000000 + (t1.tv_usec - startTime.tv_usec);
+	
+	return (t1.tv_sec - processData.startTime.tv_sec) * 1000 + (t1.tv_usec - processData.startTime.tv_usec) / 1000;
 }
-	
 
-void writeLog(enum logEvent event, char * msg){
-	printf("write\n");
-	//char *logFilename = (char * ) malloc(sizeof(char) * 255);
-	//logFilename  = getenv("LOG_FILENAME");
-	
-	if(fopen(getenv("LOG_FILENAME"), "a") == -1){
-		fprintf(stderr, "Fopen error\n");
-	}	
-	fprintf("%lu; %d; %s; %s\n", timedifference_msec(),getpid(), "eventsStr[event]", msg);
-	fclose(getenv("LOG_FILENAME"));
+void writeLog(int pid, enum logEvent event, char * msg){
+	if(getenv("LOG_FILENAME") != NULL){
+		FILE *file = fopen(getenv("LOG_FILENAME"), "a+");
+		if(file  == NULL){
+			fprintf(stderr, "Fopen error\n");
+			return;
+		}	
+		fprintf(file, "%lu ; %d ; %s ; %s\n", timedifference_msec(), pid, eventsStr[event], msg);
+		fclose(file);
+	}
 }
 
 void initLog(){
-	printf("init log \n");
-	//char *logFilename = (char * ) malloc(sizeof(char) * 255);
-	//logFilename  = getenv("LOG_FILENAME");
-	if(fopen(getenv("LOG_FILENAME"), "w") == -1){
+	gettimeofday(&processData.startTime, NULL);
+	printf("Time = %lu %lu\n", processData.startTime.tv_sec, processData.startTime.tv_usec);
+	char *buffer = (char *)malloc(sizeof(char) * 50);
+	sprintf(buffer, "xmodStartTime= %lu %lu", processData.startTime.tv_sec, processData.startTime.tv_usec);
+	putenv(buffer);
+	FILE *file = fopen(getenv("LOG_FILENAME"), "w+");
+	if(file == NULL){
 		fprintf(stderr, "Fopen error\n");
-	}	
-	fclose(getenv("LOG_FILENAME"));
+		return;
+	}
+	fclose(file);
 }
 
 
-
+u_int8_t getFlags(int nargs, char*args[]){
+	u_int8_t flags = 0;
+	for (int i = 1; i < nargs - 2; i++) {
+		char *flagStr = args[i];
+		if (flagStr[0] != '-' || flagStr[2] != 0) {
+			fprintf(stderr, "Invalid flag %s", flagStr);
+			return -1;
+		}
+		switch (flagStr[1]) {
+		case 'v':
+			flags |= 0b100;
+			break;
+		case 'c':
+			flags |= 0b010;
+			break;
+		case 'R':
+			flags |= 0b001;
+			break;
+		default:
+			printf("Invalid flag %s", flagStr);
+			return -1;
+		}
+	}
+	return flags;
+}
 
 int main(int nargs, char *args[]) {
+	processData.nTotal = 0;
+	processData.nModif = 0;
 	char *msg[1024];
-	
-	
-  	if(getpgrp() == getpid()){
-		removeNamedPipe();
-		gettimeofday(&startTime, NULL);
-		initLog();
+	bool hasLog = getenv("LOG_FILENAME") != NULL;
+	 if ((getpgrp() == getpid()) && hasLog ) {
+		 initLog();
 	}
-	
-	writeLog(0, "Teste");
-	atexit(removeNamedPipe);
-	
-	sleep(1);
-	if( access( "/tmp/npXMOD", F_OK ) == 0 ) {
-		//File exists
-		namedPipeReader(msg);
+	else if(hasLog) {
+		char *msg = getenv("xmodStartTime");
+		struct timeval startTime;
 		
-		//printf("Message = %s\n", msg);
-		
-		sscanf(msg, "%lu %lu",&startTime.tv_sec, &startTime.tv_usec);
-		//startTime = strtol(msg, 0, 10);
-		printf("s = %lu \t ms = %lu\n", startTime.tv_sec, startTime.tv_usec);
-		
+		sscanf(msg, "%lu %lu", &startTime.tv_sec, &startTime.tv_usec);
+		processData.startTime = startTime;
 	}
-	
-	
-	
-	nTotal =  mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
-                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-	nModif = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, 
-                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-	stop = mmap(NULL, sizeof(*stop), PROT_READ | PROT_WRITE, 
-                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-	
-	short flags = 0;
+	char *logInfo = (char *) malloc(sizeof(char) * 500);
+	for(unsigned i=1; i<nargs; i++){
+		strcat(logInfo, args[i]);
+		if(i < nargs - 1) 
+			strcat(logInfo, " ");
+	}
+	if(hasLog)
+		writeLog(getpid(), PROC_CREAT, logInfo);
+
 	if(nargs > 2){
-		for(int i = 1; i < nargs - 2; i++){
-			char * flag = args[i];
-			if(flag[0] != '-' || flag[2] != 0){
-				fprintf(stderr,"Invalid flag %s", flag);
-				return -1;
-			}
-			switch(flag[1]){
-				case 'v':
-					flags |= 0x100;
-					break;
-				case 'c':
-					flags |= 0x010;
-					break;
-				case 'R':
-					flags |= 0x001;
-					break;
-				default:
-					printf("Invalid flag %s", flag);
-					return -1;
-			}
-		}
+		u_int8_t flags = getFlags(nargs, args);
 		// -ux
 		char *modeStr = args[nargs - 2];
+
+		
 		char path[250];
 		strcpy(path,args[nargs-1]);
-
-		struct stat *fileInfo = (struct stat *) malloc(sizeof(struct stat));
-		if(stat(path, fileInfo) != 0){
-			fprintf(stderr,"Error stat() %s\n", path);
-		return -1;
+		processData.currentDirectory = path;
+		struct stat *fileInfo = (struct stat *)malloc(sizeof(struct stat));
+		if (stat(processData.currentDirectory, fileInfo) != 0)
+		{
+			fprintf(stderr, "Error stat() %s\n", processData.currentDirectory);
+			return -1;
 		}
 
-		xmod(path, modeStr, flags, fileInfo->st_mode);
-
-		if(flags & 0x001 && S_ISDIR(fileInfo->st_mode)){
+		//First process
+		if(getpgrp() == getpid()) {
+			xmod(processData.currentDirectory, modeStr, flags, fileInfo->st_mode);
+		}
+		if (flags & 0b001 && S_ISDIR(fileInfo->st_mode)) {
+			//TODO:: Bia
 			//Recursive
 			DIR *dir;
 			struct dirent *dent;
-			dir = opendir(path);   //this part
+			dir = opendir(processData.currentDirectory);
 			int *status = 0;
 			if(dir!=NULL) {
 
 				while((dent=readdir(dir))!=NULL){
 					if( !strcmp(dent->d_name, ".") || !strcmp(dent->d_name, "..")) continue;; 
 					char nextPath[250];
-					strcpy(nextPath, path);
+					strcpy(nextPath, processData.currentDirectory);
 					strcat(nextPath, "/");
 					strcat(nextPath, dent->d_name);
 					struct stat *nextFileInfo = (struct stat *) malloc(sizeof(struct stat));
 					if(stat(nextPath, nextFileInfo) != 0)
-						fprintf(stderr,"Error stat() %s\n", path);
-
-					xmod(nextPath, modeStr, flags, fileInfo->st_mode);
+						fprintf(stderr,"Error stat() %s\n", nextPath);
+					xmod(nextPath, modeStr, flags, nextFileInfo->st_mode);
 					if(S_ISDIR(nextFileInfo->st_mode)){
-						
-						
-						char msg[1024];
-						
+						//char msg[1024];
 						int id = fork();
 						switch(id){
 							case 0:
 								// Child
-								
 								strcpy(args[nargs - 1], nextPath);
-								//printf("%s\n", args[nargs-1]);
 								execvp("./xmod", args);
 								exit(0);
-								
 							case -1:
 								//ERRO
 								return -1;
 							default:
-								// file doesn't exist
-								sprintf(msg, "%ld %ld", startTime.tv_sec, startTime.tv_usec);
-								namedPipeWriter(msg);
+								//Create Process Log
+								if(hasLog) {
+									strcat(logInfo, "/");
+									strcat(logInfo, dent->d_name);
+									writeLog(getpid(), PROC_CREAT, logInfo);
+								}
+								//sprintf(msg, "%ld %ld", startTime.tv_sec, startTime.tv_usec); APAGAR
 								wait(status);
-								//kill(id);
+								
+								//Process exit log
+								if(hasLog) {
+									//char msg[15];
+									sprintf(msg, "%d", status);
+									writeLog(id, PROC_EXIT, msg);
+								}
 								break;
 						}
 					}
 				}
 				closedir(dir);
-				
-				
 			}
 		}
 	}
-	printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", *nModif, *nTotal);
-	
+	printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", processData.nModif, processData.nTotal);
 	return 0;
 }

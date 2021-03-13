@@ -14,13 +14,13 @@ u_int8_t getFlags(int nargs, char *args[])
         switch (flagStr[1])
         {
         case 'v':
-            flags |= 0b100;
+            flags |= VERB_FLAG;
             break;
         case 'c':
-            flags |= 0b010;
+            flags |= CHANG_FLAG;
             break;
         case 'R':
-            flags |= 0b001;
+            flags |= REC_FLAG;
             break;
         default:
             printf("Invalid flag %s", flagStr);
@@ -30,19 +30,23 @@ u_int8_t getFlags(int nargs, char *args[])
     return flags;
 }
 
-void getSymbolic(mode_t mode, char *output)
-{
+void getSymbolic(mode_t mode, char *output) {
+    output = "rwxrwxrwx";
+    for(int i=0;i<9;i++){
+        if(mode & (1 << i))
+            output[i] = '-';
+    }
+    
+    
+    /*
     char *symbols = "rwx";
 
     int i = 8, j = 2;
-    while (mode)
-    {
-        if (mode & 1)
-        {
+    while (mode) {
+        if (mode & 1) {
             output[i--] = symbols[j];
         }
-        else
-        {
+        else {
             output[i--] = '-';
         }
         mode = mode >> 1;
@@ -51,6 +55,7 @@ void getSymbolic(mode_t mode, char *output)
             j = 2;
     }
     output[9] = 0;
+    */
 }
 
 long timedifference_msec(XmodData *processData)

@@ -2,7 +2,7 @@
 #define LOGFILE_H
 
 #include <sys/types.h>
-
+#include"macros.h"
 typedef struct{
     int nModif, nTotal;
     char *currentDirectory;

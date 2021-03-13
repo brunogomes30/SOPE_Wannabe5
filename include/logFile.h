@@ -20,6 +20,7 @@ enum logEvent{
 static char *eventsStr[] = {"PROC_CREAT", "PROC_EXIT", "SIGNAL_RECV", "SIGNAL_SENT", "FILE_MODF"};
 
 void initLog(XmodData *processData);
+
 void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData);
 
 #endif

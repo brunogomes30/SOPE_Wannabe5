@@ -1,18 +1,15 @@
 #include "../include/auxXmod.h"
 
-u_int8_t getFlags(int nargs, char *args[])
-{
+u_int8_t getFlags(int nargs, char *args[]){
     u_int8_t flags = 0;
-    for (int i = 1; i < nargs - 2; i++)
-    {
+    for (int i = 1; i < nargs - 2; i++){
         char *flagStr = args[i];
-        if (flagStr[0] != '-' || flagStr[2] != 0)
-        {
+
+        if (flagStr[0] != '-' || flagStr[2] != 0) {
             fprintf(stderr, "Invalid flag %s", flagStr);
             return -1;
         }
-        switch (flagStr[1])
-        {
+        switch (flagStr[1]){
         case 'v':
             flags |= VERB_FLAG;
             break;
@@ -31,35 +28,19 @@ u_int8_t getFlags(int nargs, char *args[])
 }
 
 void getSymbolic(mode_t mode, char *output) {
-    output = "rwxrwxrwx";
-    for(int i=0;i<9;i++){
-        if(mode & (1 << i))
-            output[i] = '-';
-    }
-    
-    
-    /*
-    char *symbols = "rwx";
 
-    int i = 8, j = 2;
-    while (mode) {
-        if (mode & 1) {
-            output[i--] = symbols[j];
-        }
-        else {
-            output[i--] = '-';
-        }
-        mode = mode >> 1;
-        j--;
-        if (j < 0)
-            j = 2;
+    char fullMode[] = "rwxrwxrwx";
+
+    for(int i=0;i<9;i++){
+        if(!(mode & (1 << i)))
+            fullMode[8-i] = '-';
     }
-    output[9] = 0;
-    */
+
+    strcpy(output,fullMode);
 }
 
-long timedifference_msec(XmodData *processData)
-{
+long timedifference_msec(XmodData *processData){
+
     struct timeval t1;
     gettimeofday(&t1, NULL);
 

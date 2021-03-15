@@ -13,8 +13,7 @@ void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData){
             fprintf(stderr, "Fopen error\n");
             return;
         }
-
-        fprintf(file, "%lu ; %d ; %s ; %s\n", timedifference_msec(processData), pid, eventsStr[event], msg);
+        fprintf(file, "%d ; %d ; %s ; %s\n", timedifference_msec(processData), pid, eventsStr[event], msg);
         fclose(file);
     }
 }
@@ -23,8 +22,8 @@ void initLog(XmodData* processData) {
 
     gettimeofday(&processData->startTime, NULL);
 
-    char *buffer = (char *)malloc(sizeof(char) * 50);
-    sprintf(buffer, "xmodStartTime= %lu %lu", processData->startTime.tv_sec, processData->startTime.tv_usec);
+    char *buffer = (char *) malloc(sizeof(char) * 50);
+    snprintf(buffer, sizeof(char) * 50, "xmodStartTime= %lu %lu", processData->startTime.tv_sec, processData->startTime.tv_usec);
     putenv(buffer);
     
     FILE *file = fopen(getenv("LOG_FILENAME"), "w+");

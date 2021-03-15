@@ -36,10 +36,10 @@ void getSymbolic(mode_t mode, char *output) {
             fullMode[8-i] = '-';
     }
 
-    strcpy(output,fullMode);
+    snprintf(output, sizeof(char) * 10, "%s", fullMode);
 }
 
-long timedifference_msec(XmodData *processData){
+u_int64_t timedifference_msec(XmodData *processData){
 
     struct timeval t1;
     gettimeofday(&t1, NULL);

@@ -15,6 +15,6 @@ void sigintHandler(int signal);
 
 int symbolicXmod(char *modeStr, mode_t *newMode);
 
-long timedifference_msec();
+u_int64_t timedifference_msec();
 
 #endif 

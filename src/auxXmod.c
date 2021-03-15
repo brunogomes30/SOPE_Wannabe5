@@ -35,14 +35,26 @@ void getSymbolic(mode_t mode, char *output) {
         if(!(mode & (1 << i)))
             fullMode[8-i] = '-';
     }
-
+    
     snprintf(output, sizeof(char) * 10, "%s", fullMode);
 }
 
-u_int64_t timedifference_msec(XmodData *processData){
+u_int64_t timeDifferenceMS(XmodData *processData){
 
     struct timeval t1;
     gettimeofday(&t1, NULL);
 
     return (t1.tv_sec - processData->startTime.tv_sec) * 1000 + (t1.tv_usec - processData->startTime.tv_usec) / 1000;
+}
+
+void getArgStr(int nargs, char* args[], char* logMsg){
+        printf("%s\n",logMsg);
+
+    strcpy(logMsg, "");
+    for (unsigned i = 1; i < nargs; i++) {
+		strcat(logMsg, args[i]);
+		if (i < nargs - 1)
+			strcat(logMsg, " ");
+	}
+    printf("%s\n",logMsg);
 }

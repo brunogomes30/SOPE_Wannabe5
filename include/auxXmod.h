@@ -6,8 +6,13 @@
 #include <stdlib.h>
 #include "logFile.h"
 #include "macros.h"
+
 u_int8_t getFlags(int nargs, char *args[]);
+
 void getSymbolic(mode_t mode, char *output);
-u_int64_t timedifference_msec(XmodData *processData);
+
+u_int64_t timeDifferenceMS(XmodData *processData);
+
+void getArgStr(int nargs, char* args[], char* logMsg);
 
 #endif

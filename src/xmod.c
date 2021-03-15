@@ -240,7 +240,9 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 					return -1;
 				default:
 					if (hasLog) {
-						snprintf(logMsg, sizeof(logMsg), "%s", nextPath);
+						getArgStr( nargs, args,logMsg);
+						strcat(logMsg, "/");
+						strcat(logMsg, dent->d_name);
 						writeLog(getpid(), PROC_CREAT, logMsg, &processData);
 					}
 					break;
@@ -280,13 +282,11 @@ int main(int nargs, char *args[]) {
 
 	char *logMsg = (char *)malloc(sizeof(char) * 500);
 
-	for (unsigned i = 1; i < nargs; i++) {
-		strcat(logMsg, args[i]);
-		if (i < nargs - 1)
-			strcat(logMsg, " ");
-	}
-	if (hasLog)
+	if (hasLog){
+
+		getArgStr( nargs, args,logMsg);
 		writeLog(getpid(), PROC_CREAT, logMsg, &processData);
+	}
 
 	if (nargs > 2){
 

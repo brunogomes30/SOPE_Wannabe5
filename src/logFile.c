@@ -13,7 +13,7 @@ void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData){
             fprintf(stderr, "Fopen error\n");
             return;
         }
-        fprintf(file, "%d ; %d ; %s ; %s\n", timedifference_msec(processData), pid, eventsStr[event], msg);
+        fprintf(file, "%d ; %d ; %s ; %s\n", timeDifferenceMS(processData), pid, eventsStr[event], msg);
         fclose(file);
     }
 }

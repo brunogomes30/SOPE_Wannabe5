@@ -129,19 +129,27 @@ int symbolicXmod(char *modeStr, mode_t *newMode){
 	
 	//Permissions start at modeStr[2]
 	int i = SYMB_PERM_START;
-
+	bool r_flag = false;
+	bool w_flag = false;
+	bool x_flag = false;
 	//Get permissions
 	while (modeStr[i] != 0){
 		switch (modeStr[i++])
 		{
 		case 'r':
+			if(r_flag) break;
 			mode += READ_MASK;
+			r_flag = true;
 			break;
 		case 'w':
+			if(w_flag) break;
 			mode += WRITE_MASK;
+			w_flag = true;
 			break;
 		case 'x':
+			if(x_flag) break;
 			mode += EXE_MASK;
+			x_flag = true;
 			break;
 		default:
 			printf("Invalid permission - %c\n", modeStr[i]);

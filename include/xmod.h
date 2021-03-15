@@ -1,5 +1,5 @@
-#ifndef XMOD_H
-#define XMOD_H
+#ifndef INCLUDE_XMOD_H_
+#define INCLUDE_XMOD_H_
 
 #include<unistd.h>
 #include<sys/time.h>
@@ -17,4 +17,4 @@ int symbolicXmod(char *modeStr, mode_t *newMode);
 
 u_int64_t timedifference_msec();
 
-#endif 
+#endif //INCLUDE_XMOD_H_

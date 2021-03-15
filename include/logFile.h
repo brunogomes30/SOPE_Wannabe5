@@ -1,8 +1,10 @@
-#ifndef LOGFILE_H
-#define LOGFILE_H
+#ifndef INCLUDE_LOGFILE_H_ 
+#define INCLUDE_LOGFILE_H_ 
 
 #include <sys/types.h>
-#include"macros.h"
+
+#include "../include/macros.h"
+
 typedef struct{
     int nModif, nTotal;
     char *currentDirectory;
@@ -21,4 +23,4 @@ void initLog(XmodData *processData);
 
 void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData);
 
-#endif
+#endif //INCLUDE_LOGFILE_H_ 

@@ -1,7 +1,7 @@
-#include "../include/auxXmod.h"
-
 #include <string.h>
 #include <sys/time.h>
+
+#include "../include/auxXmod.h"
 
 u_int8_t getFlags(int nargs, char *args[]){
     u_int8_t flags = 0;
@@ -51,13 +51,12 @@ u_int64_t timeDifferenceMS(XmodData *processData){
 }
 
 void getArgStr(int nargs, char* args[], char* logMsg){
-        printf("%s\n",logMsg);
-
+    //printf("%s\n",logMsg);
     strcpy(logMsg, "");
     for (unsigned i = 1; i < nargs; i++) {
 		strcat(logMsg, args[i]);
 		if (i < nargs - 1)
 			strcat(logMsg, " ");
 	}
-    printf("%s\n",logMsg);
+    //printf("%s\n",logMsg);
 }

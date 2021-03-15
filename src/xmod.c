@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <errno.h>
+
 #include "../include/xmod.h"
 #include "../include/auxXmod.h"
 #include "../include/macros.h"
@@ -200,14 +201,12 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 	bool hasLog = getenv("LOG_FILENAME") != NULL;
 	char logMsg[1024];
 	char *modeStr = args[nargs - 2];
-
 	
 	DIR *dir;
 	struct dirent *dent;
 	dir = opendir(processData.currentDirectory);
 
 	if (dir != NULL) {
-
 		while ((dent = readdir(dir)) != NULL) {
 
 			if (!strcmp(dent->d_name, ".") || !strcmp(dent->d_name, ".."))
@@ -215,9 +214,9 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 			
 			char nextPath[500];
 			snprintf(nextPath, sizeof(nextPath), "%s/%s", processData.currentDirectory, dent->d_name);
-			struct stat *nextFileInfo = (struct stat *)malloc(sizeof(struct stat));
+			struct stat nextFileInfo;
 
-			int statErrorCode = stat(nextPath, nextFileInfo);
+			int statErrorCode = stat(nextPath, &nextFileInfo);
 
 			if (statErrorCode != 0){
 				if (statErrorCode == EACCES) fprintf(stderr, "xmod: cannot read directory '%s': Permission denied\n", nextPath);
@@ -226,9 +225,9 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 			}
 
 				
-			xmod(nextPath, modeStr, flags, nextFileInfo->st_mode);
+			xmod(nextPath, modeStr, flags, nextFileInfo.st_mode);
 
-			if (S_ISDIR(nextFileInfo->st_mode)) {
+			if (S_ISDIR(nextFileInfo.st_mode)) {
 				int id = fork();
 
 				switch (id){
@@ -240,9 +239,9 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 					return;
 				default:
 					if (hasLog) {
-						getArgStr( nargs, args,logMsg);
-						strcat(logMsg, "/");
-						strcat(logMsg, dent->d_name);
+						char logMsgArgs[1024];
+						getArgStr(nargs, args,logMsgArgs);
+						snprintf(logMsg, sizeof(logMsgArgs) + sizeof(dent->d_name), "%s/%s", logMsgArgs, dent->d_name);
 						writeLog(getpid(), PROC_CREAT, logMsg, &processData);
 					}
 					break;
@@ -263,13 +262,16 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 }
 
 int main(int nargs, char *args[]) {
-
 	processData.nTotal = 0;
 	processData.nModif = 0;
 	bool hasLog = getenv("LOG_FILENAME") != NULL;
+	char *buffer = (char *) malloc(sizeof(char) * 50);
 
 	//Check if is first born process 
 	if ((getpgrp() == getpid()) && hasLog) {
+		gettimeofday(&processData.startTime, NULL);
+    	snprintf(buffer, sizeof(char) * 50, "xmodStartTime=%lu %lu", processData.startTime.tv_sec, processData.startTime.tv_usec);
+    	putenv(buffer);
 		initLog(&processData);
 	} else if (hasLog) { 
 		//read first process starting time 
@@ -296,8 +298,8 @@ int main(int nargs, char *args[]) {
 		char path[250];
 		snprintf(path, sizeof(path), "%s", args[nargs - 1]);
 		processData.currentDirectory = path;
-		struct stat *fileInfo = (struct stat *)malloc(sizeof(struct stat));
-		int statErrorCode = stat(processData.currentDirectory, fileInfo);
+		struct stat fileInfo;
+		int statErrorCode = stat(processData.currentDirectory, &fileInfo);
 
 		if (statErrorCode != 0){
 			if (statErrorCode == EACCES)
@@ -309,12 +311,15 @@ int main(int nargs, char *args[]) {
 
 		//Check if first born process
 		if (getpgrp() == getpid()){
-			xmod(processData.currentDirectory, modeStr, flags, fileInfo->st_mode);
+			xmod(processData.currentDirectory, modeStr, flags, fileInfo.st_mode);
 		}
-		if (flags & REC_FLAG && S_ISDIR(fileInfo->st_mode)) {
+		if (flags & REC_FLAG && S_ISDIR(fileInfo.st_mode)) {
 			goThroughDirectory(path, nargs, args, flags);
 		}
 	}
+
+	free(logMsg);
+	free(buffer);
 
 	//Testing purposes
 	//printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", processData.nModif, processData.nTotal);

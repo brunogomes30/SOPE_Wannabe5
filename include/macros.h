@@ -1,5 +1,5 @@
-#ifndef MACROS_H
-#define MACROS_H
+#ifndef INCLUDE_MACROS_H_
+#define INCLUDE_MACROS_H_
 
 #define VERB_FLAG           0b100
 #define CHANG_FLAG          0b010
@@ -26,4 +26,4 @@
 
 
 
-#endif
+#endif //INCLUDE_MACROS_H_

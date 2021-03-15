@@ -237,7 +237,7 @@ void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags){
 					execvp("./xmod", args);
 					exit(0);
 				case -1:
-					return -1;
+					return;
 				default:
 					if (hasLog) {
 						getArgStr( nargs, args,logMsg);

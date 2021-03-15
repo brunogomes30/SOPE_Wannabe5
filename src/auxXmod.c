@@ -1,5 +1,8 @@
 #include "../include/auxXmod.h"
 
+#include <string.h>
+#include <sys/time.h>
+
 u_int8_t getFlags(int nargs, char *args[]){
     u_int8_t flags = 0;
     for (int i = 1; i < nargs - 2; i++){

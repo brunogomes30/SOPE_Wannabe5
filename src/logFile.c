@@ -1,7 +1,13 @@
+#include "../include/logFile.h"
+#include "../include/auxXmod.h"
+
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/logFile.h"
+#include <sys/time.h>
+
+
+static char *eventsStr[] = {"PROC_CREAT", "PROC_EXIT", "SIGNAL_RECV", "SIGNAL_SENT", "FILE_MODF"};
 
 void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData){
 
@@ -13,7 +19,7 @@ void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData){
             fprintf(stderr, "Fopen error\n");
             return;
         }
-        fprintf(file, "%d ; %d ; %s ; %s\n", timeDifferenceMS(processData), pid, eventsStr[event], msg);
+        fprintf(file, "%ld ; %d ; %s ; %s\n", timeDifferenceMS(processData), pid, eventsStr[event], msg);
         fclose(file);
     }
 }

@@ -19,7 +19,8 @@
 XmodData processData;
 
 void stopProcesses(){
-
+	kill(0, SIGCONT);
+	sleep(1);
 	printf("Do you want to continue? (y or n)\n");
 	char input;
 	do{
@@ -33,11 +34,57 @@ void stopProcesses(){
 
 	} while (input != 'y' && input != 'n');
 
-	writeLog(getpid(), SIGNAL_SENT, "SIGCONT", &processData);
-	kill(0, SIGCONT);
+	writeLog(getpid(), SIGNAL_SENT, "SIGCONT: 0", &processData);
+	
 }
 
 void contHandler(int sig){}
+
+void genericSignalHandler(int signal) {
+	if (getenv("LOG_FILENAME") != NULL) {
+		char buffer[20];
+		snprintf(buffer, sizeof(buffer), "%d", signal);
+		writeLog(getpid(), SIGNAL_RECV, buffer, &processData);
+	}
+}
+
+void receiveSignal() {
+	struct sigaction new, sigintAction;
+	sigset_t smask;
+
+	// prepare struct sigaction
+	if (sigemptyset(&smask) == -1)
+		perror("sigsetfunctions");
+
+	new.sa_handler = genericSignalHandler;
+	new.sa_mask = smask;
+	new.sa_flags = 0;
+
+	sigintAction.sa_handler =  sigintHandler;
+	sigintAction.sa_mask = smask;
+	sigintAction.sa_flags = 0;
+	if (sigaction(SIGINT, &sigintAction, NULL) == -1)
+		perror("sigaction");
+
+	if (sigaction(SIGHUP, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGQUIT, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGUSR1, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGSEGV, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGUSR2, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGPIPE, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGALRM, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGTERM, &new, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGCHLD, &new, NULL) == -1)
+		perror("sigaction");
+}
 
 void sigintHandler(int sig){
 
@@ -47,9 +94,21 @@ void sigintHandler(int sig){
 	if (getpid() == getpgrp()){
 		stopProcesses();
 	} else{
+		struct sigaction new;
+		sigset_t smask;
 
+		// prepare struct sigaction
+		if (sigemptyset(&smask) == -1)
+			perror("sigsetfunctions");
+
+		new.sa_handler = contHandler;
+		new.sa_mask = smask;
+		new.sa_flags = 0;
+		if (sigaction(SIGCONT, &new, NULL) == -1)
+			perror("sigaction");
 		//Wait for signal from first process
-		signal(SIGCONT, contHandler);
+		//signal(SIGCONT, contHandler);
+		
 		sigset_t wset;
 		sigemptyset(&wset);
 		sigaddset(&wset, SIGCONT);
@@ -73,8 +132,9 @@ int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode) {
 	char first = modeStr[0];
 	mode_t mode;
 
-	signal(SIGINT, sigintHandler);
-
+	receiveSignal();
+	//signal(SIGINT, sigintHandler);
+	sleep(1);
 	previousMode &= ALL_PERMS;
 
 	if (first == '0'){   //numerical mode

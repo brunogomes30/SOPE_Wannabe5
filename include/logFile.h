@@ -19,8 +19,22 @@ enum logEvent{
     FILE_MODF
 };
 
+/**
+ * @brief 
+ * Initializes log
+ * @param processData 
+ */
 void initLog(XmodData *processData);
 
+
+/**
+ * @brief 
+ * Writes a single line into the log file
+ * @param pid 
+ * @param event 
+ * @param msg 
+ * @param processData 
+ */
 void writeLog(int pid, enum logEvent event, char *msg, XmodData *processData);
 
 #endif //INCLUDE_LOGFILE_H_ 

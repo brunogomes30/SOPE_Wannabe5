@@ -389,7 +389,5 @@ int main(int nargs, char *args[]) {
 	free(logMsg);
 	free(buffer);
 
-	//Testing purposes
-	//printf("\n\t\tFINAL nModif = %d, nTotal = %d\n", processData.nModif, processData.nTotal);
 	return 0;
 }

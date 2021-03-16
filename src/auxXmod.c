@@ -51,12 +51,10 @@ u_int64_t timeDifferenceMS(XmodData *processData){
 }
 
 void getArgStr(int nargs, char* args[], char* logMsg){
-    //printf("%s\n",logMsg);
     strcpy(logMsg, "");
     for (unsigned i = 1; i < nargs; i++) {
 		strcat(logMsg, args[i]);
 		if (i < nargs - 1)
 			strcat(logMsg, " ");
 	}
-    //printf("%s\n",logMsg);
 }

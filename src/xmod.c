@@ -358,8 +358,7 @@ int main(int nargs, char *args[]) {
 		writeLog(getpid(), PROC_CREAT, logMsg, &processData);
 	}
 
-	if (nargs > 2){
-
+	if (nargs > 3){
 		u_int8_t flags = getFlags(nargs, args);
 		char *modeStr = args[nargs - 2];
 

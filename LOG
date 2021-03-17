@@ -1,0 +1,11 @@
+4 ; 4691 ; PROC_CREAT ; -v -R a+r tests
+3041 ; 4691 ; SIGNAL_RECV ; SIGINT
+7420 ; 4691 ; SIGNAL_SENT ; SIGCONT: 0
+7420 ; 4691 ; PROC_CREAT ; -v -R a+r tests/testFolder1
+7421 ; 4695 ; PROC_CREAT ; -v -R a+r tests/testFolder1
+10425 ; 4695 ; PROC_CREAT ; -v -R a+r tests/testFolder1/testFolder2
+10432 ; 4696 ; PROC_CREAT ; -v -R a+r tests/testFolder1/testFolder2
+11441 ; 4695 ; SIGNAL_RECV ; 17
+11441 ; 4696 ; PROC_EXIT ; 0
+11442 ; 4691 ; SIGNAL_RECV ; 17
+11442 ; 4695 ; PROC_EXIT ; 0

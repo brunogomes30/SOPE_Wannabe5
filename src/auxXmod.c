@@ -5,26 +5,48 @@
 
 int8_t getFlags(int nargs, char *args[]){
     u_int8_t flags = 0;
-    for (int i = 1; i < nargs - 2; i++){
-        char *flagStr = args[i];
 
-        if (flagStr[0] != '-' || flagStr[2] != 0) {
-            fprintf(stderr, "Invalid flag %s\n", flagStr);
-            return -1;
+    if(nargs > 4){
+        //Flags of type -v -R -c
+        for (int i = 1; i < nargs - 2; i++){
+            char *flagStr = args[i];
+
+            if (flagStr[0] != '-' || flagStr[2] != 0) {
+                fprintf(stderr, "Invalid flag %s\n", flagStr);
+                return -1;
+            }
+            switch (flagStr[1]){
+                case 'v':
+                    flags |= VERB_FLAG;
+                    break;
+                case 'c':
+                    flags |= CHANG_FLAG;
+                    break;
+                case 'R':
+                    flags |= REC_FLAG;
+                    break;
+                default:
+                    printf("Invalid flag %s\n", flagStr);
+                    return -1;
+            }
         }
-        switch (flagStr[1]){
-        case 'v':
-            flags |= VERB_FLAG;
-            break;
-        case 'c':
-            flags |= CHANG_FLAG;
-            break;
-        case 'R':
-            flags |= REC_FLAG;
-            break;
-        default:
-            printf("Invalid flag %s\n", flagStr);
-            return -1;
+    } else {
+        //Flag of type -vRc
+        for(int i=1; args[1][i] != '\0'; i++){
+            switch (args[1][i]) {
+                case 'v':
+                    flags |= VERB_FLAG;
+                    break;
+                case 'c':
+                    flags |= CHANG_FLAG;
+                    break;
+                case 'R':
+                    flags |= REC_FLAG;
+                    break;
+                default:
+                    printf("Invalid flag %s\n", args[1]);
+                    return -1;
+            }
         }
     }
     return flags;

@@ -24,6 +24,12 @@
 
 #define FILE_MASK          0100000 // regular file's mask
 
+#define DEFAULT_ERROR -1
+#define TYPE_ERROR -2
+#define MODE_ERROR -3
+#define OPERATOR_ERROR -4
+#define PERMISSION_ERROR -5
+
 
 
 #endif //INCLUDE_MACROS_H_

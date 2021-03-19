@@ -145,14 +145,13 @@ void receiveSignal()
  * @param flags 
  * @return int 
  */
-int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode)
+int xmod(char *path, char *modeStr, int8_t flags, mode_t previousMode)
 {
 	processData.nTotal++;
 	char first = modeStr[0];
 	mode_t mode;
 
 	previousMode &= ALL_PERMS;
-
 	if (first == '0')
 	{ //numerical mode
 		mode = strtol(modeStr, 0, 8);
@@ -161,12 +160,15 @@ int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode)
 	{
 		//Symbolic mode
 		mode = previousMode;
-		symbolicXmod(modeStr, &mode);
+		int symbolicExitCode = symbolicXmod(modeStr, &mode) != 0 ;
+		if (symbolicExitCode != 0) {
+			return symbolicExitCode;
+		}
 	}
 	else
 	{
-		fprintf(stderr, "xmod: Invalid type of user - %c\n", first);
-		return -1;
+		fprintf(stderr, "xmod: Invalid mode - %s\n", modeStr);
+		return MODE_ERROR;
 	}
 
 	previousMode &= ALL_PERMS;
@@ -175,10 +177,9 @@ int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode)
 	getSymbolic(previousMode, previousModeS);
 	getSymbolic(mode, modeS);
 
-	if (chmod(path, mode) != 0)
-	{
+	if (chmod(path, mode) != 0) {
 		fprintf(stderr, "failed to change mode of '%s' from %04o (%s) to %04o (%s)\n", path, previousMode, previousModeS, mode, modeS);
-		return -1;
+		return DEFAULT_ERROR;
 	}
 
 	if (previousMode != mode)
@@ -243,7 +244,7 @@ int symbolicXmod(char *modeStr, mode_t *newMode)
 			break;
 		default:
 			printf("Invalid permission - %c\n", modeStr[i]);
-			return -1;
+			return PERMISSION_ERROR;
 		}
 	}
 
@@ -269,7 +270,7 @@ int symbolicXmod(char *modeStr, mode_t *newMode)
 		break;
 	default:
 		fprintf(stderr, "Invalid type of user - %c\n", modeStr[0]);
-		return -1;
+		return TYPE_ERROR;
 	}
 
 	mask += FILE_MASK; //regular files have bit 1 at pos5
@@ -288,13 +289,13 @@ int symbolicXmod(char *modeStr, mode_t *newMode)
 		break;
 	default:
 		fprintf(stderr, "xmod: Invalid operator - %c\n", operator);
-		return -1;
+		return OPERATOR_ERROR;
 	}
 
 	return 0;
 }
 
-void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags)
+void goThroughDirectory(char *path, int nargs, char *args[], int8_t flags)
 {
 
 	bool hasLog = getenv("LOG_FILENAME") != NULL;
@@ -404,7 +405,10 @@ int main(int nargs, char *args[])
 
 	if (nargs > 2)
 	{
-		u_int8_t flags = getFlags(nargs, args);
+		int8_t flags = getFlags(nargs, args);
+		if(flags == -1){
+			return -1;
+		}
 		char *modeStr = args[nargs - 2];
 
 		char path[250];
@@ -423,9 +427,13 @@ int main(int nargs, char *args[])
 		}
 
 		//Check if first born process
-		if (getpgrp() == getpid())
-		{
-			xmod(processData.currentDirectory, modeStr, flags, fileInfo.st_mode);
+		if (getpgrp() == getpid()) {
+			int xmodExitCode = xmod(processData.currentDirectory, modeStr, flags, fileInfo.st_mode);
+
+			if (xmodExitCode < DEFAULT_ERROR) {
+				// if true, the flags or mode is wrong, so the program should be terminated
+				return xmodExitCode;
+			}
 		}
 		if (flags & REC_FLAG && S_ISDIR(fileInfo.st_mode))
 		{

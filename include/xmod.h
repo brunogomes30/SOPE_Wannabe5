@@ -15,7 +15,7 @@
  * @param previousMode 
  * @return int 
  */
-    int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode);
+    int xmod(char *path, char *modeStr,int8_t flags, mode_t previousMode);
 
 /**
  * @brief 
@@ -25,7 +25,7 @@
  * @param args 
  * @param flags 
  */
-void goThroughDirectory(char *path, int nargs, char *args[], u_int8_t flags);
+void goThroughDirectory(char *path, int nargs, char *args[], int8_t flags);
 
 
 /**

@@ -3,13 +3,13 @@
 
 #include "../include/auxXmod.h"
 
-u_int8_t getFlags(int nargs, char *args[]){
+int8_t getFlags(int nargs, char *args[]){
     u_int8_t flags = 0;
     for (int i = 1; i < nargs - 2; i++){
         char *flagStr = args[i];
 
         if (flagStr[0] != '-' || flagStr[2] != 0) {
-            fprintf(stderr, "Invalid flag %s", flagStr);
+            fprintf(stderr, "Invalid flag %s\n", flagStr);
             return -1;
         }
         switch (flagStr[1]){
@@ -23,7 +23,7 @@ u_int8_t getFlags(int nargs, char *args[]){
             flags |= REC_FLAG;
             break;
         default:
-            printf("Invalid flag %s", flagStr);
+            printf("Invalid flag %s\n", flagStr);
             return -1;
         }
     }

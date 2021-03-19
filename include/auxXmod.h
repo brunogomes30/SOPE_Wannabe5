@@ -14,7 +14,7 @@
  * @param args 
  * @return u_int8_t 
  */
-u_int8_t getFlags(int nargs, char *args[]);
+int8_t getFlags(int nargs, char *args[]);
 
 /**
  * @brief 

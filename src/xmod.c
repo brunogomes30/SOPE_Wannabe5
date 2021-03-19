@@ -11,7 +11,7 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <errno.h>
-#include<time.h>
+#include <time.h>
 #include "../include/xmod.h"
 #include "../include/auxXmod.h"
 #include "../include/macros.h"
@@ -31,24 +31,23 @@ void stopProcesses()
 		if (input == 'n')
 		{
 
-			writeLog(getpid(), SIGNAL_SENT, "SIGUSR1 : 0", &processData); //TODO::
+			writeLog(getpid(), SIGNAL_SENT, "SIGUSR1: 10", &processData);
 			kill(0, SIGUSR1);
 		}
 
 	} while (input != 'y' && input != 'n');
 
-
 	kill(0, SIGCONT);
-	writeLog(getpid(), SIGNAL_SENT, "SIGCONT: ", &processData); //TODO::
+	writeLog(getpid(), SIGNAL_SENT, "SIGCONT: 18", &processData);
 }
 
-void contHandler(int sig) {}
-
-void usrHandler (int signal){
-	writeLog(getpid(), SIGNAL_RECV, "SIGUSR1", &processData);
-	writeLog(getpid(), SIGNAL_SENT, "SIGKILL", &processData); // TODO::
+void usrHandler(int signal)
+{
+	writeLog(getpid(), SIGNAL_RECV, "SIGUSR1: 10", &processData);
+	writeLog(getpid(), SIGNAL_SENT, "SIGKILL: 9", &processData);
 	kill(getpid(), SIGKILL);
 }
+
 void genericSignalHandler(int signal)
 {
 	if (getenv("LOG_FILENAME") != NULL)
@@ -57,6 +56,41 @@ void genericSignalHandler(int signal)
 		snprintf(buffer, sizeof(buffer), "%d", signal);
 		writeLog(getpid(), SIGNAL_RECV, buffer, &processData);
 	}
+}
+
+void sigintHandler(int sig)
+{
+
+	printf("%d ; %s ; %d ; %d\n", getpid(), processData.currentDirectory, processData.nTotal, processData.nModif);
+	writeLog(getpid(), SIGNAL_RECV, "SIGINT: 2", &processData);
+
+	if (getpid() == getpgrp())
+	{
+		stopProcesses();
+	}
+	else
+	{
+		writeLog(getpid(), SIGNAL_SENT, "SIGSTOP: 19", &processData);
+		writeLog(getpid(), SIGNAL_RECV, "SIGSTOP: 19", &processData);
+		kill(getpid(), SIGSTOP);
+		writeLog(getpid(), SIGNAL_RECV, "SIGCONT: 18", &processData);
+	}
+
+	struct sigaction sigintAction, old;
+	sigset_t smask;
+	if (sigemptyset(&smask) == -1)
+		perror("sigsetfunctions");
+
+	sigintAction.sa_handler = sigintHandler;
+	sigintAction.sa_mask = smask;
+	sigintAction.sa_flags = 0;
+
+	if (sigaction(SIGINT, &sigintAction, &old) == -1)
+		perror("sigaction");
+
+	sigaction(SIGINT, &old, NULL);
+
+	return;
 }
 
 void receiveSignal()
@@ -70,27 +104,24 @@ void receiveSignal()
 
 	new.sa_handler = genericSignalHandler;
 	new.sa_mask = smask;
-	new.sa_flags = 0;
-	sigaddset(&(new.sa_mask), SIGCHLD);
-	
+	new.sa_flags = SA_RESTART;
+
 	sigintAction.sa_handler = sigintHandler;
 	sigintAction.sa_mask = smask;
-	sigaddset(&(sigintAction.sa_mask), SIGCHLD);
 	sigintAction.sa_flags = SA_RESTART;
 
-	
 	sigusrAction.sa_handler = usrHandler;
 	sigusrAction.sa_mask = smask;
-	sigusrAction .sa_flags = SA_RESTART;
-	
+	sigusrAction.sa_flags = SA_RESTART;
+
 	if (sigaction(SIGINT, &sigintAction, NULL) == -1)
+		perror("sigaction");
+	if (sigaction(SIGUSR1, &sigusrAction, NULL) == -1)
 		perror("sigaction");
 
 	if (sigaction(SIGHUP, &new, NULL) == -1)
 		perror("sigaction");
 	if (sigaction(SIGQUIT, &new, NULL) == -1)
-		perror("sigaction");
-	if (sigaction(SIGUSR1, &sigusrAction, NULL) == -1)
 		perror("sigaction");
 	if (sigaction(SIGSEGV, &new, NULL) == -1)
 		perror("sigaction");
@@ -104,35 +135,6 @@ void receiveSignal()
 		perror("sigaction");
 	if (sigaction(SIGCHLD, &new, NULL) == -1)
 		perror("sigaction");
-
-	struct sigaction new2;
-
-	// prepare struct sigaction
-	if (sigemptyset(&smask) == -1)
-		perror("sigsetfunctions");
-
-	new2.sa_handler = contHandler;
-	new2.sa_mask = smask;
-	sigaddset(&(new2.sa_mask), SIGCHLD);
-	new2.sa_flags = 0;
-	if (sigaction(SIGCONT, &new2, NULL) == -1)
-		perror("sigaction");
-}
-
-void sigintHandler(int sig)
-{
-
-	printf("%d ; %s ; %d ; %d\n", getpid(), processData.currentDirectory, processData.nTotal, processData.nModif);
-	writeLog(getpid(), SIGNAL_RECV, "SIGINT", &processData);
-
-	if (getpid() == getpgrp()) {
-		stopProcesses();
-	} else {
-		writeLog(getpid(), SIGNAL_SENT, "SIGSTOP", &processData); //TODO::
-		writeLog(getpid(), SIGNAL_RECV, "SIGSTOP", &processData);
-		kill(getpid(), SIGSTOP);
-		writeLog(getpid(), SIGNAL_RECV, "SIGCONT", &processData);
-	}
 }
 
 /**
@@ -149,8 +151,6 @@ int xmod(char *path, char *modeStr, u_int8_t flags, mode_t previousMode)
 	char first = modeStr[0];
 	mode_t mode;
 
-	receiveSignal();
-	usleep(500000); //TODO::
 	previousMode &= ALL_PERMS;
 
 	if (first == '0')
@@ -374,6 +374,7 @@ int main(int nargs, char *args[])
 	processData.nModif = 0;
 	bool hasLog = getenv("LOG_FILENAME") != NULL;
 	char *buffer = (char *)malloc(sizeof(char) * 50);
+	receiveSignal();
 
 	//Check if is first born process
 	if ((getpgrp() == getpid()) && hasLog)
@@ -432,7 +433,7 @@ int main(int nargs, char *args[])
 		}
 	}
 
-		free(buffer);
+	free(buffer);
 
 	return 0;
 }

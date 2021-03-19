@@ -30,7 +30,7 @@ int8_t getFlags(int nargs, char *args[]){
                     return -1;
             }
         }
-    } else {
+    } else  if(nargs == 4) {
         //Flag of type -vRc
         for(int i=1; args[1][i] != '\0'; i++){
             switch (args[1][i]) {

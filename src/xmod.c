@@ -160,8 +160,9 @@ int xmod(char *path, char *modeStr, int8_t flags, mode_t previousMode)
 	{
 		//Symbolic mode
 		mode = previousMode;
-		int symbolicExitCode = symbolicXmod(modeStr, &mode) != 0 ;
-		if (symbolicExitCode != 0) {
+		int symbolicExitCode = symbolicXmod(modeStr, &mode) != 0;
+		if (symbolicExitCode != 0)
+		{
 			return symbolicExitCode;
 		}
 	}
@@ -177,7 +178,8 @@ int xmod(char *path, char *modeStr, int8_t flags, mode_t previousMode)
 	getSymbolic(previousMode, previousModeS);
 	getSymbolic(mode, modeS);
 
-	if (chmod(path, mode) != 0) {
+	if (chmod(path, mode) != 0)
+	{
 		fprintf(stderr, "failed to change mode of '%s' from %04o (%s) to %04o (%s)\n", path, previousMode, previousModeS, mode, modeS);
 		return DEFAULT_ERROR;
 	}
@@ -374,7 +376,7 @@ int main(int nargs, char *args[])
 	processData.nTotal = 0;
 	processData.nModif = 0;
 	bool hasLog = getenv("LOG_FILENAME") != NULL;
-	char *buffer = (char *)malloc(sizeof(char) * 50);
+	char buffer[50];
 	receiveSignal();
 
 	//Check if is first born process
@@ -406,7 +408,8 @@ int main(int nargs, char *args[])
 	if (nargs > 2)
 	{
 		int8_t flags = getFlags(nargs, args);
-		if(flags == -1){
+		if (flags == -1)
+		{
 			return -1;
 		}
 		char *modeStr = args[nargs - 2];
@@ -427,10 +430,12 @@ int main(int nargs, char *args[])
 		}
 
 		//Check if first born process
-		if (getpgrp() == getpid()) {
+		if (getpgrp() == getpid())
+		{
 			int xmodExitCode = xmod(processData.currentDirectory, modeStr, flags, fileInfo.st_mode);
 
-			if (xmodExitCode < DEFAULT_ERROR) {
+			if (xmodExitCode < DEFAULT_ERROR)
+			{
 				// if true, the flags or mode is wrong, so the program should be terminated
 				return xmodExitCode;
 			}
@@ -440,8 +445,6 @@ int main(int nargs, char *args[])
 			goThroughDirectory(path, nargs, args, flags);
 		}
 	}
-
-	free(buffer);
 
 	return 0;
 }

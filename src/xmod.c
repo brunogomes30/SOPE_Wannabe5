@@ -17,7 +17,7 @@
 #include "../include/macros.h"
 
 XmodData processData;
-bool stop = false;
+
 void stopProcesses()
 {
 

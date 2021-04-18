@@ -1,5 +1,6 @@
 #ifndef _COMMON_H
-#define _COMMON_H 1
+#define _COMMON_H 
+#include<pthread.h>
 typedef struct {
 	int rid; 										// request id
 	pid_t pid; 										// process id

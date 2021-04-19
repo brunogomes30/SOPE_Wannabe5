@@ -8,6 +8,7 @@
 #include<pthread.h>
 #include "alarm.h"
 #include "utils.h"
+#include "communication.h"
 
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
@@ -37,30 +38,44 @@ int checkArgs(int argc, char *args[]){
 }
 
 int parseArgs(int argc, char *args[], int *nsecs, char *pathFIFO){
-    char * number;
+    char * number = (char *) malloc(sizeof(strlen(args[1]) + 1));
     if(argc == 3){
-        number = args[1];
-        pathFIFO = args[2];
-        strncpy(number, number + 2, sizeof(number) - 2);
+        strncpy(number, args[1], strlen(args[1]) + 1);
+        strncpy(number, number + 2, strlen(number) - 1);
     } else if(argc == 4){
-        number = args[2];
-        pathFIFO = args[3];
+        strncpy(number, args[2], strlen(args[2]) + 1);
     }
+
+    strncpy(pathFIFO, args[argc - 1], strlen(args[argc - 1]) + 1);
     sscanf(number, "%d", nsecs);
+    
+    free(number);
     return 0;
 }
 
 int main(int argc, char *args[]){
     checkArgs(argc, args);
-    char *pathFIFO = "";
+    char *pathFIFO = (char * ) malloc(100);
     int nsecs;
     parseArgs(argc, args, &nsecs, pathFIFO);
-
     setupAlarm();
     alarm(nsecs);
-
+    int id = 0;
+    //initFIFO(pathFIFO);
+    //printf("FIFO =========== %s\n\n\n\n", pathFIFO);
     while(1){
-        usleep(50 * 1000);
+        usleep(getRandomNumber(10, 50) * 1000);
+        printf("Create new thread\n");
+        pthread_t thread;
+        //char response[100];
+
+        ClientThreadArgs *threadArgs = (ClientThreadArgs *)malloc(sizeof(ClientThreadArgs));
+        threadArgs->rid = id++;
+        threadArgs->fifo = pathFIFO;
+        if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
+            fprintf(stderr, "Failed to create thread\n");
+        }
+        pthread_join(thread, NULL);
     }
 
 

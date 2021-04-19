@@ -8,7 +8,7 @@ int getRandomNumber(int lower, int upper) {
         return -1;
 }
 
-int getRandom(){
+int getTaskRandom(){
     return getRandomNumber(1, 10);
 }
 

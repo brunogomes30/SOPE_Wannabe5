@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 int getRandomNumber(int lower, int upper);
-int getRandom();
+int getTaskRandom();
 
 int getInst();
 

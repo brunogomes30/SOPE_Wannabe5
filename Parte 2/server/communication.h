@@ -8,6 +8,6 @@ typedef struct {
 
 void initFIFO(char * fifo);
 void writeToFIFO();
-void readFromFIFO();
+int readFromFIFO();
 void *thread_func(void *arg);
 #endif

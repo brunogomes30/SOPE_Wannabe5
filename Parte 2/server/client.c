@@ -6,6 +6,7 @@
 #include<string.h>
 #include <unistd.h>
 #include<pthread.h>
+#include <sys/stat.h>
 #include "alarm.h"
 #include "utils.h"
 #include "communication.h"
@@ -61,11 +62,23 @@ int main(int argc, char *args[]){
     setupAlarm();
     alarm(nsecs);
     int id = 0;
-    //initFIFO(pathFIFO);
-    //printf("FIFO =========== %s\n\n\n\n", pathFIFO);
     while(1){
         usleep(getRandomNumber(10, 50) * 1000);
-        printf("Create new thread\n");
+        
+        int tries = 0;
+        struct stat fifoStat;
+        while( tries < 10){
+            if (stat(pathFIFO, &fifoStat) == 0) {
+                break;
+            }
+            tries++;
+            usleep(200 * 1000);
+        }
+        if(tries == 10){
+            fprintf(stderr, "Public FIFO does not exist\n");
+            break;
+        }
+
         pthread_t thread;
         //char response[100];
 
@@ -75,7 +88,7 @@ int main(int argc, char *args[]){
         if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
             fprintf(stderr, "Failed to create thread\n");
         }
-        pthread_join(thread, NULL);
+        //pthread_join(thread, NULL);
     }
 
 

@@ -7,9 +7,9 @@
 #include <unistd.h>
 #include<pthread.h>
 #include <sys/stat.h>
-#include "alarm.h"
-#include "utils.h"
 #include "communication.h"
+#include "linkedList.h"
+#include "utils.h"
 
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
@@ -58,29 +58,19 @@ int main(int argc, char *args[]){
     checkArgs(argc, args);
     char *pathFIFO = (char * ) malloc(100);
     int nsecs;
+
     parseArgs(argc, args, &nsecs, pathFIFO);
     setupAlarm();
     alarm(nsecs);
+
     int id = 0;
-    while(1){
+    serverClosed = 0;
+    LinkedListElement *first, *last, *aux;
+
+    do{
         usleep(getRandomNumber(10, 50) * 1000);
         
-        int tries = 0;
-        struct stat fifoStat;
-        while( tries < 10){
-            if (stat(pathFIFO, &fifoStat) == 0) {
-                break;
-            }
-            tries++;
-            usleep(200 * 1000);
-        }
-        if(tries == 10){
-            fprintf(stderr, "Public FIFO does not exist\n");
-            break;
-        }
-
         pthread_t thread;
-        //char response[100];
 
         ClientThreadArgs *threadArgs = (ClientThreadArgs *)malloc(sizeof(ClientThreadArgs));
         threadArgs->rid = id++;
@@ -88,10 +78,26 @@ int main(int argc, char *args[]){
         if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
             fprintf(stderr, "Failed to create thread\n");
         }
-        //pthread_join(thread, NULL);
+        
+        if (id == 1){
+            first = initLinkedList(thread);
+            last = first;
+        }else{
+            last = addElement(last,thread);
+        }
+
+    }while(!serverClosed && !clientTimeOut);
+    
+
+    aux = first;
+    fprintf(stderr,"Before joins\n");
+    while(aux != NULL){
+        pthread_join(aux->thread,NULL);
+        aux = aux->next;
     }
+    fprintf(stderr,"After joins\n");
 
 
-
+    freeLinkedList(first);
     return 0;
 }

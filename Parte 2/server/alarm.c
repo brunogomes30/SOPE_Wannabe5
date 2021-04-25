@@ -2,9 +2,11 @@
 #include<signal.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+
 void alarmHandler(){
     printf("Alarm handler \n");
-    exit(0);
+    clientTimeOut = 1;
 }
 
 void setupAlarm(){

@@ -11,6 +11,8 @@
 #include "linkedList.h"
 #include "utils.h"
 
+pthread_mutex_t clientMutex;
+
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
     if(argc >= 3 && argc <=4){
@@ -60,8 +62,9 @@ int main(int argc, char *args[]){
     int nsecs;
 
     parseArgs(argc, args, &nsecs, pathFIFO);
-    setupAlarm();
-    alarm(nsecs);
+    long int initialTime = time(NULL);
+    /*setupAlarm();
+    alarm(nsecs);*/
 
     int id = 0;
     serverClosed = 0;
@@ -86,18 +89,23 @@ int main(int argc, char *args[]){
             last = addElement(last,thread);
         }
 
-    }while(!serverClosed && !clientTimeOut);
+    }while(/*!serverClosed && !clientTimeOut*/ time(NULL) < initialTime + nsecs);
+    printf("NUM THREADS: %d\n", id);
     
-
     aux = first;
     fprintf(stderr,"Before joins\n");
+    int n = 0;
     while(aux != NULL){
+        n ++;
         pthread_join(aux->thread,NULL);
+        printf("%d %ld\n", n,aux->thread);
         aux = aux->next;
     }
     fprintf(stderr,"After joins\n");
 
 
+    //unlink(pathFIFO);
+    free(pathFIFO);
     freeLinkedList(first);
     return 0;
 }

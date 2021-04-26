@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 pthread_mutex_t clientMutex;
-extern int clientTimeOut;
+
 
 int FIFOexists(char* fifo){
 
@@ -39,8 +39,7 @@ int writeToFIFO(char *fifo, Message *message){
     return 0;
 }
 
-int readFromFIFO(char *fifo, Message *response){
-    
+int readFromFIFO(char *fifo, Message *response){  
         struct timeval timeout;
         int filedesc = open(fifo, O_RDWR);
         fd_set set;
@@ -72,7 +71,7 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
     Message *response = (Message *)malloc(sizeof(Message));
     
     //Server exists so block program to read
-    if (FIFOexists(publicFIFO)){
+    //if (FIFOexists(publicFIFO)){
         if(readFromFIFO(privateFIFO,response) == 0){
             //Server stop warning
             if(response->tskres == -1){
@@ -85,12 +84,12 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
             writeLog(message, GAVUP);
             copyMessage(response,message); 
         }
-    }
-    else{
+    //}
+    /*else{
          //Server closed
         writeLog(message,CLOSD);
         copyMessage(response,message);
-    }
+    }*/
    
     deleteFIFO();
     return response;
@@ -123,23 +122,28 @@ Message* initializeMessage(ClientThreadArgs* threadArgs){
 }
 
 void *thread_func(void *arg){
+    //pthread_mutex_lock(&clientMutex);
     ClientThreadArgs *threadArgs = (ClientThreadArgs *) arg;
     char * publicFIFO = threadArgs->fifo;
     Message *message = initializeMessage(threadArgs);
    
-    pthread_mutex_lock(&clientMutex);
+    //pthread_mutex_lock(&clientMutex);
     char privateFIFO[100];
     snprintf(privateFIFO, 100, "/tmp/%d.%ld", message->pid, message->tid); 
     createFIFO(privateFIFO);
     sendServerRequest(publicFIFO,message);
     writeLog(message, IWANT);
-    pthread_mutex_unlock(&clientMutex);
+    //pthread_mutex_unlock(&clientMutex);
 
+    //pthread_mutex_lock(&clientMutex);
     Message *response = getServerResponse(privateFIFO, publicFIFO, message);
+    //pthread_mutex_unlock(&clientMutex);
 
     free(message);
     free(response);
-    deleteFIFO();
-    unlink(privateFIFO);
+    free(arg);
+    //deleteFIFO();
+    //unlink(privateFIFO);
+    //pthread_mutex_unlock(&clientMutex);
     pthread_exit(NULL);
 }

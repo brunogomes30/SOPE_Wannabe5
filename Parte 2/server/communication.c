@@ -41,6 +41,7 @@ int writeToFIFO(char *fifo, Message *message){
 
 int readFromFIFO(char *fifo, Message *response){
     
+    while(!clientTimeOut){
         struct timeval timeout;
         int filedesc = open(fifo, O_RDWR);
         fd_set set;
@@ -57,6 +58,7 @@ int readFromFIFO(char *fifo, Message *response){
         }
         
         close(filedesc);
+    }
     return -1;
 } 
 
@@ -88,8 +90,18 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
     }
     else{
          //Server closed
-        writeLog(message,CLOSD);
-        copyMessage(response,message);
+        if(readFromFIFO(privateFIFO,response) == 0){
+            //Server stop warning
+            if(response->tskres == -1){
+                writeLog(response,CLOSD);
+            }
+            else{
+                writeLog(response,GOTRS);
+            }
+        }else{
+            writeLog(message, GAVUP);
+            copyMessage(response,message); 
+        }
     }
    
     deleteFIFO();

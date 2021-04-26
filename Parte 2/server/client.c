@@ -89,7 +89,7 @@ int main(int argc, char *args[]){
             last = addElement(last,thread);
         }
 
-    }while(/*!serverClosed && !clientTimeOut*/ time(NULL) < initialTime + nsecs);
+    }while(/*!serverClosed && !clientTimeOut*/ !serverClosed && time(NULL) < initialTime + nsecs);
     printf("NUM THREADS: %d\n", id);
     
     aux = first;

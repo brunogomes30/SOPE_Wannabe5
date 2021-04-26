@@ -15,9 +15,8 @@ pthread_mutex_t clientMutex;
 
 int FIFOexists(char* fifo){
 
-    int fd = open(fifo, O_WRONLY | O_NONBLOCK);
+    int fd = open(fifo, O_WRONLY);
     if (fd == -1){
-        serverClosed = 1;
         return 0;
     }
     close(fd);
@@ -75,6 +74,9 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
         if(readFromFIFO(privateFIFO,response) == 0){
             //Server stop warning
             if(response->tskres == -1){
+                pthread_mutex_lock(&clientMutex);
+                serverClosed = 1;
+                pthread_mutex_unlock(&clientMutex);
                 writeLog(response,CLOSD);
             }
             else{
@@ -99,11 +101,15 @@ int sendServerRequest(char* publicFIFO, Message* message){
     int waitingWindow = 0;
 
     //Busy waiting for the public FIFO to be created
+    //pthread_mutex_lock(&clientMutex);
     while( waitingWindow++ < 10000 ){
         if (writeToFIFO(publicFIFO,message) != -1){
+            //pthread_mutex_unlock(&clientMutex);
             return 0;
         }
     }
+    serverClosed = 1;
+    //pthread_mutex_unlock(&clientMutex);
 
     FIFOexists(publicFIFO);
     return -1;

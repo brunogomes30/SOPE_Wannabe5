@@ -45,8 +45,8 @@ int readFromFIFO(char *fifo, Message *response){
         fd_set set;
         FD_ZERO(&set); 
         FD_SET(filedesc, &set); 
-        timeout.tv_sec = 1;
-        timeout.tv_usec = 0;
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 50000;
         int rv = select(filedesc + 1, &set, NULL, NULL, &timeout);
         if(rv !=-1 && rv != 0){
             read(filedesc, response, sizeof(Message));

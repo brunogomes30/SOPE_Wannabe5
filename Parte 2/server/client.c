@@ -72,24 +72,24 @@ int main(int argc, char *args[]){
 
     do{
         usleep(getRandomNumber(10, 50) * 1000);
-        
-        pthread_t thread;
+        if(!serverClosed){
+            pthread_t thread;
 
-        ClientThreadArgs *threadArgs = (ClientThreadArgs *)malloc(sizeof(ClientThreadArgs));
-        threadArgs->rid = id++;
-        threadArgs->fifo = pathFIFO;
-        if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
-            fprintf(stderr, "Failed to create thread\n");
+            ClientThreadArgs *threadArgs = (ClientThreadArgs *)malloc(sizeof(ClientThreadArgs));
+            threadArgs->rid = id++;
+            threadArgs->fifo = pathFIFO;
+            if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
+                fprintf(stderr, "Failed to create thread\n");
+            }
+            
+            if (id == 1){
+                first = initLinkedList(thread);
+                last = first;
+            }else{
+                last = addElement(last,thread);
+            }
         }
-        
-        if (id == 1){
-            first = initLinkedList(thread);
-            last = first;
-        }else{
-            last = addElement(last,thread);
-        }
-
-    }while(/*!serverClosed && !clientTimeOut*/ !serverClosed && time(NULL) < initialTime + nsecs);
+    }while(/*!serverClosed && !clientTimeOut*/time(NULL) < initialTime + nsecs);
     printf("NUM THREADS: %d\n", id);
 
     pthread_mutex_lock(&clientMutex);

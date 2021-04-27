@@ -104,11 +104,12 @@ int sendServerRequest(char* publicFIFO, Message* message){
 
     //Busy waiting for the public FIFO to be created
     //pthread_mutex_lock(&clientMutex);
-    while( waitingWindow++ < 10000 ){
+    while( !clientTimeOut ){
         if (writeToFIFO(publicFIFO,message) != -1){
             //pthread_mutex_unlock(&clientMutex);
             return 0;
         }
+        sleep(1);
     }
     serverClosed = 1;
     //pthread_mutex_unlock(&clientMutex);
@@ -135,20 +136,18 @@ void *thread_func(void *arg){
     char * publicFIFO = threadArgs->fifo;
     Message *message = initializeMessage(threadArgs);
    
-    //pthread_mutex_lock(&clientMutex);
-    char privateFIFO[100];
-    snprintf(privateFIFO, 100, "/tmp/%d.%ld", message->pid, message->tid); 
-    createFIFO(privateFIFO);
-    sendServerRequest(publicFIFO,message);
-    writeLog(message, IWANT);
-    //pthread_mutex_unlock(&clientMutex);
+    if(sendServerRequest(publicFIFO,message) != -1){
+        writeLog(message, IWANT);
+        char privateFIFO[100];
+        snprintf(privateFIFO, 100, "/tmp/%d.%ld", message->pid, message->tid); 
+        createFIFO(privateFIFO);
 
-    //pthread_mutex_lock(&clientMutex);
-    Message *response = getServerResponse(privateFIFO, publicFIFO, message);
-    //pthread_mutex_unlock(&clientMutex);
-
+        //pthread_mutex_lock(&clientMutex);
+        Message *response = getServerResponse(privateFIFO, publicFIFO, message);
+        //pthread_mutex_unlock(&clientMutex);
+        free(response);
+    }
     free(message);
-    free(response);
     free(arg);
     //deleteFIFO();
     //unlink(privateFIFO);

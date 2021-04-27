@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include<pthread.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+
 #include "communication.h"
 #include "linkedList.h"
 #include "utils.h"
@@ -70,6 +72,16 @@ int main(int argc, char *args[]){
     serverClosed = 0;
     LinkedListElement *first, *last, *aux;
 
+    /*while(time(NULL) < initialTime + nsecs){
+        int fd = open(pathFIFO, O_RDONLY);
+        if(fd != -1) {
+            //close(fd);
+            break;
+        }
+    }
+
+    printf("OUT");*/
+
     do{
         usleep(getRandomNumber(10, 50) * 1000);
         if(!serverClosed){
@@ -90,7 +102,7 @@ int main(int argc, char *args[]){
             }
         }
     }while(/*!serverClosed && !clientTimeOut*/time(NULL) < initialTime + nsecs);
-    printf("NUM THREADS: %d\n", id);
+    fprintf(stderr,"NUM THREADS: %d\n", id);
 
     pthread_mutex_lock(&clientMutex);
     clientTimeOut = 1;
@@ -102,7 +114,6 @@ int main(int argc, char *args[]){
     while(aux != NULL){
         n ++;
         pthread_join(aux->thread,NULL);
-        printf("%d %ld\n", n,aux->thread);
         aux = aux->next;
     }
     fprintf(stderr,"After joins\n");

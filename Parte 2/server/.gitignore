@@ -1,4 +1,4 @@
 c
 s
-*.o
+client.o
 *.txt

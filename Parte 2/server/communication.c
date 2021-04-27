@@ -39,23 +39,10 @@ int writeToFIFO(char *fifo, Message *message){
 }
 
 int readFromFIFO(char *fifo, Message *response){
-    while(!clientTimeOut){
-        struct timeval timeout;
-        int filedesc = open(fifo, O_RDWR);
-        fd_set set;
-        FD_ZERO(&set); 
-        FD_SET(filedesc, &set); 
-        timeout.tv_sec = 0;
-        timeout.tv_usec = 50000;
-        int rv = select(filedesc + 1, &set, NULL, NULL, &timeout);
-        if(rv !=-1 && rv != 0){
-            read(filedesc, response, sizeof(Message));
+    int filedesc = open(fifo, O_RDONLY);
+    if(read(filedesc, response, sizeof(Message)) == sizeof(Message)){
             close(filedesc);
-
-            return 0; 
-        }
-        
-        close(filedesc);
+            return 0;
     }
     return -1;
 } 
@@ -70,9 +57,7 @@ void copyMessage(Message* copy, Message* toCopy){
 
 Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message){ 
     Message *response = (Message *)malloc(sizeof(Message));
-    
-    //Server exists so block program to read
-    //if (FIFOexists(publicFIFO)){
+
         if(readFromFIFO(privateFIFO,response) == 0){
             //Server stop warning
             if(response->tskres == -1){
@@ -88,12 +73,6 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
             writeLog(message, GAVUP);
             copyMessage(response,message); 
         }
-    //}
-    /*else{
-         //Server closed
-        writeLog(message,CLOSD);
-        copyMessage(response,message);
-    }*/
    
     deleteFIFO();
     return response;
@@ -103,7 +82,7 @@ int sendServerRequest(char* publicFIFO, Message* message){
     int waitingWindow = 0;
 
     //Busy waiting for the public FIFO to be created
-    //pthread_mutex_lock(&clientMutex);
+
     while( !clientTimeOut ){
         if (writeToFIFO(publicFIFO,message) != -1){
             //pthread_mutex_unlock(&clientMutex);
@@ -111,8 +90,9 @@ int sendServerRequest(char* publicFIFO, Message* message){
         }
         sleep(1);
     }
+    pthread_mutex_lock(&clientMutex);
     serverClosed = 1;
-    //pthread_mutex_unlock(&clientMutex);
+    pthread_mutex_unlock(&clientMutex);
 
     FIFOexists(publicFIFO);
     return -1;
@@ -136,7 +116,7 @@ void *thread_func(void *arg){
     char * publicFIFO = threadArgs->fifo;
     Message *message = initializeMessage(threadArgs);
    
-    if(sendServerRequest(publicFIFO,message) != -1){
+    if(write(publicFIFOfd ,message, sizeof(Message)) == sizeof(Message)){
         writeLog(message, IWANT);
         char privateFIFO[100];
         snprintf(privateFIFO, 100, "/tmp/%d.%ld", message->pid, message->tid); 

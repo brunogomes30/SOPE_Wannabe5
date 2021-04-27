@@ -72,15 +72,9 @@ int main(int argc, char *args[]){
     serverClosed = 0;
     LinkedListElement *first, *last, *aux;
 
-    /*while(time(NULL) < initialTime + nsecs){
-        int fd = open(pathFIFO, O_RDONLY);
-        if(fd != -1) {
-            //close(fd);
-            break;
-        }
+    while((publicFIFOfd = open(pathFIFO, O_WRONLY)) == -1){
+        usleep(500);
     }
-
-    printf("OUT");*/
 
     do{
         usleep(getRandomNumber(10, 50) * 1000);
@@ -110,9 +104,11 @@ int main(int argc, char *args[]){
     
     aux = first;
     fprintf(stderr,"Before joins\n");
-    int n = 0;
+    for(int i = 0; i <= id; i++){
+        close(i+3);
+    }
+    
     while(aux != NULL){
-        n ++;
         pthread_join(aux->thread,NULL);
         aux = aux->next;
     }

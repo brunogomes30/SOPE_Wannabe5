@@ -12,6 +12,7 @@ typedef struct {
 } ClientThreadArgs;
 
 int serverClosed;
+int publicFIFOfd;
 
 int FIFOexists(char* fifo);
 void initFIFO(char * fifo);

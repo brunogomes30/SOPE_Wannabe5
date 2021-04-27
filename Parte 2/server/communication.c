@@ -38,7 +38,8 @@ int writeToFIFO(char *fifo, Message *message){
     return 0;
 }
 
-int readFromFIFO(char *fifo, Message *response){  
+int readFromFIFO(char *fifo, Message *response){
+    while(!clientTimeOut){
         struct timeval timeout;
         int filedesc = open(fifo, O_RDWR);
         fd_set set;
@@ -55,6 +56,7 @@ int readFromFIFO(char *fifo, Message *response){
         }
         
         close(filedesc);
+    }
     return -1;
 } 
 

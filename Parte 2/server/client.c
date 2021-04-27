@@ -91,6 +91,10 @@ int main(int argc, char *args[]){
 
     }while(/*!serverClosed && !clientTimeOut*/ !serverClosed && time(NULL) < initialTime + nsecs);
     printf("NUM THREADS: %d\n", id);
+
+    pthread_mutex_lock(&clientMutex);
+    clientTimeOut = 1;
+    pthread_mutex_unlock(&clientMutex);
     
     aux = first;
     fprintf(stderr,"Before joins\n");

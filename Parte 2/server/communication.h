@@ -1,7 +1,6 @@
 #ifndef COMMUNICATIONS_H
 #define COMMUNICATIONS_H
 
-#include "alarm.h"
 #include "common.h"
 #include "log.h"
 
@@ -14,14 +13,10 @@ typedef struct {
 int serverClosed;
 int publicFIFOfd;
 
-int FIFOexists(char* fifo);
-void initFIFO(char * fifo);
 void copyMessage(Message* copy, Message* toCopy);
 Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message);
-int sendServerRequest(char* publicFIFO, Message* message);
 Message* initializeMessage(ClientThreadArgs* threadArgs);
-//isto devia ter os parâmetros, não??
-int writeToFIFO();
-int readFromFIFO();
+int writeToFIFO(char *fifo, Message *message);
+int readFromFIFO(char *fifo, Message *message);
 void *thread_func(void *arg);
 #endif

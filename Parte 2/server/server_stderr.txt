@@ -1,0 +1,933 @@
+[server] initial time: 1619532433, expected final time: 1619532453
+[server] buffer size: 10
+[server] got: nsecs=20, bufsize=10, fifoname=/tmp/fifo_beatriz-ag
+[server] opened server fifo /tmp/fifo_beatriz-ag
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140341378316032
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341369812736
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140341361420032
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140341277619968
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341269227264
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341260834560
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341252441856
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140341244049152
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140341235656448
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140341227263744
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140341076293376
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140341051115264
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140341067900672
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140341034329856
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140341059507968
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341042722560
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340942075648
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140341025937152
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340916897536
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340933682944
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340925290240
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340908504832
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340891719424
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340900112128
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340883326720
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340874934016
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340866541312
+[server] opened client fifo /tmp/14943.140340858148608
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340849755904
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340824577792
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340841363200
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340832970496
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340799399680
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340816185088
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340807792384
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340791006976
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340782614272
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340774221568
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340765828864
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340757436160
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340749043456
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340740650752
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340732258048
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340723865344
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340715472640
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340698687232
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340707079936
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340681901824
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340673509120
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340690294528
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340665116416
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340648331008
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340656723712
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340639938304
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340631545600
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340623152896
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340597974784
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340606367488
+[server] opened client fifo /tmp/14943.140340581189376
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340614760192
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340589582080
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340572796672
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340556011264
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340564403968
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340547618560
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340539225856
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340530833152
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340505655040
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340522440448
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340514047744
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340497262336
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340488869632
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340480476928
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340463691520
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340472084224
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340455298816
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340438513408
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340446906112
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340430120704
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340421728000
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340404942592
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340396549888
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340413335296
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340388157184
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340379764480
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340371371776
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340346193664
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340362979072
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140340337800960
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340354586368
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340329408256
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340321015552
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340312622848
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340304230144
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340287444736
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340295837440
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340279052032
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340270659328
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340253873920
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340262266624
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340245481216
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340228695808
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340237088512
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340211910400
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340220303104
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340195124992
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340203517696
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340186732288
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340178339584
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340161554176
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140340153161472
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340169946880
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340069660416
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340061267712
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140340052875008
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140340027696896
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140340044482304
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140340036089600
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140340019304192
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140340002518784
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140340010911488
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339994126080
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339985733376
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339977340672
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339968947968
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339960555264
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339943769856
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339952162560
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339935377152
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339926984448
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339918591744
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339910199040
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339901806336
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339885020928
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339893413632
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339876628224
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339859842816
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339868235520
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339843057408
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339851450112
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339834664704
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339809486592
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339826272000
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339817879296
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339801093888
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339792701184
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339775915776
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339784308480
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339767523072
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339750737664
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339759130368
+[lib] a 7 task has finished
+[lib] a 5 task is starting (with 0 delay)
+[server] opened client fifo /tmp/14943.140339742344960
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339733952256
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339725559552
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339717166848
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339708774144
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339700381440
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339683596032
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339691988736
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339675203328
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339666810624
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339658417920
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339641632512
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339650025216
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339633239808
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339624847104
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339616454400
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339608061696
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339599668992
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339591276288
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339582883584
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339574490880
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339566098176
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339557705472
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339540920064
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339532527360
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339549312768
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339515741952
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339507349248
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339524134656
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339498956544
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339482171136
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339490563840
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339473778432
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339465385728
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339431814912
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339448600320
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339456993024
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339440207616
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339415029504
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339423422208
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339398244096
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339406636800
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339389851392
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339381458688
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339373065984
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339356280576
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339364673280
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339347887872
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339339495168
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339331102464
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339322709760
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339314317056
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339305924352
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339289138944
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339297531648
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339272353536
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339280746240
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339263960832
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339247175424
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339255568128
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339238782720
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140339230390016
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339221997312
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339205211904
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339213604608
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339196819200
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339188426496
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140339180033792
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339171641088
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140339154855680
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339163248384
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339146462976
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339138070272
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339129677568
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339121284864
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339112892160
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339096106752
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339087714048
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339104499456
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140339079321344
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339070928640
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140339062535936
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339045750528
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140339054143232
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140339037357824
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140339028965120
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339020572416
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140339012179712
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338928809728
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338920417024
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140338895238912
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338903631616
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338912024320
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338886846208
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338878453504
+[lib] a 4 task has finished
+[lib] a 7 task is starting (with 0 delay)
+[server] opened client fifo /tmp/14943.140338870060800
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338861668096
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338853275392
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338828097280
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140338836489984
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338844882688
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140338819704576
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338811311872
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338802919168
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338794526464
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140338777741056
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338786133760
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338769348352
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338760955648
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338752562944
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140338744170240
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338735777536
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140338727384832
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338718992128
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338710599424
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338702206720
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338685421312
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338693814016
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338668635904
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338677028608
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338660243200
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338651850496
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338643457792
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338626672384
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338635065088
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338618279680
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338601494272
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338609886976
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338576316160
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338593101568
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140338559530752
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338584708864
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338567923456
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338551138048
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338542745344
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338534352640
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338509174528
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338525959936
+[lib] a 5 task is starting (with 0 delay)
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338517567232
+[lib] a 5 task has finished
+[server] opened client fifo /tmp/14943.140338500781824
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140338492389120
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338483996416
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338475603712
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 3 task is starting (with 0 delay)
+[lib] a 3 task has finished
+[server] opened client fifo /tmp/14943.140338458818304
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338467211008
+[lib] a 4 task is starting (with 0 delay)
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 4 task has finished
+[server] opened client fifo /tmp/14943.140338450425600
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140338442032896
+[lib] a 1 task is starting (with 0 delay)
+[lib] a 1 task has finished
+[server] opened client fifo /tmp/14943.140338433640192
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 6 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338425247488
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338416854784
+[lib] a 6 task has finished
+[server] opened client fifo /tmp/14943.140338408462080
+[lib] a 2 task is starting (with 0 delay)
+[lib] a 2 task has finished
+[server] opened client fifo /tmp/14943.140338391676672
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 7 task is starting (with 0 delay)
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338400069376
+[lib] a 9 task is starting (with 0 delay)
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338383283968
+[lib] a 7 task has finished
+[server] opened client fifo /tmp/14943.140338374891264
+[server] all clients closed, will wait for new ones
+[lib] a 8 task is starting (with 0 delay)
+[lib] a 9 task has finished
+[server] opened client fifo /tmp/14943.140338366498560
+[lib] a 8 task has finished
+[server] opened client fifo /tmp/14943.140338358105856
+[server] timeout reached: 1619532453
+[server] server, open serverfifo: Interrupted system call
+[server] unlinked server fifo
+[server] no longer accepting requests

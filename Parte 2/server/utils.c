@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include<stdlib.h>
 #include <pthread.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -27,6 +28,16 @@ bool isNumber(char *str){
         if(str[i] < '0' || str[i] > '9') return false;
     }
     return true;
+}
+
+int FIFOexists(char* fifo){
+    int fd = open(fifo, O_WRONLY);
+    if (fd == -1){
+        return 0;
+    }
+    close(fd);
+
+    return 1;
 }
 
 void createFIFO(char *fifo){

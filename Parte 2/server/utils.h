@@ -11,6 +11,8 @@ int getInst();
 
 bool isNumber(char *str);
 
+int FIFOexists(char* fifo);
+
 void createFIFO(char* fifo);
 
 void deleteFIFO();

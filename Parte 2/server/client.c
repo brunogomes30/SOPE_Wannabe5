@@ -65,8 +65,6 @@ int main(int argc, char *args[]){
 
     parseArgs(argc, args, &nsecs, pathFIFO);
     long int initialTime = time(NULL);
-    /*setupAlarm();
-    alarm(nsecs);*/
 
     int id = 0;
     serverClosed = 0;
@@ -95,15 +93,10 @@ int main(int argc, char *args[]){
                 last = addElement(last,thread);
             }
         }
-    }while(/*!serverClosed && !clientTimeOut*/time(NULL) < initialTime + nsecs);
+    }while(time(NULL) < initialTime + nsecs);
     fprintf(stderr,"NUM THREADS: %d\n", id);
-
-    pthread_mutex_lock(&clientMutex);
-    clientTimeOut = 1;
-    pthread_mutex_unlock(&clientMutex);
     
     aux = first;
-    fprintf(stderr,"Before joins\n");
     for(int i = 0; i <= id; i++){
         close(i+3);
     }
@@ -112,10 +105,7 @@ int main(int argc, char *args[]){
         pthread_join(aux->thread,NULL);
         aux = aux->next;
     }
-    fprintf(stderr,"After joins\n");
-
-
-    //unlink(pathFIFO);
+  
     free(pathFIFO);
     freeLinkedList(first);
     return 0;

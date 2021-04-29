@@ -3,6 +3,8 @@
 
 LinkedListElement *initLinkedList(pthread_t thread){
     LinkedListElement * newElement = (LinkedListElement *) malloc(sizeof(LinkedListElement));
+    if (newElement == NULL)
+        return NULL;
     newElement->thread = thread;
     return newElement;
 
@@ -10,6 +12,8 @@ LinkedListElement *initLinkedList(pthread_t thread){
 
 LinkedListElement* addElement(LinkedListElement *last, pthread_t thread){
     LinkedListElement * newElement = (LinkedListElement *) malloc(sizeof(LinkedListElement));
+    if (newElement == NULL)
+        return NULL;
     newElement->thread = thread;
     newElement->next = NULL;
     last->next = newElement;

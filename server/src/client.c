@@ -22,15 +22,19 @@ int checkArgs(int argc, char *args[]){
         char *numberStr;
         if(!strcmp(args[1], "-t") ){
             //args[1] == "-t"
-            numberStr = malloc(strlen(args[2])+1);
-            strncpy(numberStr, args[2], strlen(args[2]) + 1);
+            numberStr = (char *) malloc(strlen(args[2])+1);
+            if (numberStr != NULL)
+                strncpy(numberStr, args[2], strlen(args[2]) + 1);
             
         } else {
-            numberStr = malloc(strlen(args[1] - 2));
-            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
+            numberStr = (char *)malloc(strlen(args[1] - 2));
+            if (numberStr != NULL)
+                strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
         }
-        if(!isNumber(numberStr)){
-            hasError = true;
+        if (numberStr != NULL){
+            if(!isNumber(numberStr)){
+                hasError = true;
+            }
         }
         free(numberStr);
     } else{
@@ -46,6 +50,8 @@ int checkArgs(int argc, char *args[]){
 
 int parseArgs(int argc, char *args[], int *nsecs, char *pathFIFO){
     char * number = (char *) malloc(sizeof(strlen(args[1]) + 1));
+    if (number == NULL)
+        return -1;
     if(argc == 3){
         strncpy(number, args[1], strlen(args[1]) + 1);
         strncpy(number, number + 2, strlen(number) - 1);
@@ -72,6 +78,7 @@ int main(int argc, char *args[]){
     int id = 0;
     serverClosed = 0;
     LinkedListElement *first, *last, *aux;
+    first = NULL;
 
     while((publicFIFOfd = open(pathFIFO, O_WRONLY)) == -1 && (time(NULL) < initialTime + nsecs)){
         usleep(500);

@@ -46,6 +46,9 @@ void copyMessage(Message* copy, Message* toCopy){
 Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message){ 
     Message *response = (Message *)malloc(sizeof(Message));
 
+    if (response == NULL)
+        return NULL;
+
     if(readFromFIFO(privateFIFO,publicFIFO, response) == 0){
         if(response->tskres == -1){
             pthread_mutex_lock(&clientMutex);
@@ -66,6 +69,8 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
 
 Message* initializeMessage(ClientThreadArgs* threadArgs){
     Message *message = (Message *)malloc(sizeof(Message));
+    if (message == NULL)
+        return NULL;
 
     message->tid = pthread_self();
     message->pid = getpid();
@@ -80,6 +85,8 @@ void *thread_func(void *arg){
     ClientThreadArgs *threadArgs = (ClientThreadArgs *) arg;
     char * publicFIFO = threadArgs->fifo;
     Message *message = initializeMessage(threadArgs);
+    if (message == NULL)
+        return NULL;
    
     if(write(publicFIFOfd ,message, sizeof(Message)) == sizeof(Message)){
         writeLog(message, IWANT);

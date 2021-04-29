@@ -27,11 +27,25 @@ int writeToFIFO(char *fifo, Message *message){
     return 0;
 }
 
-int readFromFIFO(char *fifo, Message *response){
-    int filedesc = open(fifo, O_RDONLY);
-    if(read(filedesc, response, sizeof(Message)) == sizeof(Message)){
+int readFromFIFO(char *fifo,char * publicFifo, Message *response){
+    int filedesc;
+
+    if (!FIFOexists(publicFifo)) {
+        pthread_mutex_lock(&clientMutex);
+        serverClosed = 1;
+        pthread_mutex_unlock(&clientMutex);
+    }
+    
+    while(!clientTimeOut){
+        if (( filedesc = open(fifo, O_RDONLY | O_NONBLOCK )) != 0) {
             close(filedesc);
-            return 0;
+
+            int fd = open(fifo, O_RDONLY);
+            if(read(fd, response, sizeof(Message)) == sizeof(Message)){
+                close(fd);
+                return 0;
+            }
+        }
     }
     return -1;
 } 
@@ -47,7 +61,7 @@ void copyMessage(Message* copy, Message* toCopy){
 Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message){ 
     Message *response = (Message *)malloc(sizeof(Message));
 
-    if(readFromFIFO(privateFIFO,response) == 0){
+    if(readFromFIFO(privateFIFO,publicFIFO, response) == 0){
         if(response->tskres == -1){
             pthread_mutex_lock(&clientMutex);
             serverClosed = 1;

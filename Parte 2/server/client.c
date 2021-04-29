@@ -14,6 +14,7 @@
 #include "utils.h"
 
 pthread_mutex_t clientMutex;
+extern int clientTimeOut;
 
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
@@ -59,6 +60,7 @@ int parseArgs(int argc, char *args[], int *nsecs, char *pathFIFO){
 }
 
 int main(int argc, char *args[]){
+    clientTimeOut = 0;
     checkArgs(argc, args);
     char *pathFIFO = (char * ) malloc(100);
     int nsecs;
@@ -85,7 +87,7 @@ int main(int argc, char *args[]){
             if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
                 fprintf(stderr, "Failed to create thread\n");
             }
-            
+
             if (id == 1){
                 first = initLinkedList(thread);
                 last = first;
@@ -93,8 +95,12 @@ int main(int argc, char *args[]){
                 last = addElement(last,thread);
             }
         }
-    }while(time(NULL) < initialTime + nsecs);
+    }while((time(NULL) < initialTime + nsecs));
     fprintf(stderr,"NUM THREADS: %d\n", id);
+
+    pthread_mutex_lock(&clientMutex);
+    clientTimeOut = 1;
+    pthread_mutex_unlock(&clientMutex);
     
     aux = first;
     for(int i = 0; i <= id; i++){

@@ -31,13 +31,7 @@ bool isNumber(char *str){
 }
 
 int FIFOexists(char* fifo){
-    int fd = open(fifo, O_WRONLY);
-    if (fd == -1){
-        return 0;
-    }
-    close(fd);
-
-    return 1;
+    return !access(fifo, F_OK);
 }
 
 void createFIFO(char *fifo){
@@ -50,5 +44,6 @@ void deleteFIFO(){
     char* fifo = (char*)malloc(100);
     snprintf(fifo, 100, "/tmp/%d.%ld", getpid(), pthread_self()); 
     unlink(fifo);
+    printf("deleted %s\n",fifo);
     free(fifo);
 }

@@ -1,6 +1,7 @@
 ## TO DO
                                               
-- [ ] report  
+- [ ] report 
+- [x] Documentation 
 - [ ] valgrind 
 - [ ] infer
 - [ ] cpplint  

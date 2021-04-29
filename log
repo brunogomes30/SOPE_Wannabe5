@@ -1,7 +1,0 @@
-0 ; 13316 ; PROC_CREAT ; -v -R a=rwx tests
-0 ; 13316 ; PROC_CREAT ; -v -R a=rwx tests/testFolder1
-1 ; 13317 ; PROC_CREAT ; -v -R a=rwx tests/testFolder1
-1 ; 13317 ; PROC_CREAT ; -v -R a=rwx tests/testFolder1/testFolder2
-2 ; 13318 ; PROC_CREAT ; -v -R a=rwx tests/testFolder1/testFolder2
-2 ; 13318 ; PROC_EXIT ; 0
-3 ; 13317 ; PROC_EXIT ; 0

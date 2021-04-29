@@ -1,12 +1,3 @@
-## TO DO
-                                              
-- [ ] report 
-- [x] Documentation 
-- [ ] valgrind 
-- [ ] infer
-- [ ] cpplint  
-- [ ] hardcore testing
-
 ## SOPE T5G3
 
 #### Estrutura do Código

@@ -22,16 +22,17 @@ int checkArgs(int argc, char *args[]){
         char *numberStr;
         if(!strcmp(args[1], "-t") ){
             //args[1] == "-t"
-            numberStr = malloc(strlen(args[2]));
-            strncpy(numberStr, args[2], strlen(args[2]));
+            numberStr = malloc(strlen(args[2])+1);
+            strncpy(numberStr, args[2], strlen(args[2]) + 1);
             
         } else {
             numberStr = malloc(strlen(args[1] - 2));
-            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 2);
+            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
         }
         if(!isNumber(numberStr)){
             hasError = true;
         }
+        free(numberStr);
     } else{
         hasError = true;
     }
@@ -72,7 +73,7 @@ int main(int argc, char *args[]){
     serverClosed = 0;
     LinkedListElement *first, *last, *aux;
 
-    while((publicFIFOfd = open(pathFIFO, O_WRONLY)) == -1){
+    while((publicFIFOfd = open(pathFIFO, O_WRONLY)) == -1 && (time(NULL) < initialTime + nsecs)){
         usleep(500);
     }
 
@@ -103,9 +104,9 @@ int main(int argc, char *args[]){
     pthread_mutex_unlock(&clientMutex);
     
     aux = first;
-    for(int i = 0; i <= id; i++){
+    /*for(int i = 0; i <= id; i++){
         close(i+3);
-    }
+    }*/
     
     while(aux != NULL){
         pthread_join(aux->thread,NULL);

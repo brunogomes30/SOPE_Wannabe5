@@ -44,9 +44,7 @@ void createFIFO(char *fifo){
 }
 
 void deleteFIFO(){
-    char* fifo = (char*)malloc(100);
-    snprintf(fifo, strlen(fifo), "/tmp/%d.%ld", getpid(), pthread_self()); 
+    char fifo[100];
+    snprintf(fifo, sizeof(fifo), "/tmp/%d.%ld", getpid(), pthread_self()); 
     unlink(fifo);
-    printf("deleted %s\n",fifo);
-    free(fifo);
 }

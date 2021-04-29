@@ -15,7 +15,7 @@ int getRandomNumber(int lower, int upper) {
     if(upper > lower)
         return (rand_r(&seed) % (upper - lower)) + lower;
     else 
-        return -1;
+        return 10;
 }
 
 int getTaskRandom(){

@@ -11,7 +11,6 @@
 
 #### Estrutura do Código
 
----
 
 O projeto está dividido em cinco source files: log.c, utils.c, linkedList.c, communication.c e client.c.
 
@@ -39,9 +38,9 @@ A lista é inicializada pela função **initLinkedList** que coloca na lista a p
 ##### communication
 
 A quando da criação de uma thread é necessário especificar a sua função a executar, assim, é neste módulo que ela se encontra já que este é responsável por toda a comunicação entre o client e server.
-A thread_func é responsável pelo ciclo de ações exigidas na interação client-server. Passando como argumento a informação relativa ao publicFIFO e ao id da thread correspondente, numa estrutura auxiliar que denominamos ClientThreadArgs o client está apto a inciar a comunicação. 
-Inicializa em primeiro lugar a estrutura Message com a informação exigida, para que esta seja passada corretamente ao servidor. Seguidamente, envia esta mensagem pela publicFIFO ao servidor, fazendo um pedido (IWANT). Este registo é então efetuado no stdout. Posteriormente, cria-se uma fifo privada onde se aguardará pela resposta do servidor, na função getServerResponse. 
-Aqui a função readFromFIFO é chamada e retorna 0 quando é possível ler da privatefifo e -1 quando não é. A estratégia nesta função é tentar abrir e ler a resposta Message do ficheiro enquanto o client não der timeout. É também nesta função verificado se a publicFIFO ainda existe pois se não existir é necessário atualizar serverClosed para parar de criar threads. Após esta função, temos, então, dois cenários. No primeiro, é necessário verificar o valor com que vem o tskres do server, sendo que no caso de vir a -1, o registo a ser efetuado é de CLOSD. No outro, o registo é de GOTRS. Note-se que a partir do momento que o valor de uma resposta do server vem a -1, esta é a indicação de que o servidor fechou, assim é atualizada uma variável serverClosed útil para terminar a criação de threads no client. No caso de não ser possível ler da fifo o registo efetuado é de GAVUP. No fim de getServerResponse elimina-se a fifo privada.
+A **thread_func** é responsável pelo ciclo de ações exigidas na interação client-server. Passando como argumento a informação relativa ao _publicFIFO_ e ao id da thread correspondente, numa estrutura auxiliar que denominamos **ClientThreadArgs** o client está apto a inciar a comunicação. 
+Inicializa em primeiro lugar a estrutura _Message_ com a informação exigida, para que esta seja passada corretamente ao servidor. Seguidamente, envia esta mensagem pela _publicFIFO_ ao servidor, fazendo um pedido (**IWANT**). Este registo é então efetuado no stdout. Posteriormente, cria-se uma fifo privada onde se aguardará pela resposta do servidor, na função **getServerResponse**. 
+Aqui a função readFromFIFO é chamada e retorna 0 quando é possível ler da _privatefifo_ e -1 quando não é. A estratégia nesta função é tentar abrir e ler a resposta _Message_ do ficheiro enquanto o client não der timeout. É também nesta função verificado se a _publicFIFO_ ainda existe pois se não existir é necessário atualizar **serverClosed** para parar de criar threads. Após esta função, temos, então, dois cenários. No primeiro, é necessário verificar o valor com que vem o _tskres_ do server, sendo que no caso de vir a -1, o registo a ser efetuado é de **CLOSD**. No outro, o registo é de **GOTRS**. Note-se que a partir do momento que o valor de uma resposta do server vem a -1, esta é a indicação de que o servidor fechou, assim é atualizada uma variável _serverClosed_ útil para terminar a criação de threads no client. No caso de não ser possível ler da fifo o registo efetuado é de **GAVUP**. No fim de **getServerResponse** elimina-se a fifo privada.
 
 ##### client
 

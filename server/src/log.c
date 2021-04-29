@@ -1,6 +1,6 @@
-#include "log.h"
+#include "../include/log.h"
 #include<stdio.h>
-#include "utils.h"
+#include "../include/utils.h"
 
 static char * operationsStr[] = {"IWANT", "RECVD", "TSKEX", "TSKDN", "GOTRS", "2LATE", "CLOSD", "GAVUP", "FAILD"};
 

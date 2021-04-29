@@ -1,3 +1,5 @@
+#ifndef SERVER_INCLUDE_LINKEDLIST_H_
+#define SERVER_INCLUDE_LINKEDLIST_H_
 #include <pthread.h>
 
 typedef struct LinkedListElement LinkedListElement;
@@ -29,3 +31,5 @@ LinkedListElement *addElement(LinkedListElement *last, pthread_t thread);
  * @param begin 
  */
 void freeLinkedList(LinkedListElement *begin);
+
+#endif //SERVER_INCLUDE_LINKEDLIST_H_

@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#include <unistd.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include<string.h>
 #include <unistd.h>
@@ -9,9 +9,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "communication.h"
-#include "linkedList.h"
-#include "utils.h"
+#include "../include/communication.h"
+#include "../include/linkedList.h"
+#include "../include/utils.h"
 
 pthread_mutex_t clientMutex;
 extern int clientTimeOut;
@@ -66,7 +66,7 @@ int main(int argc, char *args[]){
     int nsecs;
 
     parseArgs(argc, args, &nsecs, pathFIFO);
-    long int initialTime = time(NULL);
+    uint64_t initialTime = time(NULL);
 
     int id = 0;
     serverClosed = 0;

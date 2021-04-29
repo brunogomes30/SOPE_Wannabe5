@@ -3,29 +3,14 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/select.h>
-#include <fcntl.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "communication.h"
-#include "utils.h"
+#include "../include/communication.h"
+#include "../include/utils.h"
 
 pthread_mutex_t clientMutex;
-
-int writeToFIFO(char *fifo, Message *message){
-    if (!FIFOexists(fifo))
-        return -1;
-
-    int fd  = open(fifo, O_WRONLY);
-    if(fd == -1){
-        return -1;
-    }
-
-    write(fd, message, sizeof(Message));
-    close(fd);
-    return 0;
-}
 
 int readFromFIFO(char *fifo,char * publicFifo, Message *response){
     int filedesc;
@@ -67,8 +52,7 @@ Message* getServerResponse(char* privateFIFO, char* publicFIFO,Message* message)
             serverClosed = 1;
             pthread_mutex_unlock(&clientMutex);
             writeLog(response,CLOSD);
-        }
-        else{
+        }else{
             writeLog(response,GOTRS);
         }
     }else{
@@ -100,7 +84,7 @@ void *thread_func(void *arg){
     if(write(publicFIFOfd ,message, sizeof(Message)) == sizeof(Message)){
         writeLog(message, IWANT);
         char privateFIFO[100];
-        snprintf(privateFIFO, 100, "/tmp/%d.%ld", message->pid, message->tid); 
+        snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid); 
         createFIFO(privateFIFO);
 
         Message *response = getServerResponse(privateFIFO, publicFIFO, message);

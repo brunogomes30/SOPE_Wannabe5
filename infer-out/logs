@@ -1,0 +1,91 @@
+[8346][      debug] Loading models took 33.337ms
+[8351][      debug] Sqlite write daemon: starting up
+[8351][      debug] Sqlite write daemon: set up complete, waiting for connections
+[8346][environment] CWD = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8346][environment] No .inferconfig file found
+[8346][environment] Project root = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8346][environment] INFER_ARGS =   @/tmp/args.tmp.0e7961
+[8346][environment] command line arguments:   infer run -- make --keep-going
+[8346][environment] Available memory at startup: 11729 MB
+[8346][environment] Active checkers: self-in-block (C/C++/ObjC), starvation (C/C++/ObjC, Java), uninit (C/C++/ObjC), siof (C/C++/ObjC), racerd (C/C++/ObjC, Java), liveness (C/C++/ObjC), inefficient-keyset-iterator (Java), fragment-retains-view (Java), biabduction (C/C++/ObjC, Java)
+[8346][environment] Scheduler: file
+[8346][environment] Cores used: 4
+[8346][environment] Infer version v1.0.0
+[8346][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[8346][environment] 
+[8346][   progress] Capturing in make/cc mode...
+[8346][environment] Running command make with env:
+[8346][environment] (Extend((PATH /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../lib/wrappers:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin)(INFER_OLD_PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin)))
+[8346][environment] 
+
+[8353][environment] CWD = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8353][environment] No .inferconfig file found
+[8353][environment] Project root = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8353][environment] INFER_ARGS =   @/tmp/args.tmp.6ca487
+[8353][environment] command line arguments:   cc -c -Wall src/auxXmod.c -o bin/auxXmod.o
+[8353][environment] Available memory at startup: 11696 MB
+[8353][environment] Active checkers: self-in-block (C/C++/ObjC), starvation (C/C++/ObjC, Java), uninit (C/C++/ObjC), siof (C/C++/ObjC), racerd (C/C++/ObjC, Java), liveness (C/C++/ObjC), inefficient-keyset-iterator (Java), fragment-retains-view (Java), biabduction (C/C++/ObjC, Java)
+[8353][      debug] WARNING: `clang -### <args>` returned an empty set of commands to run and no error. Will run the original command directly:
+[8353][      debug]   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang -c -Wall src/auxXmod.c -o bin/auxXmod.o
+[8353][      debug] 
+[8353][ extern err] Error executing:   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang
+                   -c -Wall src/auxXmod.c -o bin/auxXmod.o
+exited with code 127
+
+[8353][ extern err] Raised at Stdlib.input_line.scan in file "stdlib.ml", line 449, characters 14-31
+Called from Stdio__In_channel.input_line_exn in file "src/in_channel.ml" (inlined), line 68, characters 13-30
+Called from IBase__Utils.with_channel_in in file "src/base/Utils.ml", line 252, characters 11-44
+
+[8353][environment] Scheduler: file
+[8353][environment] Cores used: 4
+[8353][environment] 
+[8357][environment] CWD = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8357][environment] No .inferconfig file found
+[8357][environment] Project root = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8357][environment] INFER_ARGS =   @/tmp/args.tmp.d8862d
+[8357][environment] command line arguments:   cc -c -Wall src/logFile.c -o bin/logFile.o
+[8357][environment] Available memory at startup: 11696 MB
+[8357][environment] Active checkers: self-in-block (C/C++/ObjC), starvation (C/C++/ObjC, Java), uninit (C/C++/ObjC), siof (C/C++/ObjC), racerd (C/C++/ObjC, Java), liveness (C/C++/ObjC), inefficient-keyset-iterator (Java), fragment-retains-view (Java), biabduction (C/C++/ObjC, Java)
+[8357][      debug] WARNING: `clang -### <args>` returned an empty set of commands to run and no error. Will run the original command directly:
+[8357][      debug]   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang -c -Wall src/logFile.c -o bin/logFile.o
+[8357][      debug] 
+[8357][ extern err] Error executing:   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang
+                   -c -Wall src/logFile.c -o bin/logFile.o
+exited with code 127
+
+[8357][ extern err] Raised at Stdlib.input_line.scan in file "stdlib.ml", line 449, characters 14-31
+Called from Stdio__In_channel.input_line_exn in file "src/in_channel.ml" (inlined), line 68, characters 13-30
+Called from IBase__Utils.with_channel_in in file "src/base/Utils.ml", line 252, characters 11-44
+
+[8357][environment] Scheduler: file
+[8357][environment] Cores used: 4
+[8357][environment] 
+[8361][environment] CWD = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8361][environment] No .inferconfig file found
+[8361][environment] Project root = /home/rodrigo/Desktop/SOPE/SOPE_Wannabe5
+[8361][environment] INFER_ARGS =   @/tmp/args.tmp.7c9a19
+[8361][environment] command line arguments:   cc -c -Wall src/xmod.c -o bin/xmod.o
+[8361][environment] Available memory at startup: 11695 MB
+[8361][environment] Active checkers: self-in-block (C/C++/ObjC), starvation (C/C++/ObjC, Java), uninit (C/C++/ObjC), siof (C/C++/ObjC), racerd (C/C++/ObjC, Java), liveness (C/C++/ObjC), inefficient-keyset-iterator (Java), fragment-retains-view (Java), biabduction (C/C++/ObjC, Java)
+[8361][      debug] WARNING: `clang -### <args>` returned an empty set of commands to run and no error. Will run the original command directly:
+[8361][      debug]   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang -c -Wall src/xmod.c -o bin/xmod.o
+[8361][      debug] 
+[8361][ extern err] Error executing:   /opt/infer-linux64-v1.0.0/lib/infer/infer/bin/../../facebook-clang-plugins/clang/install/bin/clang
+                   -c -Wall src/xmod.c -o bin/xmod.o
+exited with code 127
+
+[8361][ extern err] Raised at Stdlib.input_line.scan in file "stdlib.ml", line 449, characters 14-31
+Called from Stdio__In_channel.input_line_exn in file "src/in_channel.ml" (inlined), line 68, characters 13-30
+Called from IBase__Utils.with_channel_in in file "src/base/Utils.ml", line 252, characters 11-44
+
+[8361][environment] Scheduler: file
+[8361][environment] Cores used: 4
+[8361][environment] [8346][ extern err] *** capture command failed:
+*** make --keep-going
+*** exited with code 2
+
+[8346][ extern err] Raised at Stdlib__scanf.bad_input in file "scanf.ml" (inlined), line 444, characters 18-40
+Called from Stdlib__scanf.scanf_bad_input in file "scanf.ml", line 1164, characters 4-75
+Called from IBase__Utils.get_available_memory_MB.scan_for_expected_output in file "src/base/Utils.ml", line 439, characters 10-86
+
+[8351][      debug] Sqlite write daemon: terminating

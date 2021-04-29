@@ -1,16 +1,19 @@
-#include "utils.h"
+#include "../include/utils.h"
 #include<time.h>
 #include <stdio.h>
 #include<stdlib.h>
 #include <pthread.h>
+#include <stdint.h>
+#include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 int getRandomNumber(int lower, int upper) {
+    unsigned int seed = time(NULL);
     if(upper > lower)
-        return (rand() % (upper - lower)) + lower;
+        return (rand_r(&seed) % (upper - lower)) + lower;
     else 
         return -1;
 }
@@ -42,7 +45,7 @@ void createFIFO(char *fifo){
 
 void deleteFIFO(){
     char* fifo = (char*)malloc(100);
-    snprintf(fifo, 100, "/tmp/%d.%ld", getpid(), pthread_self()); 
+    snprintf(fifo, strlen(fifo), "/tmp/%d.%ld", getpid(), pthread_self()); 
     unlink(fifo);
     printf("deleted %s\n",fifo);
     free(fifo);

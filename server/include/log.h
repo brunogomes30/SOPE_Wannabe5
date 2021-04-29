@@ -1,6 +1,6 @@
-#ifndef LOG_H
-#define LOG_H
-#include "common.h"
+#ifndef SERVER_INCLUDE_LOG_H_
+#define SERVER_INCLUDE_LOG_H_
+#include "../include/common.h"
 
 typedef enum
 {
@@ -23,4 +23,4 @@ typedef enum
  */
 void writeLog(Message *msg, Operation op);
 
-#endif
+#endif //SERVER_INCLUDE_LOG_H_

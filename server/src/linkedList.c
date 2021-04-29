@@ -1,4 +1,4 @@
-#include "linkedList.h"
+#include "../include/linkedList.h"
 #include <stdlib.h>
 
 LinkedListElement *initLinkedList(pthread_t thread){

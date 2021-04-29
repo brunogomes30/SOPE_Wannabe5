@@ -1,8 +1,8 @@
-#ifndef COMMUNICATIONS_H
-#define COMMUNICATIONS_H
+#ifndef SERVER_INCLUDE_COMMUNICATION_H_
+#define SERVER_INCLUDE_COMMUNICATION_H_
 
-#include "common.h"
-#include "log.h"
+#include "../include/common.h"
+#include "../include/log.h"
 
 typedef struct
 {
@@ -40,14 +40,6 @@ Message *initializeMessage(ClientThreadArgs *threadArgs);
 
 /**
  * @brief 
- * Writes in the public FIFO the message
- * @param fifo 
- * @param message 
- */
-int writeToFIFO(char *fifo, Message *message);
-
-/**
- * @brief 
  * Reads message response from private FIFO 
  * @param fifo 
  * @param message 
@@ -60,4 +52,5 @@ int readFromFIFO(char *fifo, char * publicFifo,Message *message);
  * @param arg  
  */
 void *thread_func(void *arg);
-#endif
+
+#endif //SERVER_INCLUDE_COMMUNICATION_H_

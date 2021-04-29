@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef SERVER_INCLUDE_UTILS_H_
+#define SERVER_INCLUDE_UTILS_H_
 #include <stdbool.h>
 
 
@@ -18,4 +18,4 @@ void createFIFO(char* fifo);
 void deleteFIFO();
 
 
-#endif
+#endif //SERVER_INCLUDE_UTILS_H_

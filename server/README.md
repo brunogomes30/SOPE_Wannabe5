@@ -36,3 +36,11 @@ Aqui a função readFromFIFO é chamada e retorna 0 quando é possível ler da _
 ##### client
 
 É neste módulo que se encontra nossa função main. Inicialmente, corremos uma verificação dos argumentos para a execução do programa. Posteriormente, espera-se que seja aberta a fifo pública. Quando esta for aberta, e enquanto o tempo de execução do client ainda não tiver sido ultrapassado, entre cada intervalo de tempo semi-aleatório, entre 10000 us e 50000 us, é criada uma nova thread onde são passado todos os parâmetros e cada thread é adicionada a linkedList previamente inicializada. Quando o tempo termina, todas as fifos são fechadas e as threads também. No fim desalocada toda a memória utilizada. 
+
+
+#### Contribuição Individual
+
+Beatriz Aguiar: 25%
+Bruno Gomes: 25%
+Matilde Oliveira: 25%
+Rodrigo Tuna: 25%

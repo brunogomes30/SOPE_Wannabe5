@@ -94,6 +94,7 @@ int main(int argc, char *args[]){
             threadArgs->fifo = pathFIFO;
             if (pthread_create(&thread, NULL, thread_func, threadArgs)) {
                 fprintf(stderr, "Failed to create thread\n");
+                continue;
             }
 
             if (id == 1){
@@ -111,9 +112,6 @@ int main(int argc, char *args[]){
     pthread_mutex_unlock(&clientMutex);
     
     aux = first;
-    /*for(int i = 0; i <= id; i++){
-        close(i+3);
-    }*/
     
     while(aux != NULL){
         pthread_join(aux->thread,NULL);

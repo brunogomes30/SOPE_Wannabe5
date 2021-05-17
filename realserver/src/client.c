@@ -15,10 +15,11 @@
 #include "../include/consumer.h"
 #include "../include/queue.h"
 
-pthread_mutex_t clientMutex;
+pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
 extern int clientTimeOut;
 extern int serverClosed;
-Queue queue;
+Queue *queue;
+
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
     if(argc == 4 || argc == 6){
@@ -114,10 +115,11 @@ int main(int argc, char *args[]){
     first = initLinkedList(threadConsumer);
     last = first;
 
-    //queue_init(sizeBuffer);
-    queue.first = NULL;
+    queue = (Queue *) malloc (sizeof(Queue));
+    queue->first = NULL;
+    Message *response = (Message *)malloc(sizeof(Message));
+
     do{
-        Message *response = (Message *)malloc(sizeof(Message));
         if(!clientTimeOut){
             
             int fd = open(pathFIFO, O_RDONLY);
@@ -127,6 +129,7 @@ int main(int argc, char *args[]){
             if (pthread_create(&thread, NULL, thread_func, response)) {
                 fprintf(stderr, "Failed to create thread\n");
             }
+
             last = addElement(last,thread);
         }
     }while((time(NULL) < initialTime + nsecs));
@@ -143,7 +146,11 @@ int main(int argc, char *args[]){
     }
   
     free(pathFIFO);
+    free(response);
+    free(queue);
     freeLinkedList(first);
     deleteFIFO(pathFIFO);
+    free(pathFIFO);
+
     return 0;
 }

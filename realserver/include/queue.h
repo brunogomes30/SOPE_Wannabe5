@@ -2,84 +2,26 @@
 #define QUEUE_H
 #include "../include/common.h"
 #include <stdbool.h>
-/**
- * @brief 
- * 
- * @param size 
- */
-void queue_init(int size);
-
-
-/**
- * @brief 
- * 
- * @return true 
- * @return false 
- */
-bool queue_isEmpty();
-
-/**
- * @brief 
- * 
- * @return true 
- * @return false 
- */
-bool queue_isFull();
-
-/**
- * @brief 
- * 
- * @return int 
- */
-int queue_size();
-
-/**
- * @brief 
- * 
- */
-void queue_push(Message *);
-
-/**
- * @brief 
- * 
- * @return Message* 
- */
-Message * queue_pop();
+#include <stdlib.h> 
 
 typedef struct Node Node;
 
 
 struct Node {
     Message *k;
-    Node Next;
+    Node *Next;
 };
 
 typedef struct {
-    Node first,last;
-
-    void push(Node MyNode) {
-        MyNode->Next=NULL;
-        if(empty()) {
-            first=MyNode;
-            last=MyNode;
-        }
-        else {
-            last->Next = MyNode;
-            last=MyNode;
-        }
-    }
-    Node front() {
-        return first;
-    }
-    void pop() {
-        free(first->k);
-        first=first->Next;
-    }
-    bool empty() {
-        if(first==NULL) return true;
-        return false;
-    }
+    Node *first, *last;
 } Queue;
 
+bool empty(Queue *queue);
+
+void push(Queue *queue, Node *MyNode);
+
+Node* front(Queue *queue);
+
+void pop(Queue *queue);
 
 #endif //QUEUE_H

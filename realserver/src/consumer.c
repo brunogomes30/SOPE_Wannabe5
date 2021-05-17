@@ -7,14 +7,13 @@
 #include <unistd.h>
 #include <stdio.h>
 
-pthread_mutex_t serverMutex;
+pthread_mutex_t serverMutex = PTHREAD_MUTEX_INITIALIZER;
 extern int serverClosed;
-extern Queue queue;
+extern Queue *queue;
+
 int writeToFIFO(char *fifo, Message *message){
     int filedesc;
-    printf("1111\n");
     filedesc = open(fifo, O_WRONLY ); 
-    printf("22222\n");
     write(filedesc, message, sizeof(Message));
     close(filedesc);
     return 0;
@@ -26,23 +25,37 @@ int writeToFIFO(char *fifo, Message *message){
 
 
 void *thread_consumer(void *arg){
+    Message *message = (Message *) malloc(sizeof(Message));
+
     while(!serverClosed){
-        
-        if(!queue_isEmpty()){
-            printf("CONSUMIDOR \n");
+        pthread_mutex_lock(&serverMutex);
+        bool isEmpty = empty(queue);
+        pthread_mutex_unlock(&serverMutex);
+
+
+
+        if(!isEmpty){
             pthread_mutex_lock(&serverMutex);
-            Message *message = queue.front();
-            queue.pop();
-            pthread_mutex_unlock(&serverMutex);
-            char privateFIFO[100];
-            snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid); 
-            printf("privateFIFO = %s\n", privateFIFO);
-            writeToFIFO(privateFIFO, message);
-            writeLog(message, TSKDN);
+            
+            message = front(queue)->k;
+            pop(queue);
+            if (message != NULL){
+                pthread_mutex_unlock(&serverMutex);
+
+                char privateFIFO[100];
+                snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid); 
+
+                pthread_mutex_lock(&serverMutex);
+                writeToFIFO(privateFIFO, message);
+                pthread_mutex_unlock(&serverMutex);
+
+                writeLog(message, TSKDN);
+            }
         } else {
             usleep(5000);
         }
     }
-    return NULL;
 
+    free(message);
+    return NULL;
 }

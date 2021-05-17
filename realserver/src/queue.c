@@ -3,52 +3,30 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../include/queue.h"
-#include "../include/common.h"
 
-Message **intArray;
-int max;
-int front = 0;
-int rear = -1;
-int itemCount = 0;
 
-void queue_init(int size){
-    max = size;
-    intArray = (Message **) malloc(sizeof(Message *) * size);
+bool empty(Queue *queue) {
+    if(queue->first==NULL) return true;
+    return false;
 }
 
+void push(Queue *queue, Node *MyNode) {
 
-bool queue_isEmpty() {
-   return itemCount == 0;
+     MyNode->Next=NULL;
+     if(empty(queue)) {
+         queue->first = MyNode;
+         queue->last = MyNode;
+     }
+     else {
+         queue->last->Next = MyNode;
+         queue->last=MyNode;
+     }
 }
 
-bool queue_isFull() {
-   return itemCount == max;
+Node* front(Queue *queue) {
+    return queue->first;
 }
-
-int queue_size() {
-   return itemCount;
-}  
-
-void queue_push(Message *data) {
-
-   if(!queue_isFull()) {
-	
-      if(rear == max-1) {
-         rear = -1;            
-      }       
-
-      intArray[++rear] = data;
-      itemCount++;
-   }
-}
-
-Message* queue_pop() {
-   Message * data = intArray[front++];
-	
-   if(front == max) {
-      front = 0;
-   }
-	
-   itemCount--;
-   return data;  
+void pop(Queue *queue) {
+    free(queue->first->k);
+    queue->first = queue->first->Next;
 }

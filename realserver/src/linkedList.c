@@ -1,5 +1,6 @@
 #include "../include/linkedList.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 LinkedListElement *initLinkedList(pthread_t thread){
     LinkedListElement * newElement = (LinkedListElement *) malloc(sizeof(LinkedListElement));

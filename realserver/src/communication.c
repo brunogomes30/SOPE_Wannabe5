@@ -11,23 +11,25 @@
 #include "../include/utils.h"
 #include "../include/lib.h"
 #include "../include/queue.h"
+
 pthread_mutex_t serverMutex;
-extern Queue queue;
-void *thread_func(void *arg){
-    Message *message = (Message *) arg;
-    
+extern Queue *queue;
+
+void *thread_func(void *arg){    
+        
+    Message *message = (Message *) malloc(sizeof(Message));
+    message = (Message *) arg;
+
     writeLog(message, TSKEX);
     message->tskres = task(message->tskload);
     
-
     Node *newNode =  (Node* ) malloc(sizeof(Node));
     newNode->k = message;
+
     pthread_mutex_lock(&serverMutex);
-    //queue_push(message);
-    queue.push(newNode);
+    push(queue,newNode);
     pthread_mutex_unlock(&serverMutex);
     
-
-    free(arg);
+    free(message);
     pthread_exit(NULL);
 }

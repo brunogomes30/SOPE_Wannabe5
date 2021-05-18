@@ -16,8 +16,10 @@
 #include "../include/queue.h"
 
 pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
-extern int clientTimeOut;
+pthread_mutex_t fifoMutex;
+int clientTimeOut = 0;
 extern int serverClosed;
+extern int emptyBuffer;
 Queue *queue;
 
 int checkArgs(int argc, char *args[]){
@@ -115,42 +117,52 @@ int main(int argc, char *args[]){
     first = initLinkedList(threadConsumer);
     last = first;
 
-    queue = (Queue *) malloc (sizeof(Queue));
-    queue->first = NULL;
+    queue = initQueue(sizeBuffer);
     Message *response = (Message *)malloc(sizeof(Message));
 
     do{
-        if(!clientTimeOut){
-            
-            int fd = open(pathFIFO, O_RDONLY);
+
+        pthread_mutex_lock(&fifoMutex);
+        int fd;     
+        if ((fd = open(pathFIFO, O_RDONLY | O_NONBLOCK)) != -1){
+            close(fd);
+            fd = open(pathFIFO, O_RDONLY);
             read(fd, response, sizeof(Message));
-            pthread_t thread;
-            writeLog(response, RECVD);
-            if (pthread_create(&thread, NULL, thread_func, response)) {
-                fprintf(stderr, "Failed to create thread\n");
-            }
-
-            last = addElement(last,thread);
+            close(fd);
         }
-    }while((time(NULL) < initialTime + nsecs));
+        else if (serverClosed){
+            break;
+        }
+        pthread_mutex_unlock(&fifoMutex);
 
-    pthread_mutex_lock(&clientMutex);
-    serverClosed = 1;
-    pthread_mutex_unlock(&clientMutex);
-    
+        pthread_t thread;
+        writeLog(response, RECVD);
+        if (pthread_create(&thread, NULL, thread_func, response)) {
+            fprintf(stderr, "Failed to create thread\n");
+        }
+
+        last = addElement(last,thread);
+        if( (time(NULL) > initialTime + nsecs)) {
+            pthread_mutex_lock(&clientMutex);
+            serverClosed = 1;
+            pthread_mutex_unlock(&clientMutex);
+        }
+    }while(!serverClosed);
+
+    while(!emptyBuffer){}
+
     aux = first;
 
     while(aux != NULL){
         pthread_join(aux->thread,NULL);
         aux = aux->next;
     }
-  
-    free(pathFIFO);
+
     free(response);
+    free(pathFIFO);
     free(queue);
     freeLinkedList(first);
     deleteFIFO(pathFIFO);
-    free(pathFIFO);
 
     return 0;
 }

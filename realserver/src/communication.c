@@ -14,22 +14,27 @@
 
 pthread_mutex_t serverMutex;
 extern Queue *queue;
+extern int serverClosed;
+extern bool fullBuffer;
+
 
 void *thread_func(void *arg){    
         
-    Message *message = (Message *) malloc(sizeof(Message));
-    message = (Message *) arg;
+    Message *message = (Message *) arg;
 
     writeLog(message, TSKEX);
-    message->tskres = task(message->tskload);
-    
-    Node *newNode =  (Node* ) malloc(sizeof(Node));
-    newNode->k = message;
 
-    pthread_mutex_lock(&serverMutex);
-    push(queue,newNode);
-    pthread_mutex_unlock(&serverMutex);
+    if(!serverClosed)
+        message->tskres = task(message->tskload);
+
+    while(fullBuffer){
+        usleep(5*1000);
+    }
+
     
-    free(message);
+    pthread_mutex_lock(&serverMutex);
+    push(queue,message);
+    pthread_mutex_unlock(&serverMutex);
+
     pthread_exit(NULL);
 }

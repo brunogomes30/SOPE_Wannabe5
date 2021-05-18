@@ -1,0 +1,816 @@
+Initial time: 1621299817, expected final time: 1621299827
+
+Got: nsecs=10, fifoname=/tmp/fifo_beatriz-ag
+[client] created client fifo /tmp/531429.140300487833344
+[client] created client fifo /tmp/531429.140300408321792
+[client] created client fifo /tmp/531429.140300399929088
+[client] created client fifo /tmp/531429.140300391536384
+[client] created client fifo /tmp/531429.140300383143680
+[client] opened client fifo /tmp/531429.140300383143680
+[client] created client fifo /tmp/531429.140300374750976
+[client] opened client fifo /tmp/531429.140300374750976
+[client] created client fifo /tmp/531429.140300366358272
+[client] opened client fifo /tmp/531429.140300366358272
+[client] created client fifo /tmp/531429.140300357965568
+[client] opened client fifo /tmp/531429.140300357965568
+[client] created client fifo /tmp/531429.140300139886336
+[client] opened client fifo /tmp/531429.140300139886336
+[client] created client fifo /tmp/531429.140300131493632
+[client] opened client fifo /tmp/531429.140300131493632
+[client] created client fifo /tmp/531429.140300123100928
+[client] created client fifo /tmp/531429.140300114708224
+[client] opened client fifo /tmp/531429.140300123100928
+[client] created client fifo /tmp/531429.140300106315520
+[client] opened client fifo /tmp/531429.140300114708224
+[client] created client fifo /tmp/531429.140300097922816
+[client] opened client fifo /tmp/531429.140300097922816
+[client] created client fifo /tmp/531429.140300089530112
+[client] created client fifo /tmp/531429.140299938559744
+[client] opened client fifo /tmp/531429.140300089530112
+[client] opened client fifo /tmp/531429.140299938559744
+[client] created client fifo /tmp/531429.140299930167040
+[client] opened client fifo /tmp/531429.140299930167040
+[client] created client fifo /tmp/531429.140299921774336
+[client] opened client fifo /tmp/531429.140299921774336
+[client] created client fifo /tmp/531429.140299913381632
+[client] created client fifo /tmp/531429.140299904988928
+[client] opened client fifo /tmp/531429.140299904988928
+[client] created client fifo /tmp/531429.140299896596224
+[client] created client fifo /tmp/531429.140299888203520
+[client] opened client fifo /tmp/531429.140299896596224
+[client] created client fifo /tmp/531429.140299804342016
+[client] opened client fifo /tmp/531429.140299804342016
+[client] created client fifo /tmp/531429.140299795949312
+[client] opened client fifo /tmp/531429.140299795949312
+[client] created client fifo /tmp/531429.140299787556608
+[client] opened client fifo /tmp/531429.140299787556608
+[client] created client fifo /tmp/531429.140299779163904
+[client] created client fifo /tmp/531429.140299770771200
+[client] opened client fifo /tmp/531429.140299770771200
+[client] created client fifo /tmp/531429.140299762378496
+[client] opened client fifo /tmp/531429.140299762378496
+[client] created client fifo /tmp/531429.140299753985792
+[client] created client fifo /tmp/531429.140299603015424
+[client] opened client fifo /tmp/531429.140299603015424
+[client] created client fifo /tmp/531429.140299594622720
+[client] opened client fifo /tmp/531429.140299594622720
+[client] created client fifo /tmp/531429.140299586230016
+[client] created client fifo /tmp/531429.140299577837312
+[client] opened client fifo /tmp/531429.140299577837312
+[client] created client fifo /tmp/531429.140299569444608
+[client] opened client fifo /tmp/531429.140299569444608
+[client] created client fifo /tmp/531429.140299561051904
+[client] opened client fifo /tmp/531429.140299561051904
+[client] created client fifo /tmp/531429.140299552659200
+[client] opened client fifo /tmp/531429.140299552659200
+[client] created client fifo /tmp/531429.140299468797696
+[client] opened client fifo /tmp/531429.140299468797696
+[client] created client fifo /tmp/531429.140299460404992
+[client] opened client fifo /tmp/531429.140299460404992
+[client] created client fifo /tmp/531429.140299452012288
+[client] opened client fifo /tmp/531429.140299452012288
+[client] created client fifo /tmp/531429.140299443619584
+[client] opened client fifo /tmp/531429.140299443619584
+[client] created client fifo /tmp/531429.140299435226880
+[client] opened client fifo /tmp/531429.140299435226880
+[client] created client fifo /tmp/531429.140299426834176
+[client] opened client fifo /tmp/531429.140299426834176
+[client] created client fifo /tmp/531429.140299418441472
+[client] opened client fifo /tmp/531429.140299418441472
+[client] created client fifo /tmp/531429.140299334579968
+[client] opened client fifo /tmp/531429.140299334579968
+[client] created client fifo /tmp/531429.140299326187264
+[client] opened client fifo /tmp/531429.140299326187264
+[client] created client fifo /tmp/531429.140299317794560
+[client] opened client fifo /tmp/531429.140299317794560
+[client] created client fifo /tmp/531429.140299309401856
+[client] opened client fifo /tmp/531429.140299309401856
+[client] created client fifo /tmp/531429.140299301009152
+[client] opened client fifo /tmp/531429.140299301009152
+[client] created client fifo /tmp/531429.140299292616448
+[client] created client fifo /tmp/531429.140299284223744
+[client] opened client fifo /tmp/531429.140299292616448
+[client] opened client fifo /tmp/531429.140299284223744
+[client] created client fifo /tmp/531429.140299200362240
+[client] opened client fifo /tmp/531429.140299200362240
+[client] created client fifo /tmp/531429.140299191969536
+[client] opened client fifo /tmp/531429.140299191969536
+[client] created client fifo /tmp/531429.140299183576832
+[client] created client fifo /tmp/531429.140299175184128
+[client] opened client fifo /tmp/531429.140299183576832
+[client] created client fifo /tmp/531429.140299166791424
+[client] opened client fifo /tmp/531429.140299175184128
+[client] created client fifo /tmp/531429.140299158398720
+[client] opened client fifo /tmp/531429.140299166791424
+[client] opened client fifo /tmp/531429.140299158398720
+[client] created client fifo /tmp/531429.140299150006016
+[client] created client fifo /tmp/531429.140299141613312
+[client] opened client fifo /tmp/531429.140299141613312
+[client] created client fifo /tmp/531429.140299133220608
+[client] created client fifo /tmp/531429.140299124827904
+[client] opened client fifo /tmp/531429.140299124827904
+[client] created client fifo /tmp/531429.140299116435200
+[client] opened client fifo /tmp/531429.140299116435200
+[client] created client fifo /tmp/531429.140299108042496
+[client] created client fifo /tmp/531429.140299099649792
+[client] opened client fifo /tmp/531429.140299099649792
+[client] created client fifo /tmp/531429.140299091257088
+[client] opened client fifo /tmp/531429.140299091257088
+[client] created client fifo /tmp/531429.140299082864384
+[client] opened client fifo /tmp/531429.140299082864384
+[client] created client fifo /tmp/531429.140298999035648
+[client] opened client fifo /tmp/531429.140298999035648
+[client] created client fifo /tmp/531429.140298990642944
+[client] opened client fifo /tmp/531429.140298990642944
+[client] created client fifo /tmp/531429.140298982250240
+[client] created client fifo /tmp/531429.140298973857536
+[client] opened client fifo /tmp/531429.140298973857536
+[client] created client fifo /tmp/531429.140298965464832
+[client] opened client fifo /tmp/531429.140298965464832
+[client] created client fifo /tmp/531429.140298957072128
+[client] opened client fifo /tmp/531429.140298957072128
+[client] created client fifo /tmp/531429.140298948679424
+[client] opened client fifo /tmp/531429.140298948679424
+[client] created client fifo /tmp/531429.140298797709056
+[client] opened client fifo /tmp/531429.140298797709056
+[client] created client fifo /tmp/531429.140298789316352
+[client] opened client fifo /tmp/531429.140298789316352
+[client] created client fifo /tmp/531429.140298780923648
+[client] opened client fifo /tmp/531429.140298780923648
+[client] created client fifo /tmp/531429.140298772530944
+[client] opened client fifo /tmp/531429.140298772530944
+[client] created client fifo /tmp/531429.140298764138240
+[client] opened client fifo /tmp/531429.140298764138240
+[client] created client fifo /tmp/531429.140298755745536
+[client] opened client fifo /tmp/531429.140298755745536
+[client] created client fifo /tmp/531429.140298747352832
+[client] created client fifo /tmp/531429.140298738960128
+[client] opened client fifo /tmp/531429.140298738960128
+[client] created client fifo /tmp/531429.140298730567424
+[client] opened client fifo /tmp/531429.140298730567424
+[client] created client fifo /tmp/531429.140298722174720
+[client] opened client fifo /tmp/531429.140298722174720
+[client] created client fifo /tmp/531429.140298713782016
+[client] opened client fifo /tmp/531429.140298713782016
+[client] created client fifo /tmp/531429.140298705389312
+[client] opened client fifo /tmp/531429.140298705389312
+[client] created client fifo /tmp/531429.140298696996608
+[client] opened client fifo /tmp/531429.140298696996608
+[client] created client fifo /tmp/531429.140298688603904
+[client] created client fifo /tmp/531429.140298680211200
+[client] opened client fifo /tmp/531429.140298680211200
+[client] created client fifo /tmp/531429.140298596382464
+[client] opened client fifo /tmp/531429.140298596382464
+[client] created client fifo /tmp/531429.140298587989760
+[client] created client fifo /tmp/531429.140298579597056
+[client] opened client fifo /tmp/531429.140298587989760
+[client] opened client fifo /tmp/531429.140298579597056
+[client] created client fifo /tmp/531429.140298571204352
+[client] opened client fifo /tmp/531429.140298571204352
+[client] created client fifo /tmp/531429.140298562811648
+[client] created client fifo /tmp/531429.140298554418944
+[client] opened client fifo /tmp/531429.140298554418944
+[client] created client fifo /tmp/531429.140298546026240
+[client] opened client fifo /tmp/531429.140298546026240
+[client] created client fifo /tmp/531429.140298395055872
+[client] opened client fifo /tmp/531429.140298395055872
+[client] created client fifo /tmp/531429.140298386663168
+[client] opened client fifo /tmp/531429.140298386663168
+[client] created client fifo /tmp/531429.140298378270464
+[client] created client fifo /tmp/531429.140298369877760
+[client] opened client fifo /tmp/531429.140298369877760
+[client] created client fifo /tmp/531429.140298361485056
+[client] opened client fifo /tmp/531429.140298361485056
+[client] created client fifo /tmp/531429.140298353092352
+[client] opened client fifo /tmp/531429.140298353092352
+[client] created client fifo /tmp/531429.140298344699648
+[client] opened client fifo /tmp/531429.140298344699648
+[client] created client fifo /tmp/531429.140298260838144
+[client] opened client fifo /tmp/531429.140298260838144
+[client] created client fifo /tmp/531429.140298252445440
+[client] opened client fifo /tmp/531429.140298252445440
+[client] created client fifo /tmp/531429.140298244052736
+[client] created client fifo /tmp/531429.140298235660032
+[client] opened client fifo /tmp/531429.140298235660032
+[client] created client fifo /tmp/531429.140298227267328
+[client] opened client fifo /tmp/531429.140298227267328
+[client] created client fifo /tmp/531429.140298218874624
+[client] created client fifo /tmp/531429.140298210481920
+[client] opened client fifo /tmp/531429.140298210481920
+[client] created client fifo /tmp/531429.140298126620416
+[client] opened client fifo /tmp/531429.140298126620416
+[client] created client fifo /tmp/531429.140298118227712
+[client] opened client fifo /tmp/531429.140298118227712
+[client] created client fifo /tmp/531429.140298109835008
+[client] opened client fifo /tmp/531429.140298109835008
+[client] created client fifo /tmp/531429.140298101442304
+[client] created client fifo /tmp/531429.140298093049600
+[client] opened client fifo /tmp/531429.140298101442304
+[client] opened client fifo /tmp/531429.140298093049600
+[client] created client fifo /tmp/531429.140298084656896
+[client] created client fifo /tmp/531429.140298076264192
+[client] opened client fifo /tmp/531429.140298084656896
+[client] opened client fifo /tmp/531429.140298076264192
+[client] created client fifo /tmp/531429.140297925293824
+[client] opened client fifo /tmp/531429.140297925293824
+[client] created client fifo /tmp/531429.140297916901120
+[client] created client fifo /tmp/531429.140297908508416
+[client] opened client fifo /tmp/531429.140297916901120
+[client] opened client fifo /tmp/531429.140297908508416
+[client] created client fifo /tmp/531429.140297900115712
+[client] opened client fifo /tmp/531429.140297900115712
+[client] created client fifo /tmp/531429.140297891723008
+[client] created client fifo /tmp/531429.140297883330304
+[client] opened client fifo /tmp/531429.140297883330304
+[client] created client fifo /tmp/531429.140297874937600
+[client] opened client fifo /tmp/531429.140297874937600
+[client] created client fifo /tmp/531429.140297866544896
+[client] opened client fifo /tmp/531429.140297866544896
+[client] created client fifo /tmp/531429.140297858152192
+[client] opened client fifo /tmp/531429.140297858152192
+[client] created client fifo /tmp/531429.140297849759488
+[client] created client fifo /tmp/531429.140297841366784
+[client] opened client fifo /tmp/531429.140297841366784
+[client] created client fifo /tmp/531429.140297832974080
+[client] opened client fifo /tmp/531429.140297832974080
+[client] created client fifo /tmp/531429.140297824581376
+[client] opened client fifo /tmp/531429.140297824581376
+[client] created client fifo /tmp/531429.140297816188672
+[client] created client fifo /tmp/531429.140297807795968
+[client] opened client fifo /tmp/531429.140297816188672
+[client] created client fifo /tmp/531429.140297723967232
+[client] opened client fifo /tmp/531429.140297807795968
+[client] opened client fifo /tmp/531429.140297723967232
+[client] created client fifo /tmp/531429.140297715574528
+[client] created client fifo /tmp/531429.140297707181824
+[client] opened client fifo /tmp/531429.140297715574528
+[client] opened client fifo /tmp/531429.140297707181824
+[client] created client fifo /tmp/531429.140297698789120
+[client] created client fifo /tmp/531429.140297690396416
+[client] opened client fifo /tmp/531429.140297698789120
+[client] opened client fifo /tmp/531429.140297690396416
+[client] created client fifo /tmp/531429.140297682003712
+[client] opened client fifo /tmp/531429.140297682003712
+[client] created client fifo /tmp/531429.140297673611008
+[client] opened client fifo /tmp/531429.140297673611008
+[client] created client fifo /tmp/531429.140297589749504
+[client] created client fifo /tmp/531429.140297581356800
+[client] opened client fifo /tmp/531429.140297581356800
+[client] created client fifo /tmp/531429.140297572964096
+[client] opened client fifo /tmp/531429.140297572964096
+[client] created client fifo /tmp/531429.140297564571392
+[client] created client fifo /tmp/531429.140297556178688
+[client] opened client fifo /tmp/531429.140297556178688
+[client] created client fifo /tmp/531429.140297547785984
+[client] opened client fifo /tmp/531429.140297547785984
+[client] created client fifo /tmp/531429.140297539393280
+[client] opened client fifo /tmp/531429.140297539393280
+[client] created client fifo /tmp/531429.140297455531776
+[client] opened client fifo /tmp/531429.140297455531776
+[client] created client fifo /tmp/531429.140297447139072
+[client] created client fifo /tmp/531429.140297438746368
+[client] opened client fifo /tmp/531429.140297438746368
+[client] created client fifo /tmp/531429.140297430353664
+[client] opened client fifo /tmp/531429.140297430353664
+[client] created client fifo /tmp/531429.140297421960960
+[client] created client fifo /tmp/531429.140297413568256
+[client] opened client fifo /tmp/531429.140297413568256
+[client] created client fifo /tmp/531429.140297405175552
+[client] opened client fifo /tmp/531429.140297405175552
+[client] created client fifo /tmp/531429.140297321314048
+[client] opened client fifo /tmp/531429.140297321314048
+[client] created client fifo /tmp/531429.140297312921344
+[client] opened client fifo /tmp/531429.140297312921344
+[client] created client fifo /tmp/531429.140297304528640
+[client] opened client fifo /tmp/531429.140297304528640
+[client] created client fifo /tmp/531429.140297296135936
+[client] opened client fifo /tmp/531429.140297296135936
+[client] created client fifo /tmp/531429.140297287743232
+[client] opened client fifo /tmp/531429.140297287743232
+[client] created client fifo /tmp/531429.140297279350528
+[client] created client fifo /tmp/531429.140297270957824
+[client] opened client fifo /tmp/531429.140297279350528
+[client] created client fifo /tmp/531429.140297119987456
+[client] opened client fifo /tmp/531429.140297270957824
+[client] opened client fifo /tmp/531429.140297119987456
+[client] created client fifo /tmp/531429.140297111594752
+[client] created client fifo /tmp/531429.140297103202048
+[client] opened client fifo /tmp/531429.140297103202048
+[client] created client fifo /tmp/531429.140297094809344
+[client] created client fifo /tmp/531429.140297086416640
+[client] created client fifo /tmp/531429.140297078023936
+[client] created client fifo /tmp/531429.140297069631232
+[client] created client fifo /tmp/531429.140296851552000
+[client] created client fifo /tmp/531429.140296843159296
+[client] created client fifo /tmp/531429.140296834766592
+[client] created client fifo /tmp/531429.140296826373888
+[client] created client fifo /tmp/531429.140296817981184
+[client] created client fifo /tmp/531429.140296809588480
+[client] created client fifo /tmp/531429.140296801195776
+[client] created client fifo /tmp/531429.140296314681088
+[client] created client fifo /tmp/531429.140296306288384
+[client] created client fifo /tmp/531429.140296297895680
+[client] created client fifo /tmp/531429.140296289502976
+[client] created client fifo /tmp/531429.140296281110272
+[client] created client fifo /tmp/531429.140296272717568
+[client] created client fifo /tmp/531429.140296264324864
+[client] created client fifo /tmp/531429.140295777810176
+[client] created client fifo /tmp/531429.140295769417472
+[client] created client fifo /tmp/531429.140295761024768
+[client] created client fifo /tmp/531429.140295752632064
+[client] created client fifo /tmp/531429.140295744239360
+[client] created client fifo /tmp/531429.140295735846656
+[client] created client fifo /tmp/531429.140295727453952
+[client] created client fifo /tmp/531429.140295240939264
+[client] created client fifo /tmp/531429.140295232546560
+[client] created client fifo /tmp/531429.140295224153856
+[client] created client fifo /tmp/531429.140295215761152
+[client] created client fifo /tmp/531429.140295207368448
+[client] created client fifo /tmp/531429.140295198975744
+[client] created client fifo /tmp/531429.140295190583040
+[client] created client fifo /tmp/531429.140294704068352
+[client] created client fifo /tmp/531429.140294695675648
+[client] created client fifo /tmp/531429.140294687282944
+[client] created client fifo /tmp/531429.140294678890240
+[client] created client fifo /tmp/531429.140294670497536
+[client] created client fifo /tmp/531429.140294662104832
+[client] created client fifo /tmp/531429.140294653712128
+[client] created client fifo /tmp/531429.140294167197440
+[client] created client fifo /tmp/531429.140294158804736
+[client] created client fifo /tmp/531429.140294150412032
+[client] created client fifo /tmp/531429.140294142019328
+[client] created client fifo /tmp/531429.140294133626624
+[client] created client fifo /tmp/531429.140294125233920
+[client] created client fifo /tmp/531429.140294116841216
+[client] created client fifo /tmp/531429.140293630326528
+[client] created client fifo /tmp/531429.140293621933824
+[client] created client fifo /tmp/531429.140293613541120
+[client] created client fifo /tmp/531429.140293605148416
+[client] created client fifo /tmp/531429.140293596755712
+[client] created client fifo /tmp/531429.140293588363008
+[client] created client fifo /tmp/531429.140293579970304
+[client] created client fifo /tmp/531429.140293093455616
+[client] created client fifo /tmp/531429.140293085062912
+[client] created client fifo /tmp/531429.140293076670208
+[client] created client fifo /tmp/531429.140293068277504
+[client] created client fifo /tmp/531429.140293059884800
+[client] created client fifo /tmp/531429.140293051492096
+[client] created client fifo /tmp/531429.140293043099392
+[client] created client fifo /tmp/531429.140292556584704
+[client] created client fifo /tmp/531429.140292548192000
+[client] created client fifo /tmp/531429.140292539799296
+[client] created client fifo /tmp/531429.140292531406592
+[client] created client fifo /tmp/531429.140292523013888
+[client] created client fifo /tmp/531429.140292514621184
+[client] created client fifo /tmp/531429.140292506228480
+[client] created client fifo /tmp/531429.140292019713792
+[client] created client fifo /tmp/531429.140292011321088
+[client] created client fifo /tmp/531429.140292002928384
+[client] created client fifo /tmp/531429.140291994535680
+[client] created client fifo /tmp/531429.140291986142976
+[client] created client fifo /tmp/531429.140291977750272
+[client] created client fifo /tmp/531429.140291969357568
+[client] created client fifo /tmp/531429.140291885496064
+[client] created client fifo /tmp/531429.140291877103360
+[client] created client fifo /tmp/531429.140291868710656
+[client] created client fifo /tmp/531429.140291860317952
+[client] created client fifo /tmp/531429.140291851925248
+[client] created client fifo /tmp/531429.140291843532544
+[client] created client fifo /tmp/531429.140291835139840
+[client] created client fifo /tmp/531429.140291826747136
+[client] created client fifo /tmp/531429.140291818354432
+[client] created client fifo /tmp/531429.140291809961728
+[client] created client fifo /tmp/531429.140291801569024
+[client] created client fifo /tmp/531429.140291793176320
+[client] created client fifo /tmp/531429.140291784783616
+[client] created client fifo /tmp/531429.140291776390912
+[client] created client fifo /tmp/531429.140291767998208
+[client] created client fifo /tmp/531429.140291759605504
+[client] created client fifo /tmp/531429.140291751212800
+[client] created client fifo /tmp/531429.140291742820096
+[client] created client fifo /tmp/531429.140291734427392
+[client] created client fifo /tmp/531429.140291726034688
+[client] created client fifo /tmp/531429.140291717641984
+[client] created client fifo /tmp/531429.140291709249280
+[client] created client fifo /tmp/531429.140291700856576
+[client] created client fifo /tmp/531429.140291692463872
+[client] created client fifo /tmp/531429.140291684071168
+[client] created client fifo /tmp/531429.140291675678464
+[client] created client fifo /tmp/531429.140291667285760
+[client] created client fifo /tmp/531429.140291658893056
+[client] created client fifo /tmp/531429.140291650500352
+[client] created client fifo /tmp/531429.140291642107648
+[client] created client fifo /tmp/531429.140291633714944
+[client] created client fifo /tmp/531429.140291625322240
+[client] created client fifo /tmp/531429.140291616929536
+[client] created client fifo /tmp/531429.140291608536832
+[client] created client fifo /tmp/531429.140291600144128
+[client] created client fifo /tmp/531429.140291591751424
+[client] created client fifo /tmp/531429.140291583358720
+[client] created client fifo /tmp/531429.140291574966016
+[client] created client fifo /tmp/531429.140291566573312
+[client] created client fifo /tmp/531429.140291558180608
+[client] created client fifo /tmp/531429.140291549787904
+[client] created client fifo /tmp/531429.140291541395200
+[client] created client fifo /tmp/531429.140291533002496
+[client] created client fifo /tmp/531429.140291524609792
+[client] created client fifo /tmp/531429.140291516217088
+[client] created client fifo /tmp/531429.140291507824384
+[client] created client fifo /tmp/531429.140291499431680
+[client] created client fifo /tmp/531429.140291491038976
+[client] created client fifo /tmp/531429.140291482646272
+[client] created client fifo /tmp/531429.140291474253568
+[client] created client fifo /tmp/531429.140291465860864
+[client] created client fifo /tmp/531429.140291457468160
+[client] created client fifo /tmp/531429.140291449075456
+[client] created client fifo /tmp/531429.140291440682752
+[client] created client fifo /tmp/531429.140291432290048
+[client] created client fifo /tmp/531429.140291423897344
+[client] created client fifo /tmp/531429.140291415504640
+[client] created client fifo /tmp/531429.140291407111936
+[client] created client fifo /tmp/531429.140291398719232
+[client] created client fifo /tmp/531429.140291390326528
+[client] created client fifo /tmp/531429.140291381933824
+[client] created client fifo /tmp/531429.140291373541120
+[client] created client fifo /tmp/531429.140291365148416
+[client] created client fifo /tmp/531429.140291356755712
+[client] created client fifo /tmp/531429.140291348363008
+[client] created client fifo /tmp/531429.140291339970304
+[client] created client fifo /tmp/531429.140291331577600
+[client] created client fifo /tmp/531429.140291323184896
+[client] created client fifo /tmp/531429.140291314792192
+[client] created client fifo /tmp/531429.140291306399488
+[client] created client fifo /tmp/531429.140291298006784
+[client] created client fifo /tmp/531429.140291289614080
+[client] created client fifo /tmp/531429.140291281221376
+[client] created client fifo /tmp/531429.140291272828672
+[client] created client fifo /tmp/531429.140291264435968
+[client] created client fifo /tmp/531429.140291256043264
+[client] created client fifo /tmp/531429.140291247650560
+[client] created client fifo /tmp/531429.140291239257856
+[client] created client fifo /tmp/531429.140291230865152
+[client] created client fifo /tmp/531429.140291222472448
+[client] server pipe closed
+[client] write serverfifo: Broken pipe
+[client] stopped creating requests
+[client] cancelled thread 140291600144128.
+[client] cancelled thread 140297069631232.
+[client] cancelled thread 140291751212800.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140293059884800.
+[Client] Called clean-up handler
+[client] cancelled thread 140291390326528.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140298244052736.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291457468160.
+[client] cancelled thread 140291726034688.
+[client] cancelled thread 140291264435968.
+[Client] Called clean-up handler
+[client] cancelled thread 140296843159296.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291331577600.
+[Client] Called clean-up handler
+[client] cancelled thread 140297078023936.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140292506228480.
+[client] cancelled thread 140291608536832.
+[client] cancelled thread 140291793176320.
+[client] cancelled thread 140292548192000.
+[Client] Called clean-up handler
+[client] cancelled thread 140291860317952.
+[Client] Called clean-up handler
+[client] cancelled thread 140297094809344.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140292011321088.
+[client] cancelled thread 140299150006016.
+[client] cancelled thread 140299586230016.
+[Client] Called clean-up handler
+[client] cancelled thread 140291700856576.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291314792192.
+[Client] Called clean-up handler
+[client] cancelled thread 140291247650560.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291566573312.
+[client] cancelled thread 140291684071168.
+[client] cancelled thread 140291642107648.
+[Client] Called clean-up handler
+[client] cancelled thread 140291835139840.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291348363008.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291801569024.
+[client] cancelled thread 140291449075456.
+[client] cancelled thread 140291767998208.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295744239360.
+[client] cancelled thread 140291373541120.
+[client] cancelled thread 140291440682752.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295735846656.
+[Client] Called clean-up handler
+[client] cancelled thread 140294167197440.
+[Client] Called clean-up handler
+[client] cancelled thread 140299888203520.
+[Client] Called clean-up handler
+[client] cancelled thread 140291407111936.
+[Client] Called clean-up handler
+[client] cancelled thread 140294653712128.
+[Client] Called clean-up handler
+[client] cancelled thread 140291482646272.
+[Client] Called clean-up handler
+[client] cancelled thread 140298688603904.
+[Client] Called clean-up handler
+[client] cancelled thread 140291784783616.
+[client] cancelled thread 140293085062912.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291969357568.
+[client] cancelled thread 140299108042496.
+[client] cancelled thread 140300106315520.
+[client] cancelled thread 140296297895680.
+[Client] Called clean-up handler
+[client] cancelled thread 140295240939264.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291868710656.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291986142976.
+[client] cancelled thread 140291230865152.
+[client] cancelled thread 140291365148416.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291306399488.
+[client] cancelled thread 140297564571392.
+[client] cancelled thread 140294158804736.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291809961728.
+[client] cancelled thread 140291239257856.
+[client] cancelled thread 140291533002496.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291843532544.
+[Client] Called clean-up handler
+[client] cancelled thread 140294670497536.
+[Client] Called clean-up handler
+[client] cancelled thread 140295752632064.
+[Client] Called clean-up handler
+[client] cancelled thread 140291717641984.
+[Client] Called clean-up handler
+[client] cancelled thread 140294116841216.
+[Client] Called clean-up handler
+[client] cancelled thread 140294695675648.
+[Client] Called clean-up handler
+[client] cancelled thread 140293596755712.
+[client] cancelled thread 140291491038976.
+[Client] Called clean-up handler
+[client] cancelled thread 140291549787904.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291558180608.
+[Client] Called clean-up handler
+[client] cancelled thread 140292002928384.
+[Client] Called clean-up handler
+[client] cancelled thread 140295207368448.
+[client] cancelled thread 140296809588480.
+[Client] Called clean-up handler
+[client] cancelled thread 140294142019328.
+[Client] Called clean-up handler
+[client] cancelled thread 140299133220608.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295769417472.
+[Client] Called clean-up handler
+[client] cancelled thread 140296801195776.
+[Client] Called clean-up handler
+[client] cancelled thread 140300487833344.
+[Client] Called clean-up handler
+[client] cancelled thread 140296264324864.
+[Client] Called clean-up handler
+[client] cancelled thread 140293068277504.
+[client] cancelled thread 140291667285760.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291516217088.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291776390912.
+[client] cancelled thread 140296851552000.
+[client] cancelled thread 140297849759488.
+[Client] Called clean-up handler
+[client] cancelled thread 140291499431680.
+[Client] Called clean-up handler
+[client] cancelled thread 140291885496064.
+[Client] Called clean-up handler
+[client] cancelled thread 140291977750272.
+[Client] Called clean-up handler
+[client] cancelled thread 140291734427392.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140300399929088.
+[client] cancelled thread 140296314681088.
+[client] cancelled thread 140291616929536.
+[Client] Called clean-up handler
+[client] cancelled thread 140291381933824.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140292556584704.
+[Client] Called clean-up handler
+[client] cancelled thread 140292523013888.
+[Client] Called clean-up handler
+[client] cancelled thread 140297891723008.
+[Client] Called clean-up handler
+[client] cancelled thread 140298218874624.
+[Client] Called clean-up handler
+[client] cancelled thread 140291289614080.
+[Client] Called clean-up handler
+[client] cancelled thread 140296834766592.
+[Client] Called clean-up handler
+[client] cancelled thread 140291650500352.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140292514621184.
+[client] cancelled thread 140291658893056.
+[client] cancelled thread 140291625322240.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140300408321792.
+[Client] Called clean-up handler
+[client] cancelled thread 140295224153856.
+[client] cancelled thread 140294662104832.
+[client] cancelled thread 140291298006784.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295190583040.
+[client] cancelled thread 140300391536384.
+[client] cancelled thread 140291591751424.
+[Client] Called clean-up handler
+[client] cancelled thread 140291633714944.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140296272717568.
+[Client] Called clean-up handler
+[client] cancelled thread 140299779163904.
+[client] cancelled thread 140297421960960.
+[Client] Called clean-up handler
+[client] cancelled thread 140291465860864.
+[Client] Called clean-up handler
+[client] cancelled thread 140298562811648.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291851925248.
+[client] cancelled thread 140293630326528.
+[client] cancelled thread 140291415504640.
+[Client] Called clean-up handler
+[client] cancelled thread 140294687282944.
+[Client] Called clean-up handler
+[client] cancelled thread 140291574966016.
+[Client] Called clean-up handler
+[client] cancelled thread 140291826747136.
+[Client] Called clean-up handler
+[client] cancelled thread 140291281221376.
+[Client] Called clean-up handler
+[client] cancelled thread 140293076670208.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140296281110272.
+[Client] Called clean-up handler
+[client] cancelled thread 140298747352832.
+[client] cancelled thread 140291877103360.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291524609792.
+[client] cancelled thread 140295198975744.
+[client] cancelled thread 140291507824384.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295232546560.
+[client] cancelled thread 140296306288384.
+[client] cancelled thread 140291339970304.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140292019713792.
+[Client] Called clean-up handler
+[client] cancelled thread 140291709249280.
+[client] cancelled thread 140293588363008.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140297086416640.
+[client] cancelled thread 140297589749504.
+[client] cancelled thread 140294125233920.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140293579970304.
+[client] cancelled thread 140294150412032.
+[client] cancelled thread 140296817981184.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140293043099392.
+[Client] Called clean-up handler
+[client] cancelled thread 140292531406592.
+[Client] Called clean-up handler
+[client] cancelled thread 140291692463872.
+[client] cancelled thread 140293605148416.
+[client] cancelled thread 140294133626624.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291272828672.
+[client] cancelled thread 140291675678464.
+[Client] Called clean-up handler
+[client] cancelled thread 140299753985792.
+[client] cancelled thread 140298378270464.
+[client] cancelled thread 140291541395200.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140294678890240.
+[Client] Called clean-up handler
+[client] cancelled thread 140292539799296.
+[Client] Called clean-up handler
+[client] cancelled thread 140291323184896.
+[Client] Called clean-up handler
+[client] cancelled thread 140293613541120.
+[Client] Called clean-up handler
+[client] cancelled thread 140291759605504.
+[client] cancelled thread 140295215761152.
+[Client] Called clean-up handler
+[client] cancelled thread 140295777810176.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291994535680.
+[client] cancelled thread 140291356755712.
+[client] cancelled thread 140296826373888.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140291818354432.
+[client] cancelled thread 140291256043264.
+[client] cancelled thread 140293093455616.
+[Client] Called clean-up handler
+[client] cancelled thread 140291432290048.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140293621933824.
+[Client] Called clean-up handler
+[client] cancelled thread 140291398719232.
+[Client] Called clean-up handler
+[client] cancelled thread 140293051492096.
+[Client] Called clean-up handler
+[client] cancelled thread 140297111594752.
+[Client] Called clean-up handler
+[client] cancelled thread 140291474253568.
+[client] cancelled thread 140296289502976.
+[Client] Called clean-up handler
+[client] cancelled thread 140291742820096.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140294704068352.
+[client] cancelled thread 140298982250240.
+[client] cancelled thread 140295727453952.
+[client] cancelled thread 140297447139072.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140295761024768.
+[client] cancelled thread 140291423897344.
+[client] cancelled thread 140291583358720.
+[Client] Called clean-up handler
+[Client] Called clean-up handler
+[client] cancelled thread 140299913381632.
+[Client] Called clean-up handler
+[client] main terminating

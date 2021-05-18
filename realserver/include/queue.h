@@ -8,17 +8,22 @@ typedef struct Node Node;
 
 
 struct Node {
-    Message *k;
+    Message k;
     Node *Next;
 };
 
 typedef struct {
     Node *first, *last;
+    int size, maxSize;
 } Queue;
+
+Message copyMessage(Message *message);
+
+Queue* initQueue(int maxSize);
 
 bool empty(Queue *queue);
 
-void push(Queue *queue, Node *MyNode);
+bool push(Queue *queue, Message *Message);
 
 Node* front(Queue *queue);
 

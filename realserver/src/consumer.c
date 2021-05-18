@@ -38,7 +38,6 @@ void *thread_consumer(void *arg){
         //pthread_mutex_lock(&serverMutex);
         message = pop(queue);
         //pthread_mutex_unlock(&serverMutex);
-
         if (message != NULL){
             char privateFIFO[100];
             snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);    
@@ -50,11 +49,6 @@ void *thread_consumer(void *arg){
                 writeLog(message, TSKDN);
         }
     }
-
-    printf("################SAIU DO WHILE \n");
-    printf("################SAIU DO WHILE \n");
-    printf("################SAIU DO WHILE \n");
-    printf("################SAIU DO WHILE \n");
 
     while(!emptyBuffer(queue) || !producersFinished){
         message = pop(queue);
@@ -68,10 +62,6 @@ void *thread_consumer(void *arg){
                 writeLog(message, LATE);
         }
     }
-    printf("##########################CONSUMER END \n");
-    printf("##########################CONSUMER END \n");
-    printf("##########################CONSUMER END \n");
-    printf("##########################CONSUMER END \n");
 
     return NULL;
 }

@@ -18,7 +18,7 @@
 pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t fifoMutex;
 int clientTimeOut = 0;
-extern int serverClosed;
+int serverClosed;
 int producersFinished;
 Queue *queue;
 
@@ -99,6 +99,7 @@ int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer, char *pathFIF
 
 int main(int argc, char *args[]){
     clientTimeOut = 0;
+    serverClosed = 0;
     producersFinished = 0;
     checkArgs(argc, args);
     char *pathFIFO = (char * ) malloc(100);
@@ -106,7 +107,6 @@ int main(int argc, char *args[]){
 
     parseArgs(argc, args, &nsecs, &sizeBuffer, pathFIFO);
     uint64_t initialTime = time(NULL);
-    serverClosed = 0;
     LinkedListElement *first, *last, *aux;
     first = NULL;
 
@@ -128,13 +128,10 @@ int main(int argc, char *args[]){
 
         //pthread_mutex_lock(&fifoMutex);
         int fd;     
-        if ((fd = open(pathFIFO, O_RDONLY | O_NONBLOCK)) != -1){
-            close(fd);
-            fd = open(pathFIFO, O_RDONLY);
-            read(fd, response, sizeof(Message));
-            close(fd);
-        }
-        else {
+        fd = open(pathFIFO, O_RDONLY | O_NONBLOCK);
+        if(read(fd, response, sizeof(Message)) > 0){
+        } else {
+            
             usleep(5 * 1000);
             continue;
         }
@@ -151,8 +148,6 @@ int main(int argc, char *args[]){
         }else{
             last = addElement(last,thread);
         }
-
-        
     }while(!serverClosed || !emptyBuffer(queue));
 
     aux = first;

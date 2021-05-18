@@ -28,7 +28,7 @@ bool emptyBuffer(Queue *queue);
 
 bool push(Queue *queue, Message *Message);
 
-Message pop(Queue *queue);
+Message* pop(Queue *queue);
 
 void destroyQueue(Queue * queue);
 

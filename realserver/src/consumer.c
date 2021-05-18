@@ -14,15 +14,18 @@ pthread_mutex_t fifoMutex = PTHREAD_MUTEX_INITIALIZER;
 extern int serverClosed;
 extern Queue *queue;
 extern int clientTimeOut;
-extern 
+extern int producersFinished;
 
 int writeToFIFO(char *fifo, Message *message){
     int filedesc;
     for (int i = 0; i < 30; i++){
-        if ((filedesc = open(fifo, O_WRONLY)) > 0){
+        if ((filedesc = open(fifo, O_WRONLY | O_NONBLOCK)) > 0){
             write(filedesc, message, sizeof(Message));
             close(filedesc);
             return 0;
+        }
+        else {
+            usleep(5 * 1000);
         }
     }
     return -1;
@@ -33,7 +36,7 @@ void *thread_consumer(void *arg){
 
     while(!serverClosed){
         //pthread_mutex_lock(&serverMutex);
-        *message = pop(queue);
+        message = pop(queue);
         //pthread_mutex_unlock(&serverMutex);
 
         if (message != NULL){
@@ -48,10 +51,13 @@ void *thread_consumer(void *arg){
         }
     }
 
-    while(!emptyBuffer(queue)){
-        //pthread_mutex_lock(&serverMutex);
-        *message = pop(queue);
-        //pthread_mutex_unlock(&serverMutex);
+    printf("################SAIU DO WHILE \n");
+    printf("################SAIU DO WHILE \n");
+    printf("################SAIU DO WHILE \n");
+    printf("################SAIU DO WHILE \n");
+
+    while(!emptyBuffer(queue) || !producersFinished){
+        message = pop(queue);
         if (message != NULL){
             char privateFIFO[100];
             snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);

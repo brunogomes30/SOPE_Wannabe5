@@ -19,6 +19,7 @@ pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t fifoMutex;
 int clientTimeOut = 0;
 extern int serverClosed;
+int producersFinished;
 Queue *queue;
 
 int checkArgs(int argc, char *args[]){
@@ -80,11 +81,13 @@ int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer, char *pathFIF
         strncpy(number, args[2], strlen(args[2]) + 1);
     }
     sscanf(number, "%d", nsecs);
+    free(number);
+    number = (char *) malloc(sizeof(strlen(args[1]) + 1));
     if(argc == 4){
-        strncpy(number, args[1], strlen(args[1]) + 1);
+        strncpy(number, args[2], strlen(args[2]) + 1);
         strncpy(number, number + 2, strlen(number) - 1);
     } else if(argc == 6){
-        strncpy(number, args[2], strlen(args[2]) + 1);
+        strncpy(number, args[4], strlen(args[4]) + 1);
     }
     sscanf(number, "%d", sizeBuffer);
     strncpy(pathFIFO, args[argc - 1], strlen(args[argc - 1]) + 1);
@@ -96,6 +99,7 @@ int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer, char *pathFIF
 
 int main(int argc, char *args[]){
     clientTimeOut = 0;
+    producersFinished = 0;
     checkArgs(argc, args);
     char *pathFIFO = (char * ) malloc(100);
     int nsecs, sizeBuffer;
@@ -103,7 +107,6 @@ int main(int argc, char *args[]){
     parseArgs(argc, args, &nsecs, &sizeBuffer, pathFIFO);
     uint64_t initialTime = time(NULL);
     serverClosed = 0;
-    
     LinkedListElement *first, *last, *aux;
     first = NULL;
 
@@ -117,8 +120,13 @@ int main(int argc, char *args[]){
     Message *response = (Message *)malloc(sizeof(Message));
 
     do{
+        if( (time(NULL) > initialTime + nsecs)) {
+            pthread_mutex_lock(&clientMutex);
+            serverClosed = 1;
+            pthread_mutex_unlock(&clientMutex);
+        }
 
-        pthread_mutex_lock(&fifoMutex);
+        //pthread_mutex_lock(&fifoMutex);
         int fd;     
         if ((fd = open(pathFIFO, O_RDONLY | O_NONBLOCK)) != -1){
             close(fd);
@@ -126,10 +134,11 @@ int main(int argc, char *args[]){
             read(fd, response, sizeof(Message));
             close(fd);
         }
-        else if (serverClosed){
-            break;
+        else {
+            usleep(5 * 1000);
+            continue;
         }
-        pthread_mutex_unlock(&fifoMutex);
+        //pthread_mutex_unlock(&fifoMutex);
 
         pthread_t thread;
         writeLog(response, RECVD);
@@ -143,12 +152,8 @@ int main(int argc, char *args[]){
             last = addElement(last,thread);
         }
 
-        if( (time(NULL) > initialTime + nsecs)) {
-            pthread_mutex_lock(&clientMutex);
-            serverClosed = 1;
-            pthread_mutex_unlock(&clientMutex);
-        }
-    }while(!serverClosed);
+        
+    }while(!serverClosed || !emptyBuffer(queue));
 
     aux = first;
 
@@ -156,6 +161,7 @@ int main(int argc, char *args[]){
         pthread_join(aux->thread,NULL);
         aux = aux->next;
     }
+    producersFinished = 1;
 
     pthread_join(threadConsumer, NULL);
 

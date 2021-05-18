@@ -3,10 +3,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../include/queue.h"
+#include <semaphore.h>
 
-bool fullBuffer = false;
-bool emptyBuffer = true;
-
+pthread_mutex_t queueMutex = PTHREAD_MUTEX_INITIALIZER;
 
 Message copyMessage(Message *toCopy){
     Message message;
@@ -26,19 +25,23 @@ Queue* initQueue(int maxSize){
     queue->size = 0;
     queue->first = NULL;
     queue->last = NULL;
+    sem_init(&(queue->empty), 0, 0);
+    sem_init(&(queue->full), 0, maxSize);
     return queue;
 }
 
-bool empty(Queue *queue) {
+bool emptyBuffer(Queue *queue) {
     return (queue->first == NULL);
 }
 
 bool push(Queue *queue, Message *message) {
+    sem_wait(&(queue->full));
+    pthread_mutex_lock(&queueMutex);
     Node* MyNode = (Node *) malloc(sizeof(Node));
     MyNode->Next=NULL;
     MyNode->k = copyMessage(message);
 
-    if(empty(queue)) {
+    if(emptyBuffer(queue)) {
         queue->first = MyNode;
         queue->last = MyNode;
     }
@@ -48,30 +51,26 @@ bool push(Queue *queue, Message *message) {
     }
 
     queue->size++; 
-
-    if (queue->size == queue->maxSize){
-        fullBuffer = true;
-    }else{
-        fullBuffer = false;
-    }
-    emptyBuffer = false;
+    pthread_mutex_unlock(&queueMutex);
+    sem_post(&(queue->empty));
     return true;
 }
 
-Node* front(Queue *queue) {
-    return queue->first;
-}
-
-void pop(Queue *queue) {
+Message pop(Queue *queue) {
+    sem_wait(&queue->empty);
+    pthread_mutex_lock(&queueMutex);
     Node* n = queue->first;
+    Message m = n->k;
     queue->first = queue->first->Next;
     queue->size--;
-
-    if (queue->size == 0)
-        emptyBuffer = true;
-    else
-        emptyBuffer = false;
-    if (queue->size != queue->maxSize)
-        fullBuffer = false;
+    pthread_mutex_unlock(&queueMutex);
+    sem_post(&queue->full);
     free(n);
+    return m;
+}
+
+void destroyQueue(Queue * queue){
+    sem_destroy(&(queue->empty));
+    sem_destroy(&(queue->full));
+    free(queue);
 }

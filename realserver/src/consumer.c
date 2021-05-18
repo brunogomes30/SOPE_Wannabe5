@@ -6,14 +6,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <semaphore.h>
 
 pthread_mutex_t serverMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t fifoMutex = PTHREAD_MUTEX_INITIALIZER;
 
 extern int serverClosed;
 extern Queue *queue;
-extern bool emptyBuffer;
 extern int clientTimeOut;
+extern 
 
 int writeToFIFO(char *fifo, Message *message){
     int filedesc;
@@ -31,36 +32,29 @@ void *thread_consumer(void *arg){
     Message* message = (Message*) malloc(sizeof(Message));
 
     while(!serverClosed){
-     
-        if(!emptyBuffer){
-            pthread_mutex_lock(&serverMutex);
-            *message = front(queue)->k;
-            pop(queue);
-            pthread_mutex_unlock(&serverMutex);
+        //pthread_mutex_lock(&serverMutex);
+        *message = pop(queue);
+        //pthread_mutex_unlock(&serverMutex);
 
-            if (message != NULL){
-                char privateFIFO[100];
-                snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);    
-                if (writeToFIFO(privateFIFO,message) == -1){
-                    writeLog(message, FAILD);
-                    clientTimeOut = 1;
-                }
-                else
-                    writeLog(message, TSKDN);
+        if (message != NULL){
+            char privateFIFO[100];
+            snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);    
+            if (writeToFIFO(privateFIFO,message) == -1){
+                writeLog(message, FAILD);
+                clientTimeOut = 1;
             }
-        } else {
-            usleep(5000);
+            else
+                writeLog(message, TSKDN);
         }
     }
 
-    while(!emptyBuffer){
-        pthread_mutex_lock(&serverMutex);
-        *message = front(queue)->k;
-        pop(queue);
-        pthread_mutex_unlock(&serverMutex);
+    while(!emptyBuffer(queue)){
+        //pthread_mutex_lock(&serverMutex);
+        *message = pop(queue);
+        //pthread_mutex_unlock(&serverMutex);
         if (message != NULL){
             char privateFIFO[100];
-            snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);  
+            snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);
             if (writeToFIFO(privateFIFO,message) == -1){
                 writeLog(message, FAILD);
             }
@@ -68,6 +62,10 @@ void *thread_consumer(void *arg){
                 writeLog(message, LATE);
         }
     }
-    
+    printf("##########################CONSUMER END \n");
+    printf("##########################CONSUMER END \n");
+    printf("##########################CONSUMER END \n");
+    printf("##########################CONSUMER END \n");
+
     return NULL;
 }

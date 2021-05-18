@@ -19,7 +19,6 @@ pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t fifoMutex;
 int clientTimeOut = 0;
 extern int serverClosed;
-extern int emptyBuffer;
 Queue *queue;
 
 int checkArgs(int argc, char *args[]){
@@ -114,9 +113,6 @@ int main(int argc, char *args[]){
     if (pthread_create(&threadConsumer, NULL, thread_consumer, NULL)) {
         fprintf(stderr, "Failed to create thread\n");
     }
-    first = initLinkedList(threadConsumer);
-    last = first;
-
     queue = initQueue(sizeBuffer);
     Message *response = (Message *)malloc(sizeof(Message));
 
@@ -140,16 +136,19 @@ int main(int argc, char *args[]){
         if (pthread_create(&thread, NULL, thread_func, response)) {
             fprintf(stderr, "Failed to create thread\n");
         }
+        if(first == NULL) {
+            first = initLinkedList(thread);
+            last = first;
+        }else{
+            last = addElement(last,thread);
+        }
 
-        last = addElement(last,thread);
         if( (time(NULL) > initialTime + nsecs)) {
             pthread_mutex_lock(&clientMutex);
             serverClosed = 1;
             pthread_mutex_unlock(&clientMutex);
         }
     }while(!serverClosed);
-
-    while(!emptyBuffer){}
 
     aux = first;
 
@@ -158,9 +157,11 @@ int main(int argc, char *args[]){
         aux = aux->next;
     }
 
+    pthread_join(threadConsumer, NULL);
+
     free(response);
     free(pathFIFO);
-    free(queue);
+    destroyQueue(queue);
     freeLinkedList(first);
     deleteFIFO(pathFIFO);
 

@@ -27,14 +27,10 @@ void *thread_func(void *arg){
     if(!serverClosed)
         message->tskres = task(message->tskload);
 
-    while(fullBuffer){
-        usleep(5*1000);
-    }
-
     
-    pthread_mutex_lock(&serverMutex);
+    //pthread_mutex_lock(&serverMutex);
     push(queue,message);
-    pthread_mutex_unlock(&serverMutex);
+    //pthread_mutex_unlock(&serverMutex);
 
     pthread_exit(NULL);
 }

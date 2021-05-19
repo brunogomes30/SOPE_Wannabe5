@@ -8,6 +8,7 @@
 #include<pthread.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include<signal.h>
 
 #include "../include/communication.h"
 #include "../include/linkedList.h"
@@ -21,6 +22,16 @@ int clientTimeOut = 0;
 int serverClosed;
 int producersFinished;
 Queue *queue;
+char *pathFIFO;
+int fd;    
+
+void sig_handler(int signum){
+    pthread_mutex_lock(&clientMutex);
+    close(fd);
+    unlink(pathFIFO);
+    serverClosed = 1;
+    pthread_mutex_unlock(&clientMutex);
+}
 
 int checkArgs(int argc, char *args[]){
     bool hasError = false;
@@ -106,7 +117,9 @@ int main(int argc, char *args[]){
     int nsecs, sizeBuffer;
 
     parseArgs(argc, args, &nsecs, &sizeBuffer, pathFIFO);
-    uint64_t initialTime = time(NULL);
+    signal(SIGALRM,sig_handler); // Register signal handler
+ 
+    alarm(nsecs); 
     LinkedListElement *first, *last, *aux;
     first = NULL;
 
@@ -117,38 +130,28 @@ int main(int argc, char *args[]){
         fprintf(stderr, "Failed to create thread\n");
     }
     queue = initQueue(sizeBuffer);
-    Message *response = (Message *)malloc(sizeof(Message));
+    //Message *response = (Message *)malloc(sizeof(Message));
+        
+    fd = open(pathFIFO, O_RDONLY);
 
     do{
-        if( (time(NULL) > initialTime + nsecs)) {
-            pthread_mutex_lock(&clientMutex);
-            serverClosed = 1;
-            pthread_mutex_unlock(&clientMutex);
-        }
-
+        Message *response = (Message *)malloc(sizeof(Message));
         //pthread_mutex_lock(&fifoMutex);
-        int fd;     
-        fd = open(pathFIFO, O_RDONLY | O_NONBLOCK);
-        if(read(fd, response, sizeof(Message)) > 0){
-        } else {
-            
-            usleep(5 * 1000);
-            continue;
+        if(read(fd, response, sizeof(Message)) == sizeof(Message)){
+            pthread_t thread;
+            writeLog(response, RECVD);
+            if (pthread_create(&thread, NULL, thread_func, response)) {
+                fprintf(stderr, "Failed to create thread\n");
+            }
+            if(first == NULL) {
+                first = initLinkedList(thread);
+                last = first;
+            }else{
+                last = addElement(last,thread);
+            }
         }
         //pthread_mutex_unlock(&fifoMutex);
-
-        pthread_t thread;
-        writeLog(response, RECVD);
-        if (pthread_create(&thread, NULL, thread_func, response)) {
-            fprintf(stderr, "Failed to create thread\n");
-        }
-        if(first == NULL) {
-            first = initLinkedList(thread);
-            last = first;
-        }else{
-            last = addElement(last,thread);
-        }
-    }while(!serverClosed || !emptyBuffer(queue));
+    }while(!serverClosed);
 
     aux = first;
 
@@ -161,11 +164,10 @@ int main(int argc, char *args[]){
 
     pthread_join(threadConsumer, NULL);
 
-    free(response);
+    //free(response);
     free(pathFIFO);
     destroyQueue(queue);
     freeLinkedList(first);
-    deleteFIFO(pathFIFO);
 
     return 0;
 }

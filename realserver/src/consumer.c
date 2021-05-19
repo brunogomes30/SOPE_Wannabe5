@@ -19,20 +19,20 @@ extern int producersFinished;
 int writeToFIFO(char *fifo, Message *message)
 {
     int filedesc;
-    for (int i = 0; i < 30; i++)
+    for (int i = 0; i < 3; i++)
     {
         if ((filedesc = open(fifo, O_WRONLY | O_NONBLOCK)) > 0)
         {
-            if (write(filedesc, message, sizeof(Message)) < sizeof(Message)){
+            if (write(filedesc, message, sizeof(Message)) == sizeof(Message)){
                 close(filedesc);
-                return -1;
+                return 0;
             }
             close(filedesc);
-            return 0;
+            return -1;
         }
         else
         {
-            usleep(5 * 1000);
+            usleep(100000);
         }
     }
     return -1;
@@ -42,7 +42,7 @@ void *thread_consumer(void *arg)
 {
     Message *message = (Message *)malloc(sizeof(Message));
 
-    while (!serverClosed)
+    while (!emptyBuffer(queue) || !producersFinished)
     {
         //pthread_mutex_lock(&serverMutex);
         message = pop(queue);
@@ -70,7 +70,7 @@ void *thread_consumer(void *arg)
         }
     }
 
-    while (!emptyBuffer(queue) || !producersFinished)
+    /*while (!emptyBuffer(queue) || !producersFinished)
     {
         message = pop(queue);
         if (message != NULL)
@@ -84,7 +84,7 @@ void *thread_consumer(void *arg)
             else
                 writeLog(message, LATE);
         }
-    }
+    }*/
 
     return NULL;
 }

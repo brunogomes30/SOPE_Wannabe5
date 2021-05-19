@@ -19,17 +19,16 @@ extern bool fullBuffer;
 
 
 void *thread_func(void *arg){    
-        
+    //sleep(1);
     Message* message = (Message *) arg;
 
-    if(!serverClosed)
+    if(!serverClosed){
         message->tskres = task(message->tskload);
-
-    
+        writeLog(message, TSKEX);
+    }
     //pthread_mutex_lock(&serverMutex);
     push(queue,message);
     //pthread_mutex_unlock(&serverMutex);
-    writeLog(message, TSKEX);
     free(message);
     pthread_exit(NULL);
 }

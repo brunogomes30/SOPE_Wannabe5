@@ -19,7 +19,7 @@ extern int producersFinished;
 int writeToFIFO(char *fifo, Message *message)
 {
     int filedesc;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 5; i++)
     {
         if ((filedesc = open(fifo, O_WRONLY | O_NONBLOCK)) > 0)
         {

@@ -156,6 +156,7 @@ int main(int argc, char *args[]){
         pthread_join(aux->thread,NULL);
         aux = aux->next;
     }
+
     producersFinished = 1;
 
     pthread_join(threadConsumer, NULL);

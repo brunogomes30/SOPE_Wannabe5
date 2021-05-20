@@ -10,17 +10,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-int getRandomNumber(int lower, int upper) {
-    unsigned int seed = time(NULL);
-    if(upper > lower)
-        return (rand_r(&seed) % (upper - lower)) + lower;
-    else 
-        return -1;
-}
-
-int getTaskRandom(){
-    return getRandomNumber(1, 10);
-}
 
 int getInst(){
     return time(0);

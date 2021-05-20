@@ -3,7 +3,6 @@
 '-o'
 's'
 'src/communication.c'
-'src/consumer.c'
 'src/delay.c'
 'src/lib.c'
 'src/linkedList.c'

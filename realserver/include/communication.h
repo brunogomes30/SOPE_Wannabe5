@@ -1,20 +1,24 @@
 #ifndef REALSERVER_INCLUDE_COMMUNICATION_H_
 #define REALSERVER_INCLUDE_COMMUNICATION_H_
 
-#include "../include/common.h"
-#include "../include/log.h"
+#include "common.h"
 
-typedef struct
-{
-    int rid;
-    char *fifo;
-} ClientThreadArgs;
+/**
+ * @brief Thread consumer's function
+ * 
+ * @param arg 
+ * @return void* 
+ */
+void *thread_consumer(void *arg);
 
-int serverClosed;
-int publicFIFOfd;
-int clientTimeOut;
-
-
+/**
+ * @brief 
+ * 
+ * @param fifo 
+ * @param message 
+ * @return int 
+ */
+int writeToFIFO(char *fifo, Message *message);
 
 /**
  * @brief 

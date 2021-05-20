@@ -6,17 +6,10 @@
 
 
 #include "../include/consumer.h"
-#include "../include/queue.h"
 #include "../include/utils.h"
 #include "../include/log.h"
+#include "../include/lib.h"
 
-pthread_mutex_t serverMutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t fifoMutex = PTHREAD_MUTEX_INITIALIZER;
-
-extern int serverClosed;
-extern Queue *queue;
-extern int clientTimeOut;
-extern int producersFinished;
 
 int writeToFIFO(char *fifo, Message *message)
 {
@@ -72,6 +65,18 @@ void *thread_consumer(void *arg)
             free(message);
         }
     }
+    pthread_exit(NULL);
+}
 
-    return NULL;
+void *thread_func(void *arg){    
+    //sleep(1);
+    Message* message = (Message *) arg;
+
+    if(!serverClosed){
+        message->tskres = task(message->tskload);
+        writeLog(message, TSKEX);
+    }
+    push(queue,message);
+    free(message);
+    pthread_exit(NULL);
 }

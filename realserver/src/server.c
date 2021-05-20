@@ -10,8 +10,9 @@
 #include <fcntl.h>
 #include<signal.h>
 
-#include "../include/communication.h"
+//#include "../include/communication.h"
 #include "../include/linkedList.h"
+#include "../include/log.h"
 #include "../include/utils.h"
 #include "../include/consumer.h"
 #include "../include/queue.h"
@@ -19,9 +20,9 @@
 pthread_mutex_t clientMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t fifoMutex;
 int clientTimeOut = 0;
-int serverClosed;
-int producersFinished;
-Queue *queue;
+//int serverClosed;
+//int producersFinished;
+//Queue *queue;
 char *pathFIFO;
 int fd;    
 

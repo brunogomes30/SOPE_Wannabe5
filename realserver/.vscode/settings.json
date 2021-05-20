@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "lib.h": "c",
+        "consumer.h": "c",
+        "queue.h": "c",
+        "utils.h": "c"
+    }
+}

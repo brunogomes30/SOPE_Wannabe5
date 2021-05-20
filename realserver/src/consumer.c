@@ -18,13 +18,11 @@ extern Queue *queue;
 extern int clientTimeOut;
 extern int producersFinished;
 
-int writeToFIFO(char *fifo, Message *message)
-{
+int writeToFIFO(char *fifo, Message *message){
     int filedesc;
     for (int i = 0; i < 3; i++)
-    {
-        if ((filedesc = open(fifo, O_WRONLY | O_NONBLOCK)) > 0)
-        {
+{
+        if ((filedesc = open(fifo, O_WRONLY | O_NONBLOCK)) > 0){
             if (write(filedesc, message, sizeof(Message)) == sizeof(Message)){
                 close(filedesc);
                 return 0;
@@ -32,8 +30,7 @@ int writeToFIFO(char *fifo, Message *message)
             close(filedesc);
             return -1;
         }
-        else
-        {
+        else{
             usleep(100000);
         }
     }
@@ -42,30 +39,21 @@ int writeToFIFO(char *fifo, Message *message)
 
 void *thread_consumer(void *arg)
 {
-    //Message *message = (Message *)malloc(sizeof(Message));
 
-    while (!emptyBuffer(queue) || !producersFinished)
-    {
-        //pthread_mutex_lock(&serverMutex);
+    while (!emptyBuffer(queue) || !producersFinished){
         Message * message = pop(queue);
-        //pthread_mutex_unlock(&serverMutex);
-        if (message != NULL)
-        {
+        if (message != NULL){
             char privateFIFO[100];
             snprintf(privateFIFO, sizeof(privateFIFO), "/tmp/%d.%ld", message->pid, message->tid);
-            if (writeToFIFO(privateFIFO, message) == -1)
-            {
+            if (writeToFIFO(privateFIFO, message) == -1){
                 writeLog(message, FAILD);
                 clientTimeOut = 1;
             }
-            else
-            {
-                if (message->tskres == -1)
-                {
+            else{
+                if (message->tskres == -1){
                     writeLog(message, LATE);
                 }
-                else
-                {
+                else{
                     writeLog(message, TSKDN);
                 }
             }

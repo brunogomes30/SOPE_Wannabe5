@@ -26,9 +26,7 @@ void *thread_func(void *arg){
         message->tskres = task(message->tskload);
         writeLog(message, TSKEX);
     }
-    //pthread_mutex_lock(&serverMutex);
     push(queue,message);
-    //pthread_mutex_unlock(&serverMutex);
     free(message);
     pthread_exit(NULL);
 }

@@ -8,7 +8,7 @@
 
 pthread_mutex_t queueMutex = PTHREAD_MUTEX_INITIALIZER;
 
-Message copyMessage(Message *toCopy){
+Message copyMessage(Message *toCopy) {
     Message message;
 
     message.pid = toCopy->pid;
@@ -20,8 +20,10 @@ Message copyMessage(Message *toCopy){
     return message;
 }
 
-Queue* initQueue(int maxSize){
+Queue* initQueue(int maxSize) {
     Queue* queue = (Queue*) malloc(sizeof(Queue));
+    if (queue == NULL)
+        return NULL;
     queue->maxSize = maxSize;
     queue->size = 0;
     queue->empty = (sem_t*) malloc(sizeof(sem_t));
@@ -38,22 +40,22 @@ bool emptyBuffer(Queue *queue) {
 }
 
 bool push(Queue *queue, Message *message) {
-    
     sem_wait(queue->full);
     pthread_mutex_lock(&queueMutex);
     Node* MyNode = (Node *) malloc(sizeof(Node));
-    MyNode->Next=NULL;
+    if (MyNode == NULL)
+        return false;
+    MyNode->Next = NULL;
     MyNode->k = copyMessage(message);
 
-    if(emptyBuffer(queue)) {
+    if (emptyBuffer(queue)) {
         queue->first = MyNode;
         queue->last = MyNode;
     } else {
         queue->last->Next = MyNode;
-        queue->last=MyNode;
+        queue->last = MyNode;
     }
-
-    queue->size++; 
+    queue->size++;
     pthread_mutex_unlock(&queueMutex);
     sem_post(queue->empty);
     return true;
@@ -61,21 +63,18 @@ bool push(Queue *queue, Message *message) {
 
 Message* pop(Queue *queue) {
     struct timespec timeout;
-    if (clock_gettime(CLOCK_REALTIME, &timeout) == -1)
-    {
-        /* handle error */
+    if (clock_gettime(CLOCK_REALTIME, &timeout) == -1) {
         return NULL;
     }
-
     timeout.tv_sec += 1;
-    
-    if(sem_timedwait(queue->empty, &timeout) == -1){
+    if (sem_timedwait(queue->empty, &timeout) == -1) {
         return NULL;
     }
-    //sem_wait(&queue->empty);
     pthread_mutex_lock(&queueMutex);
     Node* n = queue->first;
     Message * m = (Message *) malloc(sizeof(Message));
+    if (m == NULL)
+        return NULL;
     *m = n->k;
     queue->first = queue->first->Next;
     queue->size--;
@@ -85,7 +84,7 @@ Message* pop(Queue *queue) {
     return m;
 }
 
-void destroyQueue(Queue * queue){
+void destroyQueue(Queue * queue) {
     sem_destroy(queue->empty);
     sem_destroy(queue->full);
     free(queue->empty);

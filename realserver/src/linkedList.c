@@ -2,17 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-LinkedListElement *initLinkedList(pthread_t thread){
-    LinkedListElement * newElement = (LinkedListElement *) malloc(sizeof(LinkedListElement));
+LinkedListElement *initLinkedList(pthread_t thread) {
+    LinkedListElement * newElement = (LinkedListElement *)
+                                        malloc(sizeof(LinkedListElement));
     if (newElement == NULL)
         return NULL;
     newElement->thread = thread;
     return newElement;
-
 }
 
-LinkedListElement* addElement(LinkedListElement *last, pthread_t thread){
-    LinkedListElement * newElement = (LinkedListElement *) malloc(sizeof(LinkedListElement));
+LinkedListElement* addElement(LinkedListElement *last, pthread_t thread) {
+    LinkedListElement * newElement = (LinkedListElement *)
+                                        malloc(sizeof(LinkedListElement));
     if (newElement == NULL)
         return NULL;
     newElement->thread = thread;
@@ -21,9 +22,9 @@ LinkedListElement* addElement(LinkedListElement *last, pthread_t thread){
     return newElement;
 }
 
-void freeLinkedList(LinkedListElement *begin){
+void freeLinkedList(LinkedListElement *begin) {
     LinkedListElement *elem = begin;
-    while(elem != NULL){
+    while (elem != NULL) {
         LinkedListElement *previous = elem;
         elem = elem->next;
         free(previous);

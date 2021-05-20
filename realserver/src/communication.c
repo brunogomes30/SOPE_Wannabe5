@@ -31,8 +31,7 @@ int writeToFIFO(char *fifo, Message *message){
             }
             close(filedesc);
             return -1;
-        }
-        else{
+        } else{
             usleep(100000);
         }
     }
@@ -50,12 +49,10 @@ void *thread_consumer(void *arg)
             if (writeToFIFO(privateFIFO, message) == -1){
                 writeLog(message, FAILD);
                 clientTimeOut = 1;
-            }
-            else{
+            } else{
                 if (message->tskres == -1){
                     writeLog(message, LATE);
-                }
-                else{
+                } else{
                     writeLog(message, TSKDN);
                 }
             }

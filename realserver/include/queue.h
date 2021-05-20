@@ -1,9 +1,10 @@
-#ifndef QUEUE_H
-#define QUEUE_H
-#include "../include/common.h"
+#ifndef REALSERVER_INCLUDE_QUEUE_H_
+#define REALSERVER_INCLUDE_QUEUE_H_
 #include <stdbool.h>
 #include <stdlib.h> 
 #include <semaphore.h>
+
+#include "../include/common.h"
 
 typedef struct Node Node;
 
@@ -32,4 +33,4 @@ Message* pop(Queue *queue);
 
 void destroyQueue(Queue * queue);
 
-#endif //QUEUE_H
+#endif //REALSERVER_INCLUDE_QUEUE_H_

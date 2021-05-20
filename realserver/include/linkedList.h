@@ -1,5 +1,5 @@
-#ifndef SERVER_INCLUDE_LINKEDLIST_H_
-#define SERVER_INCLUDE_LINKEDLIST_H_
+#ifndef REALSERVER_INCLUDE_LINKEDLIST_H_
+#define REALSERVER_INCLUDE_LINKEDLIST_H_
 #include <pthread.h>
 
 typedef struct LinkedListElement LinkedListElement;
@@ -32,4 +32,4 @@ LinkedListElement *addElement(LinkedListElement *last, pthread_t thread);
  */
 void freeLinkedList(LinkedListElement *begin);
 
-#endif //SERVER_INCLUDE_LINKEDLIST_H_
+#endif //REALSERVER_INCLUDE_LINKEDLIST_H_

@@ -1,5 +1,5 @@
-#ifndef SERVER_INCLUDE_COMMUNICATION_H_
-#define SERVER_INCLUDE_COMMUNICATION_H_
+#ifndef REALSERVER_INCLUDE_COMMUNICATION_H_
+#define REALSERVER_INCLUDE_COMMUNICATION_H_
 
 #include "../include/common.h"
 #include "../include/log.h"
@@ -23,4 +23,4 @@ int clientTimeOut;
  */
 void *thread_func(void *arg);
 
-#endif //SERVER_INCLUDE_COMMUNICATION_H_
+#endif //REALSERVER_INCLUDE_COMMUNICATION_H_

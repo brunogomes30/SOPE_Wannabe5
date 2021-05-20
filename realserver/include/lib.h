@@ -1,4 +1,4 @@
-#ifndef _LIB_H
-#define _LIB_H 1
+#ifndef REALSERVER_INCLUDE_LIB_H_
+#define REALSERVER_INCLUDE_LIB_H_ 1
 int task(int level);
-#endif // _LIB_H
+#endif // REALSERVER_INCLUDE_LIB_H_

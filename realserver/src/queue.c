@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../include/queue.h"
 #include <semaphore.h>
+
+#include "../include/queue.h"
+
 pthread_mutex_t queueMutex = PTHREAD_MUTEX_INITIALIZER;
 
 Message copyMessage(Message *toCopy){
@@ -26,9 +28,6 @@ Queue* initQueue(int maxSize){
     queue->last = NULL;
     sem_init(&(queue->empty), 0, 0);
     sem_init(&(queue->full), 0, maxSize);
-    int valueEmpty, valueFull;
-    sem_getvalue(&queue->empty, &valueEmpty);
-    sem_getvalue(&queue->full, &valueFull);
     return queue;
 }
 
@@ -47,8 +46,7 @@ bool push(Queue *queue, Message *message) {
     if(emptyBuffer(queue)) {
         queue->first = MyNode;
         queue->last = MyNode;
-    }
-    else {
+    } else {
         queue->last->Next = MyNode;
         queue->last=MyNode;
     }

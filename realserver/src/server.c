@@ -28,7 +28,6 @@ int fd;
 void sig_handler(int signum){
     pthread_mutex_lock(&clientMutex);
     close(fd);
-    unlink(pathFIFO);
     serverClosed = 1;
     pthread_mutex_unlock(&clientMutex);
 }
@@ -137,21 +136,27 @@ int main(int argc, char *args[]){
     do{
         Message *response = (Message *)malloc(sizeof(Message));
         //pthread_mutex_lock(&fifoMutex);
-        if(read(fd, response, sizeof(Message)) == sizeof(Message)){
-            pthread_t thread;
-            writeLog(response, RECVD);
-            if (pthread_create(&thread, NULL, thread_func, response)) {
-                fprintf(stderr, "Failed to create thread\n");
+        if(!serverClosed){
+            if(read(fd, response, sizeof(Message)) == sizeof(Message)){
+                pthread_t thread;
+                writeLog(response, RECVD);
+                if (pthread_create(&thread, NULL, thread_func, response)) {
+                    fprintf(stderr, "Failed to create thread\n");
+                }
+                if(first == NULL) {
+                    first = initLinkedList(thread);
+                    last = first;
+                }else{
+                    last = addElement(last,thread);
+                }
             }
-            if(first == NULL) {
-                first = initLinkedList(thread);
-                last = first;
-            }else{
-                last = addElement(last,thread);
-            }
+        } else {
+            free(response);
         }
         //pthread_mutex_unlock(&fifoMutex);
     }while(!serverClosed);
+
+    unlink(pathFIFO);
 
     aux = first;
 

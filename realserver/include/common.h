@@ -1,5 +1,5 @@
-#ifndef SERVER_INCLUDE_COMMON_H_
-#define SERVER_INCLUDE_COMMON_H_
+#ifndef REALSERVER_INCLUDE_COMMON_H_
+#define REALSERVER_INCLUDE_COMMON_H_
 #include<pthread.h>
 typedef struct {
 	int rid; 										// request id
@@ -8,4 +8,4 @@ typedef struct {
 	int tskload;									// task load
 	int tskres;										// task result
 } Message;
-#endif // SERVER_INCLUDE_COMMON_H_
+#endif // REALSERVER_INCLUDE_COMMON_H_

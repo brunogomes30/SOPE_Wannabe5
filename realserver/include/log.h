@@ -1,5 +1,5 @@
-#ifndef SERVER_INCLUDE_LOG_H_
-#define SERVER_INCLUDE_LOG_H_
+#ifndef REALSERVER_INCLUDE_LOG_H_
+#define REALSERVER_INCLUDE_LOG_H_
 #include "../include/common.h"
 
 typedef enum
@@ -23,4 +23,4 @@ typedef enum
  */
 void writeLog(Message *msg, Operation op);
 
-#endif //SERVER_INCLUDE_LOG_H_
+#endif //REALSERVER_INCLUDE_LOG_H_

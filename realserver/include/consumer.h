@@ -1,5 +1,5 @@
-#ifndef CONSUMER_H
-#define CONSUMER_H
+#ifndef REALSERVER_INCLUDE_CONSUMER_H_
+#define REALSERVER_INCLUDE_CONSUMER_H_
 #include "../include/common.h"
 
 /**
@@ -19,4 +19,4 @@ void *thread_consumer(void *arg);
  */
 int writeToFIFO(char *fifo, Message *message);
 
-#endif //CONSUMER_H
+#endif //REALSERVER_INCLUDE_CONSUMER_H_

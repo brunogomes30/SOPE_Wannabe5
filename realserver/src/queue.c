@@ -24,10 +24,12 @@ Queue* initQueue(int maxSize){
     Queue* queue = (Queue*) malloc(sizeof(Queue));
     queue->maxSize = maxSize;
     queue->size = 0;
+    queue->empty = (sem_t*) malloc(sizeof(sem_t));
+    queue->full = (sem_t*) malloc(sizeof(sem_t));
     queue->first = NULL;
     queue->last = NULL;
-    sem_init(&(queue->empty), 0, 0);
-    sem_init(&(queue->full), 0, maxSize);
+    sem_init(queue->empty, 0, 0);
+    sem_init(queue->full, 0, maxSize);
     return queue;
 }
 
@@ -37,7 +39,7 @@ bool emptyBuffer(Queue *queue) {
 
 bool push(Queue *queue, Message *message) {
     
-    sem_wait(&(queue->full));
+    sem_wait(queue->full);
     pthread_mutex_lock(&queueMutex);
     Node* MyNode = (Node *) malloc(sizeof(Node));
     MyNode->Next=NULL;
@@ -53,7 +55,7 @@ bool push(Queue *queue, Message *message) {
 
     queue->size++; 
     pthread_mutex_unlock(&queueMutex);
-    sem_post(&(queue->empty));
+    sem_post(queue->empty);
     return true;
 }
 
@@ -67,7 +69,7 @@ Message* pop(Queue *queue) {
 
     timeout.tv_sec += 1;
     
-    if(sem_timedwait(&queue->empty, &timeout) == -1){
+    if(sem_timedwait(queue->empty, &timeout) == -1){
         return NULL;
     }
     //sem_wait(&queue->empty);
@@ -78,13 +80,15 @@ Message* pop(Queue *queue) {
     queue->first = queue->first->Next;
     queue->size--;
     pthread_mutex_unlock(&queueMutex);
-    sem_post(&queue->full);
+    sem_post(queue->full);
     free(n);
     return m;
 }
 
 void destroyQueue(Queue * queue){
-    sem_destroy(&(queue->empty));
-    sem_destroy(&(queue->full));
+    sem_destroy(queue->empty);
+    sem_destroy(queue->full);
+    free(queue->empty);
+    free(queue->full);
     free(queue);
 }

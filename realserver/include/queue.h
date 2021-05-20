@@ -17,8 +17,8 @@ struct Node {
 typedef struct {
     Node *first, *last;
     int size, maxSize;
-    sem_t empty;
-    sem_t full;
+    sem_t *empty;
+    sem_t *full;
 } Queue;
 
 Message copyMessage(Message *message);

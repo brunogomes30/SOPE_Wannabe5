@@ -50,6 +50,7 @@ int checkArgs(int argc, char *args[]){
             if(!isNumber(numberStr)){
                 hasError = true;
             }
+            free(numberStr);
         }
 
         if(!strcmp(args[3], "-l") && argc == 6){
@@ -66,9 +67,8 @@ int checkArgs(int argc, char *args[]){
             if(!isNumber(numberStr)){
                 hasError = true;
             }
+            free(numberStr);
         }
-        
-        free(numberStr);
     } else{
         hasError = true;
     }

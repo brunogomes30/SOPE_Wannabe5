@@ -55,16 +55,11 @@ A thread consumidora têm a sua única função **thread_consumer** que enquanto
 
 É neste módulo que se encontra nossa função main. Inicialmente, corremos uma verificação dos argumentos para a execução do programa.
 
-Posteriormente, espera-se que seja aberta a fifo pública. 
+Posteriormente, abre-se a fifo pública, inicializa-se a thread consumidora e a queue de _Messages_. 
 
+Enquanto o servidor não fechar, isto é o sinal de alarm ser enviado porque o tempo deste ultrapassou, são criadas as threads produtoras (que são sucessivamente adicionadas à _linkedList_ para posteriormente se juntarem) que recebem como argumento o pedido vindo do cliente (que é lido da fifo pública) e efetuado o respetivo registo de **RECVD**.
 
-é criada uma nova thread onde são passado todos os parâmetros e cada thread é adicionada a linkedList previamente inicializada. 
-
-Quando o tempo termina, todas as fifos são fechadas e as threads também. 
-
-
-No fim desalocada toda a memória utilizada. 
-
+Quando o tempo do servidor termina dá-se unlink da fifo pública, todas as threads produtoras são fechadas, atualizando o sistemas que todas estas terminaram e para que não seja permitido enviar mais pedidos. Dando-se por fim _join_ da thread consumidora quando esta percorrer todos os pedidos ainda em falta. No fim é desalocada toda a memória utilizada e destroídas as fifos, _queue_ e _linkedList_. 
 
 #### Contribuição Individual
 

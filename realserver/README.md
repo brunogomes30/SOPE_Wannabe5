@@ -4,6 +4,7 @@
 
 
 O projeto está dividido em seis source files: log.c, utils.c, linkedList.c, queue.c, communication.c e server.c.
+De notar que utilizamos o código executável do cliente fornecido pela UC, sendo que a nossa makefile apenas compila o nosso servidor desta entrega.
 
 ##### log
 

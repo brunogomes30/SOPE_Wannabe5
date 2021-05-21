@@ -34,68 +34,60 @@ void sig_handler(int signum) {
 
 int checkArgs(int argc, char *args[]) {
     bool hasError = false;
-    bool flagsSeperatedFromValue = !strcmp(args[1], "-t");
+    bool separatedFlags = !strcmp(args[1], "-t");
+
     char *numberStr = (char *)malloc(strlen(args[2]));
-    if(flagsSeperatedFromValue && (argc == 4 || argc == 6)){
-        //Check -t flag
+
+    if (separatedFlags && (argc == 4 || argc == 6)) {
         numberStr = (char *)realloc(numberStr, strlen(args[2]) + 1);
-        if (numberStr != NULL)
-            strncpy(numberStr, args[2], strlen(args[2]) + 1);
         if (numberStr != NULL) {
+            strncpy(numberStr, args[2], strlen(args[2]) + 1);
             if (!isNumber(numberStr)) {
                 hasError = true;
             } 
-            //free(numberStr);
         } else {
             hasError = true;
         }
 
-        //Check -l flag (if exists)
-        if(argc == 6){
-            if (numberStr != NULL)
-                strncpy(numberStr, args[4], strlen(args[4]) + 1);
+        if (argc == 6){
+            numberStr = (char *)realloc(numberStr, strlen(args[4]) + 1);
+
             if (numberStr != NULL) {
+                strncpy(numberStr, args[4], strlen(args[4]) + 1);
                 if (!isNumber(numberStr)) {
                     hasError = true;
                 }
-                //free(numberStr);
             } else {
                 hasError = true;
             }
         }
-    } else if(!flagsSeperatedFromValue && (argc == 3 || argc == 4)){
-        
-        //CHeck -t flag
-        numberStr = (char *)realloc(numberStr, strlen(args[1] - 2));
-        if (numberStr != NULL)
-            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
+
+    } else if (!separatedFlags && (argc == 3 || argc == 4)) {
+        numberStr = (char *)realloc(numberStr, strlen(args[1]) - 1);
         if (numberStr != NULL) {
+            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
             if (!isNumber(numberStr)) {
                 hasError = true;
             } 
-            //free(numberStr);
         } else {
             hasError = true;
         }
 
-        //Check -l flag (if exists)
-        if(argc == 4){
-            numberStr = (char *)realloc(numberStr, strlen(args[2] - 2));
-            if (numberStr != NULL)
-                strncpy(numberStr, args[2] + 2, strlen(args[2]) - 1);
+        if (argc == 4){
+            numberStr = (char *)realloc(numberStr, strlen(args[2])- 1);
             if (numberStr != NULL) {
+                strncpy(numberStr, args[2] + 2, strlen(args[2]) - 1);
                 if (!isNumber(numberStr)) {
                     hasError = true;
                 } 
-                
-                } else {
-                    hasError = true;
-                }
+            } else {
+                hasError = true;
             }
-        } else {
-            hasError = true;
         }
-   free(numberStr);
+    } else {
+        hasError = true;
+    }
+    free(numberStr);
     if (hasError) {
         printf("Usage: %s <-t nsecs> [-l bufsz] fifoname\n", args[0]);
         exit(1);
@@ -103,31 +95,34 @@ int checkArgs(int argc, char *args[]) {
     return 0;
 }
 
-int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer, char *pathFIFO){
-    
-    char *number = (char *)malloc(sizeof(strlen(args[1]) + 1));                                                 
-    bool flagsSeperatedFromValue = !strcmp(args[1], "-t");
-    if(flagsSeperatedFromValue && (argc == 4 || argc == 6)){
-        //Read -t flag
+int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer,
+                                                     char *pathFIFO) {
+    char *number = (char *)malloc(strlen(args[1]) + 1);
+    bool separatedFlags = !strcmp(args[1], "-t");
+
+    if(separatedFlags && (argc == 4 || argc == 6)){
+        number = (char *)realloc(number, strlen(args[2])+ 1);
+        if (number == NULL)
+            return -1;
         strncpy(number, args[2], strlen(args[2]) + 1);
         sscanf(number, "%d", nsecs);
-        //read -l flag (if exists)
-        if(argc == 6){
-            number = (char *)realloc(number, sizeof(strlen(args[1]) + 1));
+        if (argc == 6) {
+            number = (char *)realloc(number, strlen(args[4])+ 1);
             if (number == NULL)
                 return -1;
             strncpy(number, args[4], strlen(args[4]) + 1);
             sscanf(number, "%d", sizeBuffer);
         }
-    } else if(!flagsSeperatedFromValue && (argc == 3 || argc == 4)){
-        
-        //Read -t flag
+    } else if (!separatedFlags && (argc == 3 || argc == 4)) {
+        number = (char *)realloc(number, 2 *strlen(args[1]) + 1);
+        if (number == NULL)
+            return -1;
         strncpy(number, args[1], strlen(args[1]) + 1);
         strncpy(number, number + 2, strlen(number) - 1);
         sscanf(number, "%d", nsecs);
-        
-        //read -l flag
-        number = (char *)realloc(number, sizeof(strlen(args[1]) + 1));
+
+        number = (char *)realloc(number, strlen(args[2]) + 1);
+
         if (number == NULL)
             return -1;
 
@@ -139,6 +134,7 @@ int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer, char *pathFIF
     }
     strncpy(pathFIFO, args[argc - 1], strlen(args[argc - 1]) + 1);
     free(number);
+
     return 0;
 }
 

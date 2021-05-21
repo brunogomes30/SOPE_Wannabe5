@@ -34,40 +34,60 @@ void sig_handler(int signum) {
 
 int checkArgs(int argc, char *args[]) {
     bool hasError = false;
-    if (argc == 4 || argc == 6) {
-        char *numberStr = (char *)malloc(strlen(args[2]));
-        if (!strcmp(args[1], "-t") && argc == 6) {
-            // args[1] == "-t"
-            numberStr = (char *)realloc(numberStr, strlen(args[2]) + 1);
-            if (numberStr != NULL)
-                strncpy(numberStr, args[2], strlen(args[2]) + 1);
-        } else {
-            numberStr = (char *)realloc(numberStr, strlen(args[1] - 2));
-            if (numberStr != NULL)
-                strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
-        }
+    bool separatedFlags = !strcmp(args[1], "-t");
 
-        if (!strcmp(args[3], "-l") && argc == 6) {
-            // args[1] == "-t"
-            numberStr = (char *)realloc(numberStr, strlen(args[4]) + 1);
-            if (numberStr != NULL)
-                strncpy(numberStr, args[4], strlen(args[4]) + 1);
-        } else {
-            numberStr = (char *)realloc(numberStr, strlen(args[2] - 2));
-            if (numberStr != NULL)
-                strncpy(numberStr, args[2] + 2, strlen(args[2]) - 1);
-        }
+    char *numberStr = (char *)malloc(strlen(args[2]));
 
+    if (separatedFlags && (argc == 4 || argc == 6)) {
+        numberStr = (char *)realloc(numberStr, strlen(args[2]) + 1);
         if (numberStr != NULL) {
+            strncpy(numberStr, args[2], strlen(args[2]) + 1);
             if (!isNumber(numberStr)) {
                 hasError = true;
+            } 
+        } else {
+            hasError = true;
+        }
+
+        if (argc == 6){
+            numberStr = (char *)realloc(numberStr, strlen(args[4]) + 1);
+
+            if (numberStr != NULL) {
+                strncpy(numberStr, args[4], strlen(args[4]) + 1);
+                if (!isNumber(numberStr)) {
+                    hasError = true;
+                }
+            } else {
+                hasError = true;
             }
-            free(numberStr);
+        }
+
+    } else if (!separatedFlags && (argc == 3 || argc == 4)) {
+        numberStr = (char *)realloc(numberStr, strlen(args[1]) - 1);
+        if (numberStr != NULL) {
+            strncpy(numberStr, args[1] + 2, strlen(args[1]) - 1);
+            if (!isNumber(numberStr)) {
+                hasError = true;
+            } 
+        } else {
+            hasError = true;
+        }
+
+        if (argc == 4){
+            numberStr = (char *)realloc(numberStr, strlen(args[2])- 1);
+            if (numberStr != NULL) {
+                strncpy(numberStr, args[2] + 2, strlen(args[2]) - 1);
+                if (!isNumber(numberStr)) {
+                    hasError = true;
+                } 
+            } else {
+                hasError = true;
+            }
         }
     } else {
         hasError = true;
     }
-
+    free(numberStr);
     if (hasError) {
         printf("Usage: %s <-t nsecs> [-l bufsz] fifoname\n", args[0]);
         exit(1);
@@ -77,32 +97,44 @@ int checkArgs(int argc, char *args[]) {
 
 int parseArgs(int argc, char *args[], int *nsecs, int *sizeBuffer,
                                                      char *pathFIFO) {
-    char *number = (char *)malloc(sizeof(strlen(args[1]) + 1));
-    if (number == NULL)
-        return -1;
+    char *number = (char *)malloc(strlen(args[1]) + 1);
+    bool separatedFlags = !strcmp(args[1], "-t");
 
-    if (argc == 4) {
+    if(separatedFlags && (argc == 4 || argc == 6)){
+        number = (char *)realloc(number, strlen(args[2])+ 1);
+        if (number == NULL)
+            return -1;
+        strncpy(number, args[2], strlen(args[2]) + 1);
+        sscanf(number, "%d", nsecs);
+        if (argc == 6) {
+            number = (char *)realloc(number, strlen(args[4])+ 1);
+            if (number == NULL)
+                return -1;
+            strncpy(number, args[4], strlen(args[4]) + 1);
+            sscanf(number, "%d", sizeBuffer);
+        }
+    } else if (!separatedFlags && (argc == 3 || argc == 4)) {
+        number = (char *)realloc(number, 2 *strlen(args[1]) + 1);
+        if (number == NULL)
+            return -1;
         strncpy(number, args[1], strlen(args[1]) + 1);
         strncpy(number, number + 2, strlen(number) - 1);
-    } else if (argc == 6) {
-        strncpy(number, args[2], strlen(args[2]) + 1);
-    }
-    sscanf(number, "%d", nsecs);
+        sscanf(number, "%d", nsecs);
 
-    number = (char *)realloc(number, sizeof(strlen(args[1]) + 1));
-    if (number == NULL)
-        return -1;
+        number = (char *)realloc(number, strlen(args[2]) + 1);
 
-    if (argc == 4) {
-        strncpy(number, args[2], strlen(args[2]) + 1);
-        strncpy(number, number + 2, strlen(number) - 1);
-    } else if (argc == 6) {
-        strncpy(number, args[4], strlen(args[4]) + 1);
+        if (number == NULL)
+            return -1;
+
+        if(argc == 4){
+            strncpy(number, args[2], strlen(args[2]) + 1);
+            strncpy(number, number + 2, strlen(number) - 1);
+            sscanf(number, "%d", sizeBuffer);
+        }
     }
-    sscanf(number, "%d", sizeBuffer);
     strncpy(pathFIFO, args[argc - 1], strlen(args[argc - 1]) + 1);
-
     free(number);
+
     return 0;
 }
 
